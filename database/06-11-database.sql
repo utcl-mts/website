@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS `utcl-mts`;
+USE `utcl-mts`;
+
 CREATE TABLE `staff`(
     `staff_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `first_name` TEXT NOT NULL,
