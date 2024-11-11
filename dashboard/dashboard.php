@@ -4,7 +4,7 @@
     session_start();
 
     // Include the database connection file
-    include "db_connect.php";
+    include "../dashboard/db_connect.php";
 
     $time = time();
     $time_left = "";
