@@ -4,7 +4,7 @@
     session_start();
 
     //include database connection
-    include '../database/database-2024-11-07.sql';
+    include '../server/db_connect.php';
 
     //gets info from form on html page
     $dose = $_POST['dose'];
