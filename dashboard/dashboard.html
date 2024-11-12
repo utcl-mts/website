@@ -1,13 +1,57 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE HTML>
+<HTML lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" href="/style.css">
+    <title>Medi Tracker</title>
 </head>
 <body>
+    <div class="container">
+        <div class="navbar">
+            <img id="logo" src="/assets/UTCLeeds.svg" alt="UTC Leeds">
+            <ul>
+                <li><a href="/index.html">Home </a></li>
+                <li><a href="bigtable.html"> Table </a></li>
+                <li class="logout"><a>Logout</a></li>
+            </ul>
+            <H1 id="med_tracker">Med Tracker</H1>
+        </div>
+        <div class="notification_container">
+            <table class="notification_table" id="out_date">
+                <tr>
+                    <th><h2>Needs action</h2></th>
+                </tr>
+                <tr>
+                    <td>Paracetamol</td>
+                </tr>
+                <tr>
+                    <td>Ibuprofen</td>
+                </tr>
+            </table>
 
+            <table class="notification_table" id="near_out_date">
+                <tr>
+                    <th><h2>Close to needing action</h2></th>
+                </tr>
+                <tr>
+                    <td>Co-codamol</td>
+                </tr>
+                <tr>
+                    <td>Aspirin</td>
+                </tr>
+            </table>
+
+            <table class="notification_table" id="far_out_date">
+                <tr>
+                    <th><h2>Notification for action soon</h2></th>
+                </tr>
+                <tr>
+                    <td>Amoxycillin</td>
+                </tr>
+                <tr>
+                    <td>Morphine</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </body>
-</html>
+</HTML>

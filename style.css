@@ -1,0 +1,223 @@
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-weight: 400;
+    background: #4C566A;
+    color: white;
+}
+
+.container {
+    font-family: "Poppins", sans-serif;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+#med_tracker {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    justify-content: flex-start;
+    text-decoration: none;
+    list-style: none;
+    margin-top: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 1px solid black;
+    font-size: 20px;
+}
+
+.navbar ul {
+    display: flex;
+    flex-grow: 1; /* Allow the ul to grow and fill the available space */
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    align-items: center;
+}
+
+.navbar ul li {
+    margin: 0 5px; /* Space between buttons */
+    padding: 0; /* Ensure no extra padding */
+    display: inline-block; /* Inline-block for proper spacing */
+    align-items: center;
+}
+
+.navbar ul li a {
+    display: inline-block; /* Inline-block for proper spacing */
+    color: white;
+    text-decoration: none;
+    padding: 14px 16px;
+    font-size: 100%;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #0098a5; /* Add background color */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
+}
+
+.navbar ul li a:hover {
+    background-color: #f2f2f2; /* Change to color it will turn to when clicked */
+    color: black; /* Change text color on hover */
+}
+
+.navbar ul li a:active {
+    background-color: #ccc; /* Color on click */
+    color: black;
+}
+
+.navbar ul li.logout {
+    margin-left: auto; /* Pushes the logout link to the right */
+}
+
+
+#logo {
+    padding: 5px;
+    width: 14%;
+    margin-right: 30px; /* Space between the logo and the links */
+    display: block;
+}
+
+.logout {
+    margin-left: auto; /* Pushes the logout link to the right */
+    margin-right: 10px; /* Adds some space to the right side */
+    display: flex;
+    align-items: center;
+}
+
+
+.notification_container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around; /* Distribute space around the tables */
+    align-items: flex-start;
+    padding: 50px;
+    border-radius: 10px;
+}
+
+.notification_table {
+    border: 2px solid black;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 30%; /* Adjust the width to fit three tables side by side */
+    box-sizing: border-box; /* Ensures padding and border are included in the width */
+    margin-right: 10px; /* Adjust spacing between tables */
+    border-radius:8px;
+    overflow: hidden;
+}
+
+.notification_table th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+.notification_table th {
+    background-color: #f2f2f2;
+}
+
+#out_date th{
+    background-color: #E23A23;
+    border: 2px solid black;
+}
+
+#near_out_date th {
+    background-color: #FC7500;
+    border: 2px solid black;
+}
+
+#far_out_date th{
+    background-color: #31A719;
+    border: 3px solid black;
+}
+
+.searchbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px 0;
+}
+
+#search-input {
+    width: 60%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#search-button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    background-color: #0098a5;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#search-button:hover {
+    background-color: #007a85;
+}
+
+
+.big_table_container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around; /* Distribute space around the tables */
+    align-items: flex-start;
+    text-decoration: none;
+}
+
+#big_table {
+    border: 2px solid black;
+    border-collapse: collapse;
+    width: 100%;
+    box-sizing: border-box; /* Ensures padding and border are included in the width */
+    margin: 10px; /* Adjust spacing between tables */
+    text-align: left;
+    padding: 1px;
+}
+#big_table th {
+    border: 2px black solid;
+    padding: 1px;
+}
+
+#profile a {
+    font-size: 100%;
+    text-decoration: none;
+    color: white;
+}
+
+#profile a:hover {
+    font-size: 100%;
+    text-decoration: underline;
+    color: #e32059;
+}
+
+#isaac_prof_form {
+    font-family: "monospace", Calibri;
+    /*background-color: black;*/
+    border: solid 1px black;
+    color: black;
+    width: 200px;
+    display: inline-block;
+    padding: 10px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-60%, -50%);
+}
