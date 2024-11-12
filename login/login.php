@@ -1,73 +1,77 @@
 <?php
-// Enable error reporting for debugging purposes
+// Enable error reporting
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Include database connection
-include "server/db_connect.php";
+if (!file_exists("../server/db_connect.php")) {
+    die("Error: db_connect.php file not found in expected directory.");
+}
+include "../server/db_connect.php";
+
+// Verify database connection
+if (!isset($conn)) {
+    die("Error: Database connection not established.");
+}
 
 try {
-    // Start the session at the beginning
+    // Start session
     session_start();
 
-    // Directly retrieve input values from $_POST without filtering
-    $email = $_POST['email'] ;
+    // Retrieve and sanitize input
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
     $pswd = $_POST['password'];
 
     if ($email && $pswd) {
         // Prepare the SQL query securely
-        $sql = "SELECT * FROM staff WHERE email = ?";
+        $sql = "SELECT * FROM staff WHERE email = :email";
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam(1, $email);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($result) {
-            $password = $result["password"];
+            $hashed_password = $result["password"];
 
-            // Verify the password
-            if (password_verify($pswd, $password)) {
+            // Verify password
+            if (password_verify($pswd, $hashed_password)) {
                 // Set session variables
                 $_SESSION["ssnlogin"] = true;
-                $_SESSION["id"] = $result["id"];
+                $_SESSION["staff_id"] = $result["staff_id"];
                 $_SESSION["email"] = $result["email"];
 
-                // Log the activity after successful password verification
-                try {
-                    $action = "log";
-                    $date_time = time(); // Use Unix timestamp for `date_time` as per SQL schema
-                    $staff_id = $result["staff_id"]; // Ensure `$staff_id` matches schema naming convention
+                // Log successful login
+                $action = "log";
+                $date_time = date("Y-m-d H:i:s");
+                $staff_id = $result["staff_id"];
 
-                    // SQL query for audit log insertion
-                    $sql = "INSERT INTO audits (staff_id, action, date_time) VALUES (?, ?, ?)";
-                    $stmt = $conn->prepare($sql);
-                    $stmt->bindParam(1, $staff_id, PDO::PARAM_INT);
-                    $stmt->bindParam(2, $action, PDO::PARAM_STR);
-                    $stmt->bindParam(3, $date_time, PDO::PARAM_INT);
-                    $stmt->execute();
+                // Audit log insertion
+                $log_sql = "INSERT INTO audits (staff_id, action, date_time) VALUES (:staff_id, :action, :date_time)";
+                $log_stmt = $conn->prepare($log_sql);
+                $log_stmt->bindParam(':staff_id', $staff_id, PDO::PARAM_INT);
+                $log_stmt->bindParam(':action', $action, PDO::PARAM_STR);
+                $log_stmt->bindParam(':date_time', $date_time, PDO::PARAM_STR);
+                $log_stmt->execute();
 
-                    // Set headers to prevent caching and then redirect to dashboard
-                    header("Cache-Control: no-cache, must-revalidate");
-                    header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-                    header("Location: dashboard/dashboard.html");
-                    exit(); // Stop script execution after the redirect
-                } catch (Exception $e) {
-                    echo "Error logging activity: " . $e->getMessage();
-                }
+                // Redirect to dashboard
+                header("Cache-Control: no-cache, must-revalidate");
+                header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+                header("Location: dashboard/dashboard.html");
+                exit();
             } else {
-                // Invalid password, destroy session and redirect
+                // Incorrect password
                 session_destroy();
                 header("Location: login.php?error=invalid_password");
                 exit();
             }
         } else {
-            // User not found, redirect to login page with error
+            // User not found
             header("Location: login.php?error=user_not_found");
             exit();
         }
     } else {
-        // Redirect to login page if no username or password is provided
+        // Missing credentials
         header("Location: login.php?error=missing_credentials");
         exit();
     }
