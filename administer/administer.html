@@ -1,10 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-</body>
+    <head>
+
+        <meta charset="UTF-8">
+        <title>Administer Medicaition</title>
+        <link rel="stylesheet" href="/style.css">
+
+    </head>
+
+    <body>
+
+        <div class="container">
+
+            <div class="navbar">
+
+                <img id="logo" src="/assets/UTCLeeds.svg" alt="UTC Leeds">
+
+                <ul>
+                    <li><a href="/index.html">Home </a></li>
+                    <li><a href="bigtable.html"> Table </a></li>
+                    <li class="logout"><a>Logout</a></li>
+                </ul>
+
+                <H1 id="med_tracker">Med Tracker</H1>
+
+            </div>
+
+            <div class="administer_meds">
+
+                <form action="choose_med.php" method="post">
+
+                    <table>
+
+                        <tr>
+                            <td><label for="sc">Staff code of staff that administered meds: </label></td>
+                            <td><input type="text" id="sc" name="staff_code" placeholder="Enter Staff code" required></td>
+                        </tr>
+
+                        <tr>
+                            <td><label for="sfn">Student First name: </label></td>
+                            <td><input type="text" id="sfn"name="student_fname" placeholder="Enter Student First Name" required></td>
+                        </tr>
+
+                        <tr>
+                            <td><label for="sln">Student Last name: </label></td>
+                            <td><input type="text" id="sln"name="student_lname" placeholder="Enter Student Last Name" required></td>
+                        </tr>
+
+                        <tr>
+                            <td><label for="syg">Student Year Group: </label></td>
+                            <td><input type="text" id="syg" name="student_yeargroup" placeholder="Enter Student Year Group" required></td>
+                        </tr>
+
+                    </table>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </body>
+
 </html>

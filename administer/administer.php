@@ -18,7 +18,7 @@
     //bind parameters so that it is more secure of passing the informaitiomn
     $stmt->bindParam(1, $staff_code);
     $stmt->bindParam(2, $time);
-    $stmt->bindParam(3, $dose);
+    $stmt-> bindParam(3, $dose);
 
     $stmt->execute();
 
