@@ -20,62 +20,54 @@ try {
     session_start();
 
     // Retrieve and sanitize input
-    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-    $pswd = $_POST['password'];
+    if (!isset($_POST["email"]) || !isset($_POST["password"])) {
+        throw new Exception("Error: Email or password is missing from POST data.");
+    }
 
-    if ($email && $pswd) {
-        // Prepare the SQL query securely
-        $sql = "SELECT * FROM staff WHERE email = :email";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $email = trim($_POST["email"]);
+    $password = trim($_POST["password"]);
 
-        if ($result) {
-            $hashed_password = $result["password"];
+    // Prepare the SQL query securely, using parameterized queries
+    $sql = "SELECT * FROM staff WHERE email = :email";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // Verify password
-            if (password_verify($pswd, $hashed_password)) {
-                // Set session variables
-                $_SESSION["ssnlogin"] = true;
-                $_SESSION["staff_id"] = $result["staff_id"];
-                $_SESSION["email"] = $result["email"];
+    // Check if user exists and password matches
+    if ($result && $password == $result["password"]) {
+        $_SESSION["ssnlogin"] = true;
+        $_SESSION["staff_id"] = $result["staff_id"];
+        $_SESSION["email"] = $result["email"];
+        $action = "Succ_Log";
+        $staff_id = $result["staff_id"];  // Use valid staff_id for success logs
+    } else {
+        // Failed login attempt
+        $action = "Fail_Log";
+        $staff_id = 69; // Set to 60 temp fix
+    }
 
-                // Log successful login
-                $action = "log";
-                $date_time = date("Y-m-d H:i:s");
-                $staff_id = $result["staff_id"];
+    // Insert audit log for both success and failure
+    $log_sql = "INSERT INTO audit (staff_id, act, date_time) VALUES (?, ?, ?)";
+    $log_stmt = $conn->prepare($log_sql);
+    $log_stmt->bindValue(1, $staff_id, PDO::PARAM_INT); // NULL for failed logins
+    $log_stmt->bindValue(2, $action, PDO::PARAM_STR);
+    $log_stmt->bindValue(3, time(), PDO::PARAM_INT); // Log time in epoch format
 
-                // Audit log insertion
-                $log_sql = "INSERT INTO audits (staff_id, action, date_time) VALUES (:staff_id, :action, :date_time)";
-                $log_stmt = $conn->prepare($log_sql);
-                $log_stmt->bindParam(':staff_id', $staff_id, PDO::PARAM_INT);
-                $log_stmt->bindParam(':action', $action, PDO::PARAM_STR);
-                $log_stmt->bindParam(':date_time', $date_time, PDO::PARAM_STR);
-                $log_stmt->execute();
-
-                // Redirect to dashboard
-                header("Cache-Control: no-cache, must-revalidate");
-                header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-                header("Location: dashboard/dashboard.html");
-                exit();
-            } else {
-                // Incorrect password
-                session_destroy();
-                header("Location: login.php?error=invalid_password");
-                exit();
-            }
+    if ($log_stmt->execute()) {
+        // Redirect based on login success or failure
+        if ($action == "Succ_Log") {
+            header("Location: ../dashboard/dashboard.html");
+            exit();
         } else {
-            // User not found
-            header("Location: login.php?error=user_not_found");
+            // If failed log, redirect to login page
+            header("Location: ../index.html");
             exit();
         }
     } else {
-        // Missing credentials
-        header("Location: login.php?error=missing_credentials");
-        exit();
+        throw new Exception("Failed to insert audit log.");
     }
 } catch (Exception $e) {
-    echo "Error: " . $e->getMessage();
+    // Handle errors gracefully, consider logging exceptions for security analysis
+    echo "Error: " . htmlspecialchars($e->getMessage());
 }
-?>
