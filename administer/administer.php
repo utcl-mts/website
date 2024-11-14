@@ -1,25 +1,35 @@
 <?php
 
-    // session start to be able to use session variables
+    // Start session to use session variables if needed
     session_start();
 
-    //include database connection
+    // Include database connection
     include '../server/db_connect.php';
 
-    //gets info from form on html page
+    // Get information from the form on the HTML page
     $dose = $_POST['dose'];
     $staff_code = $_POST['staff_code'];
     $time = $_POST['time'];
 
-    //puts informaition into administer database
-    $sql = "INSERT INTO administer (staff_code,date-time,dose_given) VALUES (?,?,?)";
-    $stmt = $conn->prepare($sql);
+    try {
+        // Prepare SQL statement to insert information into the 'administer' table
+        $sql = "INSERT INTO administer (staff_code, date_time, dose_given) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($sql);
 
-    //bind parameters so that it is more secure of passing the informaitiomn
-    $stmt->bindParam(1, $staff_code);
-    $stmt->bindParam(2, $time);
-    $stmt-> bindParam(3, $dose);
+        // Bind parameters to prevent SQL injection
+        $stmt->bindParam(1, $staff_code);
+        $stmt->bindParam(2, $time);
+        $stmt->bindParam(3, $dose);
 
-    $stmt->execute();
+        // Execute the statement
+        if($stmt->execute()) {
+            echo "Data successfully inserted!";
+        } else {
+            echo "Error inserting data.";
+        }
+    } catch (PDOException $e) {
+        // Handle any errors
+        echo "Error: " . $e->getMessage();
+    }
 
 ?>

@@ -1,39 +1,49 @@
 <?php
 
-    // session start to be able to use session variables
+    // Start session to use session variables
     session_start();
 
-    //include database connection
+    // Include database connection
     include '../server/db_connect.php';
 
-    $student_id = $_POST['student_id'];
+    // SQL query to fetch medication name and ID for a specific student
+    $sql = 'SELECT med.med_id, med.med_name FROM med JOIN takes ON med.med_id = takes.med_id WHERE takes.student_id = ?';
 
-    //sql statement to get student informaition
-    $sql = "SELECT student_id FROM Takes WHERE student_id = ?";
-
+    // Prepare the statement
     $stmt = $conn->prepare($sql);
 
-    $stmt->bindParam(1, $student_id);
+    // Bind parameter for student ID from POST data
+    $stmt->bindParam(1, $_POST['sid']);
 
+    // Execute the query
     $stmt->execute();
 
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Fetch all results
+    $result = $stmt->fetchAll();
 
-    $student_id = $result['student_id'];
+    // Display the form and table for medication selection
+    echo "<form action='administer.php' method='POST'>";
+    echo "<table>";
 
-    //sql statement from takes to get medicaition
-    $sql = "SELECT med_id FROM takes WHERE student_id = ? ORDER BY med_id DESC";
+    // Display each medication with a checkbox and dose input for selection
+    foreach ($result as $row) {
+        echo "<tr>";
+        echo "<td><input type='hidden' name='med[]' value='" . htmlspecialchars($row['med_id']) . "'></td>";
+        echo "<td><input type='hidden' name='staff_code' value='" . htmlspecialchars($_POST['staff_code']) . "'></td>";
+        echo "<td><input type='checkbox' name='selected_medications[]' value='" . htmlspecialchars($row['med_id']) . "'></td>";
+        echo "<td>Medication name: " . htmlspecialchars($row['med_name']) . "</td>";
 
-    $stmt = $conn->prepare($sql);
+        // Input field for dose of each medication
+        echo "<td>";
+        echo "<label for='dose_" . htmlspecialchars($row['med_id']) . "'>Enter dose: </label>";
+        echo "<input type='number' id='dose" . htmlspecialchars($row['med_id']) . "' name='dose[]' placeholder='Enter dose' required>";
+        echo "</td>";
 
-    $stmt->bindParam(1, $student_id);
-
-    $stmt->execute();
-
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    for ($i = 0; $i < count($result); $i++) {
-        echo $result[$i]['med_id'];
+        echo "</tr>";
     }
 
+    // Submit button for the form
+    echo "</table>";
+    echo "<input type='submit' name='submit' value='Select Medications'>";
+    echo "</form>";
 ?>
