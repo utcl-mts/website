@@ -27,6 +27,7 @@
 
         echo "<tr>";
         echo "<td><input type='hidden' name='sid' value='" . $row['student_id'] . "'></td>";
+        echo "<td><input type='hidden' name='staff_code' value='" . $_POST['staff_code'] . "'></td>";
         echo "<td><input type='checkbox' name='selected_students[]' value='" . $row['student_id'] . "'></td>";
         echo "<td>First name: " . htmlspecialchars($row['first_name']) . "</td>";
         echo "<td>  Last name: " . htmlspecialchars($row['last_name']) . "</td>";

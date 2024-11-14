@@ -23,27 +23,52 @@
 
     // Display the form and table for medication selection
     echo "<form action='administer.php' method='POST'>";
-    echo "<table>";
 
-    // Display each medication with a checkbox and dose input for selection
-    foreach ($result as $row) {
-        echo "<tr>";
-        echo "<td><input type='hidden' name='med[]' value='" . htmlspecialchars($row['med_id']) . "'></td>";
-        echo "<td><input type='hidden' name='staff_code' value='" . htmlspecialchars($_POST['staff_code']) . "'></td>";
-        echo "<td><input type='checkbox' name='selected_medications[]' value='" . htmlspecialchars($row['med_id']) . "'></td>";
-        echo "<td>Medication name: " . htmlspecialchars($row['med_name']) . "</td>";
+        echo "<table>";
 
-        // Input field for dose of each medication
-        echo "<td>";
-        echo "<label for='dose_" . htmlspecialchars($row['med_id']) . "'>Enter dose: </label>";
-        echo "<input type='number' id='dose" . htmlspecialchars($row['med_id']) . "' name='dose[]' placeholder='Enter dose' required>";
-        echo "</td>";
+            // Display each medication with a checkbox and dose input for selection
+            foreach ($result as $row) {
 
-        echo "</tr>";
-    }
+                echo "<tr>";
 
-    // Submit button for the form
-    echo "</table>";
-    echo "<input type='submit' name='submit' value='Select Medications'>";
+                    // Hidden field to pass student_id
+                    echo "<td><input type='hidden' name='sid' value='" . $_POST['sid'] . "'></td>";
+
+                    // Hidden field to pass med_id
+                    echo "<td><input type='hidden' name='med[]' value='" . $row['med_id'] . "'></td>";
+
+                    // Hidden field to pass staff_code
+                    echo "<td><input type='hidden' name='staff_code' value='" . $_POST['staff_code'] . "'></td>";
+
+                    // Checkbox to select what meds have been taken
+                    echo "<td><input type='checkbox' name='selected_medications[]' value='" . $row['med_id'] . "'></td>";
+                    echo "<td>Medication name: " . $row['med_name'] . "</td>";
+
+                    echo "<td>";
+
+                        // Input field for dose of each medication
+                        echo "<label for='dose" . $row['med_id'] . "'>Enter dose: </label>";
+                        echo "<input type='number' id='dose" . $row['med_id'] . "' name='dose' placeholder='Enter dose' required>";
+;
+                        // Date input field of each medication
+                        echo "<label for='admin_date'" . $row['med_id'] ." >Select Date: </label>";
+                        echo "<input type='date' id='admin_date' name='date' required>";
+
+                        // Time input field of each medication
+                        echo "<label for='admin_time'" . $row['med_id'] ." >Select Time: </label>";
+                        echo "<input type='time' id='admin_time' name='time' required>";
+
+                    echo "</td>";
+
+                echo "</tr>";
+
+            }
+
+        // Submit button for the form
+        echo "</table>";
+
+        echo "<input type='submit' name='submit' value='Select Medications'>";
+
     echo "</form>";
+
 ?>
