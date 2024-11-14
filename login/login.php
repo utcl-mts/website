@@ -1,8 +1,4 @@
 <?php
-// Enable error reporting
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 // Include database connection
 if (!file_exists("../server/db_connect.php")) {
@@ -11,63 +7,77 @@ if (!file_exists("../server/db_connect.php")) {
 include "../server/db_connect.php";
 
 // Verify database connection
-if (!isset($conn)) {
-    die("Error: Database connection not established.");
+if (!$conn) {
+    die("Error: Database connection failed.");
 }
 
 try {
     // Start session
     session_start();
 
-    // Retrieve and sanitize input
+    // Check for required POST data and sanitize inputs
     if (!isset($_POST["email"]) || !isset($_POST["password"])) {
-        throw new Exception("Error: Email or password is missing from POST data.");
+        throw new Exception("Email or password is missing.");
     }
+    $email = $_POST["email"];
+    $password = $_POST["password"];
 
-    $email = trim($_POST["email"]);
-    $password = trim($_POST["password"]);
-
-    // Prepare the SQL query securely, using parameterized queries
+    // Prepare SQL query to find user by email
     $sql = "SELECT * FROM staff WHERE email = :email";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':email', $email, PDO::PARAM_STR);
     $stmt->execute();
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Check if user exists and password matches
-    if ($result && $password == $result["password"]) {
+    // Define default action and timestamp for audit logging
+    $date_time = time();
+    $action = "Fail_Log"; // Set default action to failed login
+    $staff_id = $user ? $user["staff_id"] : 1;
+
+    // Check if user exists and verify password (no hashing)
+    if ($user && $password === $user["password"]) {
+        // Credentials are correct; log successful login
         $_SESSION["ssnlogin"] = true;
-        $_SESSION["staff_id"] = $result["staff_id"];
-        $_SESSION["email"] = $result["email"];
-        $action = "Succ_Log";
-        $staff_id = $result["staff_id"];  // Use valid staff_id for success logs
-    } else {
-        // Failed login attempt
-        $action = "Fail_Log";
-        $staff_id = 69; // Set to 60 temp fix
-    }
+        $_SESSION["staff_id"] = $user["staff_id"];
+        $_SESSION["email"] = $user["email"];
 
-    // Insert audit log for both success and failure
-    $log_sql = "INSERT INTO audit (staff_id, act, date_time) VALUES (?, ?, ?)";
-    $log_stmt = $conn->prepare($log_sql);
-    $log_stmt->bindValue(1, $staff_id, PDO::PARAM_INT); // NULL for failed logins
-    $log_stmt->bindValue(2, $action, PDO::PARAM_STR);
-    $log_stmt->bindValue(3, time(), PDO::PARAM_INT); // Log time in epoch format
+        $action = "Succ_Log"; // Update action to indicate successful login
 
-    if ($log_stmt->execute()) {
-        // Redirect based on login success or failure
-        if ($action == "Succ_Log") {
-            header("Location: ../dashboard/dashboard.html");
-            exit();
-        } else {
-            // If failed log, redirect to login page
-            header("Location: ../index.html");
-            exit();
+        // Insert successful login into audit log
+        $log_sql = "INSERT INTO audit (staff_id, act, date_time) VALUES (:staff_id, :action, :date_time)";
+        $log_stmt = $conn->prepare($log_sql);
+        $log_stmt->bindParam(':staff_id', $staff_id, PDO::PARAM_INT);
+        $log_stmt->bindParam(':action', $action, PDO::PARAM_STR);
+        $log_stmt->bindParam(':date_time', $date_time, PDO::PARAM_INT);
+
+        if (!$log_stmt->execute()) {
+            throw new Exception("Failed to insert successful login audit log: " . implode(", ", $log_stmt->errorInfo()));
         }
+
+        // Redirect to dashboard for successful login
+        header("Location: ../dashboard/dashboard.html");
     } else {
-        throw new Exception("Failed to insert audit log.");
+        // Credentials are incorrect; log failed login attempt
+        $staff_id = $staff_id ?? 1; // Use 1 if staff_id is null
+
+        $fail_log_sql = "INSERT INTO audit (staff_id, act, date_time) VALUES (:staff_id, :action, :date_time)";
+        $fail_log_stmt = $conn->prepare($fail_log_sql);
+        $fail_log_stmt->bindParam(':staff_id', $staff_id, PDO::PARAM_INT);
+        $fail_log_stmt->bindParam(':action', $action, PDO::PARAM_STR);
+        $fail_log_stmt->bindParam(':date_time', $date_time, PDO::PARAM_INT);
+
+        if (!$fail_log_stmt->execute()) {
+            throw new Exception("Failed to insert failed login audit log: " . implode(", ", $fail_log_stmt->errorInfo()));
+        }
+
+        // Redirect to login page for failed login
+        header("Location: ../index.html");
     }
+    exit();
 } catch (Exception $e) {
-    // Handle errors gracefully, consider logging exceptions for security analysis
-    echo "Error: " . htmlspecialchars($e->getMessage());
+    // Log error for debugging (to a file or error handling system)
+    error_log("Login Error: " . $e->getMessage());
+    // Redirect to login page in case of an error
+    header("Location: ../index.html");
+    exit();
 }
