@@ -13,7 +13,7 @@
 
         <div class="container">
 
-            <--! universal nav bar-->
+            <!-- universal nav bar-->
             <div class="navbar">
 
                 <img id="logo" src="/assets/UTCLeeds.svg" alt="UTC Leeds">
@@ -28,11 +28,11 @@
 
             </div>
 
-            <--! administer medicaition form to put into data base-->
+            <!-- administer medicaition form to put into data base-->
             <div class="administer_meds">
 
-                <--! sends to php to output medicaition to select from database -->
-                <form action="choose_med.php" method="post">
+                <!-- sends to php to output student to select from database -->
+                <form action="choose_stu.php" method="post">
 
                     <table>
 
@@ -47,13 +47,12 @@
                         </tr>
 
                         <tr>
-                            <td><label for="sln">Student Last name: </label></td>
-                            <td><input type="text" id="sln"name="student_lname" placeholder="Enter Student Last Name" required></td>
+                            <td><label for="syg">Student Year Group: </label></td>
+                            <td><input type="text" id="syg" name="student_yeargroup" placeholder="Enter Student Year Group" required></td>
                         </tr>
 
                         <tr>
-                            <td><label for="syg">Student Year Group: </label></td>
-                            <td><input type="text" id="syg" name="student_yeargroup" placeholder="Enter Student Year Group" required></td>
+                            <td> <button type="submit">Submit</button></td>
                         </tr>
 
                     </table>
