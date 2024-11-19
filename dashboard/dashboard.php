@@ -88,7 +88,7 @@ foreach ($dose_result as $row) {
     <div class="navbar">
         <img id="logo" src="../assets/UTCLeeds.svg" alt="UTC Leeds">
         <ul>
-            <li><a href="/index.html">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="../bigtable/bigtable.php">Table</a></li>
             <li class="logout"><a>Logout</a></li>
         </ul>
