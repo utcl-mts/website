@@ -60,7 +60,7 @@ try {
         // Credentials are incorrect; log failed login attempt
         $staff_id = $staff_id ?? 1; // Use 1 if staff_id is null
 
-        $fail_log_sql = "INSERT INTO audit (staff_id, act, date_time) VALUES (:staff_id, :action, :date_time)";
+        $fail_log_sql = "INSERT INTO audit_logs (staff_id, act, date_time) VALUES (:staff_id, :action, :date_time)";
         $fail_log_stmt = $conn->prepare($fail_log_sql);
         $fail_log_stmt->bindParam(':staff_id', $staff_id, PDO::PARAM_INT);
         $fail_log_stmt->bindParam(':action', $action, PDO::PARAM_STR);
