@@ -3,17 +3,36 @@ body {
     font-family: "Poppins", sans-serif;
     font-weight: 400;
     font-size: 16px;
+    height: 100%;
+    width: 100%;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     background-color: #4C566A;
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container styling */
+.container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 /* Navbar styling */
 .navbar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    justify-content: flex-start;
+    margin-top: 0;
+    border: 1px solid black;
+    font-size: 17px;
     background-color: #2E3440;
-    padding: 10px 0;
     border-bottom: 1px solid black;
 }
 
@@ -31,19 +50,21 @@ body {
 
 .nav-links {
     display: flex;
-    list-style: none;
+    flex-grow: 1;
     margin: 0;
-    padding: 0;
+    list-style: none;
+    align-items: center;
 }
 
 .nav-links li {
-    margin: 0 10px;
+    margin: 0 5px;
 }
 
 .nav-links li a {
     color: white;
     text-decoration: none;
     padding: 10px 14px;
+    font-size: 100%;
     border: 1px solid black;
     border-radius: 5px;
     background-color: #0098a5;
@@ -60,21 +81,16 @@ body {
     color: black;
 }
 
-/* Container styling */
-.container {
+/* Centered form container */
+.login-form-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: calc(100vh - 60px); /* Subtract navbar height */
-    padding: 0 20px;
-}
-
-.login-form-container {
-    width: 100%;
-    max-width: 480px;
 }
 
 #isaac_prof_form {
+    width: 40%;
     padding: 25px;
     border: 1px solid #4C566A;
     border-radius: 10px;
@@ -101,8 +117,9 @@ body {
     margin-bottom: 8px;
 }
 
-.form-group input[type="email"],
-.form-group input[type="password"] {
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"] {
     width: 100%;
     padding: 12px;
     font-size: 16px;
@@ -133,4 +150,85 @@ input:focus {
 
 .button-link:hover {
     background-color: #0098a5;
+}
+
+/* Table styling */
+.notification_table, #big_table {
+    border: 2px solid black;
+    border-collapse: separate;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 8px;
+    text-align: left;
+    border-spacing: 0;
+}
+
+.notification_table th, #big_table th, td {
+    border: 1px solid black;
+    padding: 8px;
+}
+
+.notification_table th {
+    background-color: #f2f2f2;
+}
+
+/* Specific table colors for notifications */
+#out_date th {
+    background-color: #E23A23;
+}
+
+#near_out_date th {
+    background-color: #FC7500;
+}
+
+#far_out_date th {
+    background-color: #31A719;
+}
+
+#below_min_dose th {
+    background-color: #3D3B8E;
+}
+
+/* Search bar styling */
+.searchbar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 20px;
+    margin-top: 40px;
+}
+
+#search-input {
+    width: 60%;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#search-button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: 1px solid black;
+    background-color: #0098a5;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#search-button:hover {
+    background-color: #007a85;
+}
+
+/* Profile link styling */
+.profile a {
+    color: white;
+    text-decoration: underline;
+    font-size: 100%;
+}
+
+.profile a:hover {
+    color: #B4182D;
+    text-decoration: underline;
 }
