@@ -7,7 +7,7 @@
     include '../server/db_connect.php';
 
     // Get information from the form on the HTML page
-    $dose = $_POST['dose'];
+    $taken_dose = $_POST['dose'];
     $staff_code = $_POST['staff_code'];
     $time = $_POST['time'];
     $date = $_POST['date'];
@@ -40,15 +40,48 @@
         // Bind parameters to prevent SQL injection
         $stmt->bindParam(1, $staff_code);
         $stmt->bindParam(2, $date_time_epoch); // Use the Unix timestamp here
-        $stmt->bindParam(3, $dose);
+        $stmt->bindParam(3, $taken_dose);
         $stmt->bindParam(4, $tid);
 
         // Execute the statement
         if($stmt->execute()) {
             echo "Data successfully inserted!";
+            echo "";
         } else {
             echo "Error inserting data.";
+            echo "";
         }
+
+        // Dose subtracted from takes table
+
+        // Prepare sql statement
+        $sql = "SELECT current_dose FROM takes WHERE takes_id = ?";
+        $stmt = $conn->prepare($sql);
+
+        // Bind parameters to prevent SQL injection
+        $stmt->bindParam(1,$tid);
+
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+
+        $new_dose = $result['current_dose'] - $taken_dose;
+
+        // Update sql table
+        $sql = "UPDATE takes SET current_dose = ? WHERE takes_id = ?";
+        $stmt = $conn->prepare($sql);
+
+        // Bind parameters to prevent SQL injection
+        $stmt->bindParam(1,$new_dose);
+        $stmt->bindParam(2,$tid);
+
+        // Execute the statement
+        if($stmt->execute()){
+            echo "Data successfully updated!";
+        }else{
+            echo "Error updating data.";
+        };
+
 
     } catch (PDOException $e) {
         // Handle any errors
