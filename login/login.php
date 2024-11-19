@@ -44,7 +44,7 @@ try {
         $action = "Succ_Log"; // Update action to indicate successful login
 
         // Insert successful login into audit log
-        $log_sql = "INSERT INTO audit (staff_id, act, date_time) VALUES (:staff_id, :action, :date_time)";
+        $log_sql = "INSERT INTO audit_logs (staff_id, act, date_time) VALUES (:staff_id, :action, :date_time)";
         $log_stmt = $conn->prepare($log_sql);
         $log_stmt->bindParam(':staff_id', $staff_id, PDO::PARAM_INT);
         $log_stmt->bindParam(':action', $action, PDO::PARAM_STR);
