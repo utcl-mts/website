@@ -63,7 +63,7 @@
     $result = $stmt->fetchAll();
 
     // Display the table and form for student selection
-    echo "<form action='choose_med.php' method='POST'>";
+    echo "<form action='add_notes.php' method='POST'>";
     echo "<table>";
 
     // Display each student with a checkbox for selection
@@ -71,11 +71,9 @@
 
         echo "<tr>";
         echo "<td><input type='hidden' name='sid' value='" . $row['student_id'] . "'></td>";
-        echo "<td><input type='hidden' name='staff_code' value='" . $_POST['staff_code'] . "'></td>";
         echo "<td><input type='checkbox' name='selected_students[]' value='" . $row['student_id'] . "'></td>";
         echo "<td>First name: " . htmlspecialchars($row['first_name']) . "</td><br>";
         echo "<td>Last name: " . htmlspecialchars($row['last_name']) . "</td>";
-        echo "</tr>";
     }
 
     // Submit button for the form
