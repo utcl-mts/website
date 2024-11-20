@@ -24,6 +24,7 @@ body {
 .navbar {
     display: flex;
     align-items: center;
+    border: 1px solid black;
     width: 100%;
     padding: 10px;
     justify-content: flex-start;
@@ -229,7 +230,7 @@ body {
 #big_table {
     border: 2px solid black;
     border-collapse: collapse;
-    width: 100%;
+    width: 99%;
     box-sizing: border-box; /* Ensures padding and border are included in the width */
     margin: 8px; /* Adjust spacing between tables */
     text-align: left;
@@ -289,22 +290,82 @@ body {
     margin-left: 65%;
 }
 
-.administer {
-    width: 60%;
-    display: flex;
-    justify-content: center;
-}
+/*.administer {*/
+/*    width: 60%;*/
+/*    display: flex;*/
+/*}*/
+
 
 #administer_form {
-    margin-top: 60px;
     border: 1px solid black;
     display: flex;
-    padding: 20px;
+    flex-direction: column;
+    padding: 10px;
     justify-content: center;
     align-items: center;
     border-radius: 15px;
-    flex-direction: column;
     font-size: 20px;
+    margin-top: 20px;
+    width: 30%; /* Adjust width as needed */
+}
+
+#administer_form tr {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Adjusts content within the row */
+    border: 2px solid black; /* Single border around the entire row */
+    align-items: center;
+    margin-bottom: 10px; /* Space between rows */
+    padding: 10px; /* Optional: padding for row content */
+    border-radius: 10px; /* Optional: rounded corners for rows */
+}
+
+#administer_form td {
+    border: none; /* Remove border from table cells */
+    flex: 1; /* Flex grow to make sure cells take equal width */
+    align-items: flex-start;
+}
+#administer_form input {
+    width: 100%;
+    height: 60%;
+    font-size: 20px;
+}
+
+#administer_form_submit {
+    width: 100%;
+   font-size: 20px;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*border: 1px solid black;*/
+    margin-top: 20%;
+}
+
+.pagination a, .pagination span
+{
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    margin: 3px;
+}
+
+.pagination a.active, .pagination span {
+    background-color: #0098a5;
+    color: white;
+    border-radius: 5px;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+    border-radius: 5px;
+}
+.pagination span {
+    border-radius: 5px;
+}
+=======
     margin-left: 65%;}
 
     /* Tooltip container */
