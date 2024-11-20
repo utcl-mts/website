@@ -132,6 +132,10 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Info</button>
                         </form>
+                        <span class="tooltip">
+                            <i class="info-icon"><i class="fa-solid fa-info"></i></i>
+                            <span class="tooltiptext"><?php echo htmlspecialchars($medication['notes']); ?></span>
+                        </span>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -154,6 +158,10 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Info</button>
                         </form>
+                        <span class="tooltip">
+                            <i class="info-icon"><i class="fa-solid fa-info"></i></i>
+                            <span class="tooltiptext"><?php echo htmlspecialchars($medication['notes']); ?></span>
+                        </span>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -176,6 +184,10 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Info</button>
                         </form>
+                        <span class="tooltip">
+                            <i class="info-icon"><i class="fa-solid fa-info"></i></i>
+                            <span class="tooltiptext"><?php echo htmlspecialchars($medication['notes']); ?></span>
+                        </span>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -198,12 +210,16 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Info</button>
                         </form>
+                        <span class="tooltip">
+                            <i class="info-icon"><i class="fa-solid fa-info"></i></i>
+                            <span class="tooltiptext"><?php echo htmlspecialchars($medication['notes']); ?></span>
+                        </span>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </table>
-
     </div>
 </div>
 </body>
+<script src="https://kit.fontawesome.com/c4b1ea9c2c.js" crossorigin="anonymous"></script>
 </html>
