@@ -22,7 +22,8 @@ $sql = "
         students.last_name, 
         students.year, 
         med.med_name, 
-        brand.brand_name 
+        brand.brand_name,
+        takes.notes
     FROM takes
     JOIN students ON takes.student_id = students.student_id
     JOIN med ON takes.med_id = med.med_id
@@ -41,11 +42,13 @@ foreach ($result as $row) {
     $student_year = $row["year"];
     $med_name = $row["med_name"];
     $brand_name = $row["brand_name"];
+    $notes = $row["notes"];
     $formatted_date = date("d-m-y", $expiry_date);
 
     $medication_info = [
         'info' => "$student_name<br>Year: $student_year<br>Medication: $med_name<br>Brand: $brand_name<br>Expiry: $formatted_date",
-        'takes_id' => $takes_id
+        'takes_id' => $takes_id,
+        'notes' => $notes
     ];
 
     if ($expiry_date < $time) {
@@ -67,7 +70,8 @@ $sql = "
         med.med_name, 
         brand.brand_name, 
         takes.current_dose, 
-        takes.min_dose 
+        takes.min_dose,
+        takes.notes
     FROM takes
     JOIN students ON takes.student_id = students.student_id
     JOIN med ON takes.med_id = med.med_id
@@ -84,9 +88,11 @@ foreach ($dose_result as $row) {
     $student_year = $row["year"];
     $med_name = $row["med_name"];
     $brand_name = $row["brand_name"];
+    $notes = $row["notes"];
     $medication_info = [
         'info' => "$student_name<br>Year: $student_year<br>Medication: $med_name<br>Brand: $brand_name",
-        'takes_id' => $takes_id
+        'takes_id' => $takes_id,
+        'notes' => $notes
     ];
 
     $below_minimum_doses[] = $medication_info;
@@ -122,6 +128,10 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Archive</button>
                         </form>
+                        <form action="info.php" method="post" style="display:inline;">
+                            <input type="hidden" name="notes" value="<?php echo htmlspecialchars($medication['notes']); ?>">
+                            <button type="submit">Info</button>
+                        </form>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -139,6 +149,10 @@ foreach ($dose_result as $row) {
                         <form action="archive.php" method="post" style="display:inline;">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Archive</button>
+                        </form>
+                        <form action="info.php" method="post" style="display:inline;">
+                            <input type="hidden" name="notes" value="<?php echo htmlspecialchars($medication['notes']); ?>">
+                            <button type="submit">Info</button>
                         </form>
                     </td>
                 </tr>
@@ -158,6 +172,10 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Archive</button>
                         </form>
+                        <form action="info.php" method="post" style="display:inline;">
+                            <input type="hidden" name="notes" value="<?php echo htmlspecialchars($medication['notes']); ?>">
+                            <button type="submit">Info</button>
+                        </form>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -175,6 +193,10 @@ foreach ($dose_result as $row) {
                         <form action="archive.php" method="post" style="display:inline;">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Archive</button>
+                        </form>
+                        <form action="info.php" method="post" style="display:inline;">
+                            <input type="hidden" name="notes" value="<?php echo htmlspecialchars($medication['notes']); ?>">
+                            <button type="submit">Info</button>
                         </form>
                     </td>
                 </tr>
