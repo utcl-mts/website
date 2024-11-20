@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updated_notes'])) {
     </form>
 
     <br>
-    <a href="javascript:history.back()">Go Back</a>
+    <a href="dashboard.php">Go Back</a>
 </div>
 </body>
 </html>
