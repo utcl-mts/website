@@ -76,7 +76,7 @@ try {
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if ($results) {
-        echo "<table border='1'>";
+        echo "<table border='1' id='big_table'>";
         echo "<tr>";
         // Print table headers dynamically
         foreach (array_keys($results[0]) as $header) {
