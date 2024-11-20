@@ -6,7 +6,44 @@
     // Include database connection
     include '../server/db_connect.php';
 
-    // SQL query to fetch medication name and ID for a specific student
+?>
+<html lang="en">
+
+    <head>
+
+        <meta charset="UTF-8">
+        <title>Administer Medicaition</title>
+        <link rel="stylesheet" href="/style.css">
+
+    </head>
+
+    <body>
+
+        <div class="container">
+
+            <!-- universal nav bar-->
+            <div class="navbar">
+
+                <img id="logo" src="/assets/UTCLeeds.svg" alt="UTC Leeds">
+
+                <ul>
+                    <li><a href="/index.html">Home </a></li>
+                    <li><a href="bigtable.html"> Table </a></li>
+                    <li class="logout"><a>Logout</a></li>
+                </ul>
+
+                <H1 id="med_tracker">Med Tracker</H1>
+
+            </div>
+
+        </div>
+
+    </body>
+
+</html>
+
+<?php
+// SQL query to fetch medication name and ID for a specific student
     $sql = 'SELECT med.med_id, med.med_name FROM med JOIN takes ON med.med_id = takes.med_id WHERE takes.student_id = ?';
 
     // Prepare the statement
@@ -48,15 +85,15 @@
 
                         // Input field for dose of each medication
                         echo "<label for='dose" . $row['med_id'] . "'>Enter dose: </label>";
-                        echo "<input type='number' id='dose" . $row['med_id'] . "' name='dose' placeholder='Enter dose' required>";
+                        echo "<input type='number' id='dose" . $row['med_id'] . "' name='dose' placeholder='Enter dose'>";
 ;
                         // Date input field of each medication
                         echo "<label for='admin_date'" . $row['med_id'] ." >Select Date: </label>";
-                        echo "<input type='date' id='admin_date' name='date' required>";
+                        echo "<input type='date' id='admin_date' name='date' >";
 
                         // Time input field of each medication
                         echo "<label for='admin_time'" . $row['med_id'] ." >Select Time: </label>";
-                        echo "<input type='time' id='admin_time' name='time' required>";
+                        echo "<input type='time' id='admin_time' name='time' >";
 
                     echo "</td>";
 
