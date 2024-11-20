@@ -68,11 +68,12 @@
         $date_time_epoch = strtotime($date_time_str);
 
         // SQL statement to insert into the log database
-        $sql = "INSERT INTO log ( student_id, notes, date-time ) VALUES (?,?,?)";
+        $sql = "INSERT INTO log (student_id, staff_id, notes, date_time ) VALUES (?,?,?,?)";
         $stmt = $conn->prepare($sql);
 
         // Bind parameters to prevent SQL injection
         $stmt ->bindParam(1, $stu_id);
+        $stmt ->bindParam(2, $staff_id);
         $stmt ->bindParam(2, $log_notes);
         $stmt ->bindParam(3, $date_time_epoch);
 
