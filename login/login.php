@@ -36,14 +36,14 @@ try {
 
     // Check if user exists and verify password (no hashing)
     if ($user && $password === $user["password"]) {
-        // Credentials are correct; log successful login
+        // Credentials are correct; administer successful login
         $_SESSION["ssnlogin"] = true;
         $_SESSION["staff_id"] = $user["staff_id"];
         $_SESSION["email"] = $user["email"];
 
         $action = "Succ_Log"; // Update action to indicate successful login
 
-        // Insert successful login into audit log
+        // Insert successful login into audit administer
         $log_sql = "INSERT INTO audit_logs (staff_id, act, date_time) VALUES (:staff_id, :action, :date_time)";
         $log_stmt = $conn->prepare($log_sql);
         $log_stmt->bindParam(':staff_id', $staff_id, PDO::PARAM_INT);
@@ -51,13 +51,13 @@ try {
         $log_stmt->bindParam(':date_time', $date_time, PDO::PARAM_INT);
 
         if (!$log_stmt->execute()) {
-            throw new Exception("Failed to insert successful login audit log: " . implode(", ", $log_stmt->errorInfo()));
+            throw new Exception("Failed to insert successful login audit administer: " . implode(", ", $log_stmt->errorInfo()));
         }
 
         // Redirect to dashboard for successful login
         header("Location: ../dashboard/dashboard.php");
     } else {
-        // Credentials are incorrect; log failed login attempt
+        // Credentials are incorrect; administer failed login attempt
         $staff_id = $staff_id ?? 1; // Use 1 if staff_id is null
 
         $fail_log_sql = "INSERT INTO audit_logs (staff_id, act, date_time) VALUES (:staff_id, :action, :date_time)";
@@ -67,7 +67,7 @@ try {
         $fail_log_stmt->bindParam(':date_time', $date_time, PDO::PARAM_INT);
 
         if (!$fail_log_stmt->execute()) {
-            throw new Exception("Failed to insert failed login audit log: " . implode(", ", $fail_log_stmt->errorInfo()));
+            throw new Exception("Failed to insert failed login audit administer: " . implode(", ", $fail_log_stmt->errorInfo()));
         }
 
         // Redirect to login page for failed login

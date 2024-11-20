@@ -33,7 +33,7 @@
                     <li><a href="../dashboard/dashboard.php">Home</a></li>
                     <li><a href="../insert_data/insert_data.php">Insert Data</a></li>
                     <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
-                    <li><a href="../log/log.html">Log Medication</a></li>
+                    <li><a href="administer.html">Log Medication</a></li>
                     <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
                     <li class="logout"><a>Logout</a></li>
 
@@ -65,7 +65,7 @@
     $result = $stmt->fetchAll();
 
     // Display the form and table for medication selection
-    echo "<form action='log.php' method='POST'>";
+    echo "<form action='administer.php' method='POST'>";
 
         echo "<table>";
 

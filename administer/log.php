@@ -32,7 +32,7 @@
                     <li><a href="../dashboard/dashboard.php">Home</a></li>
                     <li><a href="../insert_data/insert_data.php">Insert Data</a></li>
                     <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
-                    <li><a href="../log/log.html">Log Medication</a></li>
+                    <li><a href="administer.html">Log Medication</a></li>
                     <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
                     <li class="logout"><a>Logout</a></li>
 
@@ -76,8 +76,8 @@
         // Convert the combined date and time string to a Unix timestamp (epoch time)
         $date_time_epoch = strtotime($date_time_str);
 
-        // Prepare SQL statement to insert information into the 'log' table
-        $sql = "INSERT INTO log (staff_code, date_time, dose_given, takes_id) VALUES (?, ?, ?,?)";
+        // Prepare SQL statement to insert information into the 'administer' table
+        $sql = "INSERT INTO administer (staff_code, date_time, dose_given, takes_id) VALUES (?, ?, ?,?)";
         $stmt = $conn->prepare($sql);
 
         // Bind parameters to prevent SQL injection
