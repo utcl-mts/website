@@ -74,7 +74,7 @@
         // Bind parameters to prevent SQL injection
         $stmt ->bindParam(1, $stu_id);
         $stmt ->bindParam(2, $staff_id);
-        $stmt ->bindParam(3, $log_notes);
+        $stmt ->bindParam(3, $notes);
         $stmt ->bindParam(4, $date_time_epoch);
 
         // Execute the statement
