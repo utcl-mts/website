@@ -24,15 +24,20 @@
             <!-- universal nav bar-->
             <div class="navbar">
 
-                <img id="logo" src="/assets/UTCLeeds.svg" alt="UTC Leeds">
+                <img id="logo" src="../assets/UTCLeeds.svg" alt="UTC Leeds">
+
+                <h1 id="med_tracker">Med Tracker</h1>
 
                 <ul>
-                    <li><a href="/index.html">Home </a></li>
-                    <li><a href="bigtable.html"> Table </a></li>
-                    <li class="logout"><a>Logout</a></li>
-                </ul>
 
-                <H1 id="med_tracker">Med Tracker</H1>
+                    <li><a href="../dashboard/dashboard.php">Home</a></li>
+                    <li><a href="../insert_data/insert_data.php">Insert Data</a></li>
+                    <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
+                    <li><a href="../log/log.html">Administer Medication</a></li>
+                    <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
+                    <li class="logout"><a>Logout</a></li>
+
+                </ul>
 
             </div>
 
@@ -43,7 +48,8 @@
 </html>
 
 <?php
-// SQL query to fetch medication name and ID for a specific student
+
+    // SQL query to fetch medication name and ID for a specific student
     $sql = 'SELECT med.med_id, med.med_name FROM med JOIN takes ON med.med_id = takes.med_id WHERE takes.student_id = ?';
 
     // Prepare the statement
@@ -59,7 +65,7 @@
     $result = $stmt->fetchAll();
 
     // Display the form and table for medication selection
-    echo "<form action='administer.php' method='POST'>";
+    echo "<form action='log.php' method='POST'>";
 
         echo "<table>";
 

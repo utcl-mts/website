@@ -26,7 +26,7 @@ USE `utcl-mts`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `administer`
+-- Table structure for table `log`
 --
 
 CREATE TABLE `administer` (
@@ -296,7 +296,7 @@ INSERT INTO `takes` (`takes_id`, `student_id`, `med_id`, `brand_id`, `exp_date`,
 --
 
 --
--- Indexes for table `administer`
+-- Indexes for table `log`
 --
 ALTER TABLE `administer`
   ADD PRIMARY KEY (`adminster_id`);
@@ -342,7 +342,7 @@ ALTER TABLE `takes`
 --
 
 --
--- AUTO_INCREMENT for table `administer`
+-- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `administer`
   MODIFY `adminster_id` int(11) NOT NULL AUTO_INCREMENT;

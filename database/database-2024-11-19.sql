@@ -26,7 +26,7 @@ USE `utcl-mts`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `administer`
+-- Table structure for table `log`
 --
 -- Creation: Nov 19, 2024 at 08:57 PM
 --
