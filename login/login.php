@@ -55,7 +55,7 @@ try {
         }
 
         // Redirect to dashboard for successful login
-        header("Location: ../dashboard/dashboard.html");
+        header("Location: ../dashboard/dashboard.php");
     } else {
         // Credentials are incorrect; log failed login attempt
         $staff_id = $staff_id ?? 1; // Use 1 if staff_id is null

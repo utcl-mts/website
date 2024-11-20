@@ -13,34 +13,83 @@ $less_than_2_weeks = [];
 $less_than_4_weeks = [];
 $below_minimum_doses = [];
 
-// Fetch medid and expdate
-$sql = "SELECT exp_date, takes_id FROM takes";
+// Fetch details for expired medications and those close to expiring
+$sql = "
+    SELECT 
+        takes.exp_date, 
+        takes.takes_id, 
+        students.first_name, 
+        students.last_name, 
+        students.year, 
+        med.med_name, 
+        brand.brand_name 
+    FROM takes
+    JOIN students ON takes.student_id = students.student_id
+    JOIN med ON takes.med_id = med.med_id
+    JOIN brand ON takes.brand_id = brand.brand_id
+    WHERE takes.archived = 0
+";
 $stat = $conn->prepare($sql);
 $stat->execute();
 $result = $stat->fetchAll(PDO::FETCH_ASSOC);
 
-// put each med into right array
+// Put each medication into the appropriate array
 foreach ($result as $row) {
     $expiry_date = $row["exp_date"];
     $takes_id = $row["takes_id"];
+    $student_name = $row["first_name"] . " " . $row["last_name"];
+    $student_year = $row["year"];
+    $med_name = $row["med_name"];
+    $brand_name = $row["brand_name"];
+    $formatted_date = date("d-m-y", $expiry_date);
+
+    $medication_info = [
+        'info' => "$student_name<br>Year: $student_year<br>Medication: $med_name<br>Brand: $brand_name<br>Expiry: $formatted_date",
+        'takes_id' => $takes_id
+    ];
 
     if ($expiry_date < $time) {
-        $expired[] = $takes_id;
+        $expired[] = $medication_info;
     } elseif ($expiry_date < $time + 1209600) { // Less than 2 weeks
-        $less_than_2_weeks[] = $takes_id;
+        $less_than_2_weeks[] = $medication_info;
     } elseif ($expiry_date < $time + 2419200) { // Less than 4 weeks
-        $less_than_4_weeks[] = $takes_id;
+        $less_than_4_weeks[] = $medication_info;
     }
 }
 
-// get meds below minimum dose
-$sql = "SELECT takes_id FROM takes WHERE current_dose < min_dose";
+// Get meds below minimum dose
+$sql = "
+    SELECT 
+        takes.takes_id, 
+        students.first_name, 
+        students.last_name, 
+        students.year, 
+        med.med_name, 
+        brand.brand_name, 
+        takes.current_dose, 
+        takes.min_dose 
+    FROM takes
+    JOIN students ON takes.student_id = students.student_id
+    JOIN med ON takes.med_id = med.med_id
+    JOIN brand ON takes.brand_id = brand.brand_id
+    WHERE takes.current_dose < takes.min_dose AND takes.archived = 0
+";
 $stat = $conn->prepare($sql);
 $stat->execute();
 $dose_result = $stat->fetchAll(PDO::FETCH_ASSOC);
 
 foreach ($dose_result as $row) {
-    $below_minimum_doses[] = $row["takes_id"] . " - Below minimum doses";
+    $takes_id = $row["takes_id"];
+    $student_name = $row["first_name"] . " " . $row["last_name"];
+    $student_year = $row["year"];
+    $med_name = $row["med_name"];
+    $brand_name = $row["brand_name"];
+    $medication_info = [
+        'info' => "$student_name<br>Year: $student_year<br>Medication: $med_name<br>Brand: $brand_name",
+        'takes_id' => $takes_id
+    ];
+
+    $below_minimum_doses[] = $medication_info;
 }
 ?>
 <link rel="stylesheet" href="../style.css">
@@ -48,12 +97,15 @@ foreach ($dose_result as $row) {
 <div class="container">
     <div class="navbar">
         <img id="logo" src="../assets/UTCLeeds.svg" alt="UTC Leeds">
+        <h1 id="med_tracker">Med Tracker</h1>
         <ul>
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="bigtable.html">Table</a></li>
+            <li><a href="../dashboard/dashboard.php">Home</a></li>
+            <li><a href="../insert_data/insert_data.php">Insert Data</a></li>
+            <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
+            <li><a href="../administer/administer.html">Administer Medication</a></li>
+            <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
             <li class="logout"><a>Logout</a></li>
         </ul>
-        <h1 id="med_tracker">Med Tracker</h1>
     </div>
 
     <div class="notification_container">
@@ -63,7 +115,15 @@ foreach ($dose_result as $row) {
                 <th><h2>Expired</h2></th>
             </tr>
             <?php foreach ($expired as $medication): ?>
-                <tr><td><?php echo $medication; ?></td></tr>
+                <tr>
+                    <td>
+                        <?php echo $medication['info']; ?>
+                        <form action="archive.php" method="post" style="display:inline;">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
+                            <button type="submit">Archive</button>
+                        </form>
+                    </td>
+                </tr>
             <?php endforeach; ?>
         </table>
 
@@ -73,7 +133,15 @@ foreach ($dose_result as $row) {
                 <th><h2>Less than 2 Weeks</h2></th>
             </tr>
             <?php foreach ($less_than_2_weeks as $medication): ?>
-                <tr><td><?php echo $medication; ?></td></tr>
+                <tr>
+                    <td>
+                        <?php echo $medication['info']; ?>
+                        <form action="archive.php" method="post" style="display:inline;">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
+                            <button type="submit">Archive</button>
+                        </form>
+                    </td>
+                </tr>
             <?php endforeach; ?>
         </table>
 
@@ -83,7 +151,15 @@ foreach ($dose_result as $row) {
                 <th><h2>Less than 4 Weeks</h2></th>
             </tr>
             <?php foreach ($less_than_4_weeks as $medication): ?>
-                <tr><td><?php echo $medication; ?></td></tr>
+                <tr>
+                    <td>
+                        <?php echo $medication['info']; ?>
+                        <form action="archive.php" method="post" style="display:inline;">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
+                            <button type="submit">Archive</button>
+                        </form>
+                    </td>
+                </tr>
             <?php endforeach; ?>
         </table>
 
@@ -93,7 +169,15 @@ foreach ($dose_result as $row) {
                 <th><h2>Below Minimum Doses</h2></th>
             </tr>
             <?php foreach ($below_minimum_doses as $medication): ?>
-                <tr><td><?php echo $medication; ?></td></tr>
+                <tr>
+                    <td>
+                        <?php echo $medication['info']; ?>
+                        <form action="archive.php" method="post" style="display:inline;">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
+                            <button type="submit">Archive</button>
+                        </form>
+                    </td>
+                </tr>
             <?php endforeach; ?>
         </table>
     </div>
