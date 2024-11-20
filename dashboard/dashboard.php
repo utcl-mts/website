@@ -124,14 +124,21 @@ foreach ($dose_result as $row) {
                 <tr>
                     <td>
                         <?php echo $medication['info']; ?>
+                        <br> <!-- Add break here -->
                         <form action="archive.php" method="post" style="display:inline;">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Archive</button>
                         </form>
                         <form action="info.php" method="post" style="display:inline;">
-                            <input type="hidden" name="notes" value="<?php echo htmlspecialchars($medication['notes']); ?>">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Info</button>
                         </form>
+                        <?php if (!empty($medication['notes'])): ?>
+                            <span class="tooltip">
+                        <i class="info-icon"><i class="fa-solid fa-info"></i></i>
+                        <span class="tooltiptext"><?php echo htmlspecialchars($medication['notes']); ?></span>
+                    </span>
+                        <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -146,14 +153,21 @@ foreach ($dose_result as $row) {
                 <tr>
                     <td>
                         <?php echo $medication['info']; ?>
+                        <br> <!-- Add break here -->
                         <form action="archive.php" method="post" style="display:inline;">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Archive</button>
                         </form>
                         <form action="info.php" method="post" style="display:inline;">
-                            <input type="hidden" name="notes" value="<?php echo htmlspecialchars($medication['notes']); ?>">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Info</button>
                         </form>
+                        <?php if (!empty($medication['notes'])): ?>
+                            <span class="tooltip">
+                        <i class="info-icon"><i class="fa-solid fa-info"></i></i>
+                        <span class="tooltiptext"><?php echo htmlspecialchars($medication['notes']); ?></span>
+                    </span>
+                        <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -168,14 +182,21 @@ foreach ($dose_result as $row) {
                 <tr>
                     <td>
                         <?php echo $medication['info']; ?>
+                        <br> <!-- Add break here -->
                         <form action="archive.php" method="post" style="display:inline;">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Archive</button>
                         </form>
                         <form action="info.php" method="post" style="display:inline;">
-                            <input type="hidden" name="notes" value="<?php echo htmlspecialchars($medication['notes']); ?>">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Info</button>
                         </form>
+                        <?php if (!empty($medication['notes'])): ?>
+                            <span class="tooltip">
+                        <i class="info-icon"><i class="fa-solid fa-info"></i></i>
+                        <span class="tooltiptext"><?php echo htmlspecialchars($medication['notes']); ?></span>
+                    </span>
+                        <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -190,19 +211,29 @@ foreach ($dose_result as $row) {
                 <tr>
                     <td>
                         <?php echo $medication['info']; ?>
+                        <br> <!-- Add break here -->
                         <form action="archive.php" method="post" style="display:inline;">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Archive</button>
                         </form>
                         <form action="info.php" method="post" style="display:inline;">
-                            <input type="hidden" name="notes" value="<?php echo htmlspecialchars($medication['notes']); ?>">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Info</button>
                         </form>
+                        <?php if (!empty($medication['notes'])): ?>
+                            <span class="tooltip">
+                        <i class="info-icon"><i class="fa-solid fa-info"></i></i>
+                        <span class="tooltiptext"><?php echo htmlspecialchars($medication['notes']); ?></span>
+                    </span>
+                        <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </table>
+
+
     </div>
 </div>
 </body>
+<script src="https://kit.fontawesome.com/c4b1ea9c2c.js" crossorigin="anonymous"></script>
 </html>
