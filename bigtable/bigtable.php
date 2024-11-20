@@ -15,19 +15,18 @@
     </div>
 
     <?php
-
     // Include the database connection file
     include "../server/db_connect.php";
 
     // Set the number of results per page
-    $results_per_page = 25;
+    $results_per_page = 10;
 
     // Get the current page number from the URL, defaulting to page 1
-    $page = isset($_GET['page']) ? $_GET['page'] : 1;
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $start_from = ($page - 1) * $results_per_page;
 
     try {
-        // SQL query to get the total number of records (for pagination) with archived = 0
+        // Get the total number of records (for pagination)
         $total_sql = "
         SELECT COUNT(*) AS total_records 
         FROM 
@@ -39,7 +38,7 @@
         INNER JOIN 
             students ON takes.student_id = students.student_id
         WHERE takes.archived = 0
-    ";
+        ";
         $total_stmt = $conn->prepare($total_sql);
         $total_stmt->execute();
         $total_records = $total_stmt->fetch(PDO::FETCH_ASSOC)['total_records'];
@@ -47,7 +46,7 @@
         // Calculate the total number of pages
         $total_pages = ceil($total_records / $results_per_page);
 
-        // SQL query to join tables, including pagination (LIMIT and OFFSET) with archived = 0
+        // Query to fetch paginated records
         $sql = "
         SELECT 
             takes.*, 
@@ -66,34 +65,22 @@
             students ON takes.student_id = students.student_id
         WHERE takes.archived = 0
         LIMIT :limit OFFSET :offset
-    ";
-
-        // Prepare and execute the query
+        ";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':limit', $results_per_page, PDO::PARAM_INT);
         $stmt->bindParam(':offset', $start_from, PDO::PARAM_INT);
         $stmt->execute();
-      
-    if ($results) {
-        echo "<table border='1' id='big_table'>";
-        echo "<tr>";
-        // Print table headers dynamically
-        foreach (array_keys($results[0]) as $header) {
-            echo "<th>" . htmlspecialchars($header) . "</th>";
-        }
-        echo "</tr>";
-        // Fetch and display results
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        // Display the table
         if ($results) {
-            echo "<table border='1'>";
+            echo "<table border='1' id='big_table'>";
             echo "<tr>";
             // Print table headers dynamically
             foreach (array_keys($results[0]) as $header) {
                 echo "<th>" . htmlspecialchars($header) . "</th>";
             }
             echo "</tr>";
-
             // Print rows
             foreach ($results as $row) {
                 echo "<tr>";
@@ -108,29 +95,31 @@
             }
             echo "</table>";
         } else {
-            echo "No records found.";
+            echo "<p>No records found.</p>";
         }
-
-        // Pagination links
-        echo "<div class='pagination'>";
-        if ($page > 1) {
-            echo "<a href='?page=" . ($page - 1) . "'>Previous</a>";
-        }
-
-        // Loop through all pages
-        for ($i = 1; $i <= $total_pages; $i++) {
-            if ($i == $page) {
-                echo "<span>$i</span>";
-            } else {
-                echo "<a href='?page=$i'>$i</a>";
-            }
-        }
-
-        if ($page < $total_pages) {
-            echo "<a href='?page=" . ($page + 1) . "'>Next</a>";
-        }
-        echo "</div>";
     } catch (PDOException $e) {
-        die("Database error: " . $e->getMessage());
+        die("<p>Database error: " . htmlspecialchars($e->getMessage()) . "</p>");
     }
+
+    // Pagination links
+    echo "<div class='pagination'>";
+    if ($page > 1) {
+        echo "<a href='?page=" . ($page - 1) . "'>Previous</a>";
+    }
+
+    // Loop through all pages
+    for ($i = 1; $i <= $total_pages; $i++) {
+        if ($i == $page) {
+            echo "<span>$i</span>";
+        } else {
+            echo "<a href='?page=$i'>$i</a>";
+        }
+    }
+
+    if ($page < $total_pages) {
+        echo "<a href='?page=" . ($page + 1) . "'>Next</a>";
+    }
+    echo "</div>";
     ?>
+</div>
+</body>
