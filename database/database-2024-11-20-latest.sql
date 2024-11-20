@@ -253,7 +253,7 @@ INSERT INTO `students` (`student_id`, `first_name`, `last_name`, `year`) VALUES
 (30, 'Mark', 'Sloan', '11'),
 (31, 'Owen ', 'Hunt', '13'),
 (32, 'Cristina ', 'Yang', '11'),
-(33, 'Miranda', 'Bailey', '12'),
+(33, 'Miranda', 'Bailey', '12');
 
 -- --------------------------------------------------------
 
