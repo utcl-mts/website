@@ -23,7 +23,7 @@
 
         </div>
 
-        <div class="search-bar">
+        <div id="search-bar">
 
             <form method="GET" action="">
 
@@ -45,7 +45,7 @@
             include "../server/db_connect.php";
 
             // Set the number of results per page
-            $results_per_page = 10;
+            $results_per_page = 15;
 
             // Get the current page number from the URL, defaulting to page 1
             $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -78,33 +78,37 @@
 
                 // Fetch and display results
                 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+                echo"<div id ='bigt'>";
                 if ($results) {
-                    echo "<table>";
-                    echo "<tr>";
-                    // Print table headers dynamically
-                    foreach (array_keys($results[0]) as $header) {
-                        echo "<th>" . htmlspecialchars($header) . "</th>";
-                    }
-                    echo "</tr>";
 
-                    // Print rows
-                    foreach ($results as $row) {
+                    echo "<table>";
                         echo "<tr>";
-                        foreach ($row as $key => $value) {
-                            // Format exp_date column if it's an epoch timestamp
-                            if ($key === 'exp_date' && is_numeric($value)) {
-                                $value = date('d/m/y', $value);
-                            }
-                            echo "<td>" . htmlspecialchars($value) . "</td>";
+                        // Print table headers dynamically
+                        foreach (array_keys($results[0]) as $header) {
+                            echo "<th>" . htmlspecialchars($header) . "</th>";
                         }
                         echo "</tr>";
-                    }
+
+                        // Print rows
+                        foreach ($results as $row) {
+                            echo "<tr>";
+                            foreach ($row as $key => $value) {
+                                // Format exp_date column if it's an epoch timestamp
+                                if ($key === 'exp_date' && is_numeric($value)) {
+                                    $value = date('d/m/y', $value);
+                                }
+                                echo "<td>" . htmlspecialchars($value) . "</td>";
+                            }
+                            echo "</tr>";
+                        }
+
                     echo "</table>";
-                } else {
+                }
+                else {
+
                     echo "No records found.";
                 }
-
+                echo"</div>";
                 // Pagination links
                 echo "<div class='pagination'>";
                 if ($page > 1) {

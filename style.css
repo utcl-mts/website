@@ -7,6 +7,7 @@ body {
     font-weight: 400;
     background: #4C566A;
     color: white;
+
 }
 
 .container {
@@ -15,6 +16,7 @@ body {
     margin: 0;
     padding: 0;
     font-size: 16px;
+
 }
 
 #med_tracker {
@@ -305,4 +307,72 @@ body {
     border-radius: 15px;
     flex-direction: column;
     font-size: 20px;
-    margin-left: 65%;
+    margin-left: 65%;}
+
+#bigt table{
+    width: 100%;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+}
+
+body {
+    display: flex;
+    justify-content: center;  /* Horizontally center */
+    align-items: center;      /* Vertically center */
+    height: 100vh;            /* Full viewport height */
+    margin: 0;                /* Remove default margin */
+    font-family: Arial, sans-serif;
+}
+
+#search-bar {
+    width: 80%;              /* Adjust width as needed */
+    max-width: 600px;         /* Limit the maximum width */
+    padding: 20px;
+}
+
+form {
+    display: flex;            /* Align input and button horizontally */
+}
+
+input[type="text"] {
+    flex: 1;                  /* Allow the input to grow */
+    padding: 10px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 15px;
+    font-size: 16px;
+    border-left: none;        /* Remove border overlap */
+    cursor: pointer;
+}
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Space between elements */
+    margin: 20px 0; /* Add spacing around pagination */
+}
+
+.pagination a, .pagination span {
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+    color: #FFFF; /* Link color */
+    font-size: 16px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #007BFF;
+    color: white; /* Invert text color on hover */
+}
+
+.pagination span {
+    background-color: #007BFF;
+    color: white; /* Highlight current page */
+    font-weight: bold;
+}
