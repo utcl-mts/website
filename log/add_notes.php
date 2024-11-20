@@ -59,15 +59,15 @@ include '../server/db_connect.php';
 
             // Date input field of each medication
             echo "<label for='log_date'>Select Date: </label>";
-            echo "<input type='date' id='log_date' name='date' >";
+            echo "<input type='date' id='log_date' name='log_date' >";
 
             // Time input field of each medication
             echo "<label for='log_time' >Select Time: </label>";
-            echo "<input type='time' id='log_time' name='time' >";
+            echo "<input type='time' id='log_time' name='log_time' >";
 
             // Notes input for log
             echo "<label for='log_notes' >Enter Notes: </label>";
-            echo"<input type='text' id='log_notes' name='notes' >";
+            echo"<input type='text' id='log_notes' name='log_notes' >";
 
         // Submit button for the form
         echo "</table>";
