@@ -1,11 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Source</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css"> <!-- Link to CSS file -->
+    <title>Login</title>
 </head>
 <body>
-    <h1>Website Source</h1>
+
+<div class="container">
+    <div id="isaac_prof_form">
+        <h2>Login</h2>
+        <form method="POST" action="login/login.php">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" placeholder="Enter email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter Password" required>
+            </div>
+            <button type="submit" class="button-link">Login</button>
+        </form>
+    </div>
+</div>
+
 </body>
 </html>

@@ -1,45 +1,102 @@
 <?php
+// Start a new session
+session_start();
 
-    // Start a new session or resume the existing session
-    session_start();
+// Include the database connection file
+include "../server/db_connect.php";
 
-    // Include the database connection file
-    include "db_connect.php";
+$time = time();
 
-    $time = time();
-    $time_left = "";
+// Arrays for which medication is expired
+$expired = [];
+$less_than_2_weeks = [];
+$less_than_4_weeks = [];
+$below_minimum_doses = [];
 
-    $sql = "SELECT exp_date, takes_id FROM takes";
-    $stat = $conn->prepare($sql);
-    $stat->execute();
-    $result = $stat->fetchAll();
+// Fetch medid and expdate
+$sql = "SELECT exp_date, takes_id FROM takes";
+$stat = $conn->prepare($sql);
+$stat->execute();
+$result = $stat->fetchAll(PDO::FETCH_ASSOC);
 
-    // Loop through each row checking if it is below 4 weeks, 2 weeks or expired
-    while ($row = $result->fetch_assoc()) {
-        // Access the specific column value
-        $value = $row["exp_date"];
+// put each med into right array
+foreach ($result as $row) {
+    $expiry_date = $row["exp_date"];
+    $takes_id = $row["takes_id"];
 
-        // Compare the value
-        if ($value < $time + 2419200) {
-            $time_left = "Less than 4 weeks";
-        }
-        if ($value < $time + 1209600) {
-            $time_left = "Less than 2 weeks";
-        }
-        if ($value < $time) {
-            $time_left = "Expired";
-        }
-        echo $row["takes_id"] .$time_left. "<br>";
+    if ($expiry_date < $time) {
+        $expired[] = $takes_id;
+    } elseif ($expiry_date < $time + 1209600) { // Less than 2 weeks
+        $less_than_2_weeks[] = $takes_id;
+    } elseif ($expiry_date < $time + 2419200) { // Less than 4 weeks
+        $less_than_4_weeks[] = $takes_id;
     }
+}
 
-    $sql = "SELECT takes_id FROM takes WHERE current_does < min_does ";
-    $stat = $conn->prepare($sql);
-    $stat->execute();
-    $result = $stat->fetchAll();
+// get meds below minimum dose
+$sql = "SELECT takes_id FROM takes WHERE current_dose < min_dose";
+$stat = $conn->prepare($sql);
+$stat->execute();
+$dose_result = $stat->fetchAll(PDO::FETCH_ASSOC);
 
-    while ($row = $result->fetch_assoc()) {
-        echo $row["takes_id"] ."Below minimum doses". "<br>";
-    }
-
-
+foreach ($dose_result as $row) {
+    $below_minimum_doses[] = $row["takes_id"] . " - Below minimum doses";
+}
 ?>
+<link rel="stylesheet" href="../style.css">
+<body>
+<div class="container">
+    <div class="navbar">
+        <img id="logo" src="../assets/UTCLeeds.svg" alt="UTC Leeds">
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="bigtable.html">Table</a></li>
+            <li class="logout"><a>Logout</a></li>
+        </ul>
+        <h1 id="med_tracker">Med Tracker</h1>
+    </div>
+
+    <div class="notification_container">
+        <!-- Expired Table -->
+        <table class="notification_table" id="out_date">
+            <tr>
+                <th><h2>Expired</h2></th>
+            </tr>
+            <?php foreach ($expired as $medication): ?>
+                <tr><td><?php echo $medication; ?></td></tr>
+            <?php endforeach; ?>
+        </table>
+
+        <!-- Less than 2 Weeks Table -->
+        <table class="notification_table" id="near_out_date">
+            <tr>
+                <th><h2>Less than 2 Weeks</h2></th>
+            </tr>
+            <?php foreach ($less_than_2_weeks as $medication): ?>
+                <tr><td><?php echo $medication; ?></td></tr>
+            <?php endforeach; ?>
+        </table>
+
+        <!-- Less than 4 Weeks Table -->
+        <table class="notification_table" id="far_out_date">
+            <tr>
+                <th><h2>Less than 4 Weeks</h2></th>
+            </tr>
+            <?php foreach ($less_than_4_weeks as $medication): ?>
+                <tr><td><?php echo $medication; ?></td></tr>
+            <?php endforeach; ?>
+        </table>
+
+        <!-- Below Minimum Doses Table -->
+        <table class="notification_table" id="below_min_dose">
+            <tr>
+                <th><h2>Below Minimum Doses</h2></th>
+            </tr>
+            <?php foreach ($below_minimum_doses as $medication): ?>
+                <tr><td><?php echo $medication; ?></td></tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+</div>
+</body>
+</html>

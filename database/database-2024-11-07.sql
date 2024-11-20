@@ -1,3 +1,7 @@
+CREATE DATABASE IF NOT EXISTS `utcl-mts`;
+USE `utcl-mts`;
+
+
 CREATE TABLE `audit`(
     `audit_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `staff_id` INT NOT NULL,
@@ -28,7 +32,7 @@ CREATE TABLE `staff`(
 );
 CREATE TABLE `administer`(
     `adminster_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `takes_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `takes_id` INT UNSIGNED NOT NULL,
     `staff_code` TEXT NOT NULL,
     `date_time` INT NOT NULL,
     `dose_given` INT NOT NULL
