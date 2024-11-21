@@ -88,9 +88,10 @@ foreach ($dose_result as $row) {
     $student_year = $row["year"];
     $med_name = $row["med_name"];
     $brand_name = $row["brand_name"];
+    $current_dose = $row["current_dose"];
     $notes = $row["notes"];
     $medication_info = [
-        'info' => "$student_name<br>Year: $student_year<br>Medication: $med_name<br>Brand: $brand_name",
+        'info' => "$student_name<br>Year: $student_year<br>Medication: $med_name<br>Brand: $brand_name"<br>Dose: $current_dose",
         'takes_id' => $takes_id,
         'notes' => $notes
     ];
