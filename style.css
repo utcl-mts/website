@@ -7,15 +7,13 @@ body {
     font-weight: 400;
     background: #4C566A;
     color: white;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .container {
     font-family: "Poppins", sans-serif;
     width: 100%;
+    margin: 0;
+    padding: 0;
     font-size: 16px;
 }
 
@@ -26,6 +24,7 @@ body {
 .navbar {
     display: flex;
     align-items: center;
+    border: 1px solid black;
     width: 100%;
     padding: 10px;
     justify-content: flex-start;
@@ -34,160 +33,84 @@ body {
     margin-top: 0;
     box-sizing: border-box;
     overflow: hidden;
+    /* border: 1px solid black; */
     font-size: 17px;
 }
 
 .navbar ul {
     display: flex;
-    flex-grow: 1;
+    flex-grow: 1; /* Allow the ul to grow and fill the available space */
     margin: 0;
     list-style: none;
     align-items: center;
 }
 
 .navbar ul li {
-    margin: 0 5px;
-    padding: 0;
-    display: inline-block;
+    margin: 0 5px; /* Space between buttons */
+    padding: 0; /* Ensure no extra padding */
+    display: inline-block; /* Inline-block for proper spacing */
+    align-items: center;
 }
 
 .navbar ul li a {
-    display: inline-block;
+    display: inline-block; /* Inline-block for proper spacing */
     color: white;
     text-decoration: none;
     padding: 14px 16px;
     font-size: 100%;
     border: 1px solid black;
     border-radius: 10px;
-    background-color: #0098a5;
-    transition: background-color 0.3s, color 0.3s;
+    background-color: #0098a5; /* Add background color */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
 }
 
 .navbar ul li a:hover {
-    background-color: #f2f2f2;
-    color: black;
+    background-color: #f2f2f2; /* Change to color it will turn to when clicked */
+    color: black; /* Change text color on hover */
 }
 
 .navbar ul li a:active {
-    background-color: #ccc;
+    background-color: #ccc; /* Color on click */
     color: black;
 }
 
 .navbar ul li.logout {
-    margin-left: auto;
+    margin-left: auto; /* Pushes the logout link to the right */
 }
+
 
 #logo {
     padding: 3px;
     width: 14%;
-    margin-right: 30px;
+    margin-right: 30px; /* Space between the logo and the links */
     display: block;
 }
 
 .logout {
-    margin-left: auto;
-    margin-right: 10px;
+    margin-left: auto; /* Pushes the logout link to the right */
+    margin-right: 10px; /* Adds some space to the right side */
     display: flex;
     align-items: center;
 }
 
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin: 20px 0;
-}
 
-.pagination a, .pagination span {
-    padding: 8px 12px;
-    text-decoration: none;
-    border-radius: 4px;
-    color: white;
-    font-size: 16px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.pagination a:hover {
-    background-color: #007BFF;
-    color: white;
-}
-
-.pagination span {
-    background-color: #007BFF;
-    font-weight: bold;
-}
-
-.searchbar {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-left: 20px;
-    margin-top: 40px;
-}
-
-#search-bar {
-    width: 80%;
-    max-width: 600px;
-    padding: 20px;
-}
-
-form {
-    display: flex;
-}
-
-input[type="text"] {
-    flex: 1;
-    padding: 10px;
-    font-size: 16px;
-}
-
-button {
-    padding: 10px 15px;
-    font-size: 16px;
-    border-left: none;
-    cursor: pointer;
-    background-color: #0098a5;
-    color: white;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #007a85;
-}
-
-.big_table_container {
+.notification_container {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: space-around;
+    justify-content: space-around; /* Distribute space around the tables */
     align-items: flex-start;
-    text-decoration: none;
-    padding-top: 30px;
-}
-
-#big_table {
-    border: 2px solid black;
-    border-collapse: collapse;
-    width: 100%;
-    box-sizing: border-box;
-    margin: 8px;
-    text-align: left;
-}
-
-#big_table th {
-    border: 2px black solid;
-    padding: 1px;
+    padding: 50px;
+    border-radius: 10px;
 }
 
 .notification_table {
     border: 2px solid black;
     border-collapse: separate;
     border-spacing: 0;
-    width: 30%;
-    box-sizing: border-box;
-    margin-right: 10px;
-    border-radius: 8px;
+    width: 30%; /* Adjust the width to fit three tables side by side */
+    box-sizing: border-box; /* Ensures padding and border are included in the width */
+    margin-right: 10px; /* Adjust spacing between tables */
+    border-radius:8px;
     overflow: hidden;
 }
 
@@ -201,7 +124,7 @@ button:hover {
     background-color: #f2f2f2;
 }
 
-#out_date th {
+#out_date th{
     background-color: #E23A23;
     border: 2px solid black;
 }
@@ -211,14 +134,42 @@ button:hover {
     border: 2px solid black;
 }
 
-#far_out_date th {
+#far_out_date th{
     background-color: #31A719;
     border: 3px solid black;
 }
 
-#below_min_dose th {
+#below_min_dose th{
     background-color: #3D3B8E;
     border: 3px solid black;
+}
+
+#newmedsbutton ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex; /* Ensure ul behaves as a flex container */
+}
+
+#newmedsbutton ul li {
+    margin-right: 10px; /* Space between the button and the search bar */
+}
+
+#newmedsbutton ul li a {
+    display: inline-block; /* Inline-block for proper spacing */
+    color: white;
+    text-decoration: none;
+    padding: 14px 16px;
+    font-size: 100%;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #0098a5; /* Add background color */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
+}
+
+#newmedsbutton ul li a:hover {
+    background-color: #007a85;
+    text-decoration: none;
 }
 
 .button-link {
@@ -227,13 +178,66 @@ button:hover {
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 5px;
+    margin-right: 20px;
     cursor: pointer;
     font-size: 36px;
     border: 1px solid black;
 }
 
 .button-link:hover {
-    background-color: #005f6b;
+
+}
+.searchbar {
+    display: flex;
+    justify-content: flex-start; /* Align items to the start */
+    align-items: center;
+    margin-left: 20px; /* Add some space to the left of the search bar */
+    margin-top: 40px;
+}
+
+#search-input {
+    width: 60%;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#search-button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: 1px solid black;
+    background-color: #0098a5;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#search-button:hover {
+    background-color: #007a85;
+}
+
+.big_table_container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around; /* Distribute space around the tables */
+    align-items: flex-start;
+    text-decoration: none;
+    padding-top: 30px;
+}
+
+#big_table {
+    border: 2px solid black;
+    border-collapse: collapse;
+    width: 99%;
+    box-sizing: border-box; /* Ensures padding and border are included in the width */
+    margin: 8px; /* Adjust spacing between tables */
+    text-align: left;
+}
+#big_table th {
+    border: 2px black solid;
+    padding: 1px;
 }
 
 .profile a {
@@ -243,11 +247,37 @@ button:hover {
 }
 
 .profile a:hover {
+    font-size: 100%;
     text-decoration: underline;
     color: #B4182D;
 }
 
-#addmeds_form, #administer_form {
+#isaac_prof_form {
+    font-family: "monospace", Calibri;
+    font-size:32px;
+    /*background-color: black;*/
+    border: solid 1px black;
+    color: white;
+    display: inline-block;
+    padding: 10px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-60%, -50%);
+}
+
+#loggout {
+    position: absolute;
+    font-size: 45px;
+}
+
+.add_meds {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+}
+
+#addmeds_form {
     margin-top: 60px;
     border: 1px solid black;
     display: flex;
@@ -260,55 +290,126 @@ button:hover {
     margin-left: 65%;
 }
 
+#administer_form {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    font-size: 20px;
+    margin-top: 20px;
+    width: 30%; /* Adjust width as needed */
+}
+
 #administer_form tr {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    border: 2px solid black;
+    justify-content: space-between; /* Adjusts content within the row */
+    border: 2px solid black; /* Single border around the entire row */
     align-items: center;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 10px;
+    margin-bottom: 10px; /* Space between rows */
+    padding: 10px; /* Optional: padding for row content */
+    border-radius: 10px; /* Optional: rounded corners for rows */
 }
 
 #administer_form td {
-    flex: 1;
+    border: none; /* Remove border from table cells */
+    flex: 1; /* Flex grow to make sure cells take equal width */
+    align-items: flex-start;
+}
+#administer_form input {
+    width: 100%;
+    height: 60%;
+    font-size: 20px;
 }
 
-.tooltip {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
+#administer_form_submit {
+    width: 100%;
+   font-size: 20px;
 }
 
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 200px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    padding: 5px 10px;
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*border: 1px solid black;*/
+    margin-top: 20%;
+}
+
+.pagination a, .pagination span
+{
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    margin: 3px;
+}
+
+.pagination a.active, .pagination span {
+    background-color: #0098a5;
+    color: white;
     border-radius: 5px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -100px;
-    opacity: 0;
-    transition: opacity 0.3s;
 }
 
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+    border-radius: 5px;
+}
+.pagination span {
+    border-radius: 5px;
+    margin-left: 65%;
 }
 
-.info-icon {
-    font-size: 18px;
-    color: #0098a5;
-    cursor: pointer;
-}
+    /* Tooltip container */
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
 
-.info-icon:hover {
-    color: #007a85;
-}
+    /* Tooltip container */
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    /* Tooltip text */
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 200px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        padding: 5px 10px;
+        border-radius: 5px;
+
+        /* Positioning */
+        position: absolute;
+        z-index: 1;
+        bottom: 125%; /* Position above the icon */
+        left: 50%;
+        margin-left: -100px;
+
+        /* Fade in tooltip */
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    /* Show tooltip on hover */
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    /* Styling for info icon */
+    .info-icon {
+        font-size: 18px;
+        color: #0098a5;
+        cursor: pointer;
+    }
+
+    .info-icon:hover {
+        color: #007a85;
+    }
