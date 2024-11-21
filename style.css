@@ -1,3 +1,4 @@
+/*styling for main body of code*/
 body {
     height: 100%;
     width: 100%;
@@ -8,7 +9,7 @@ body {
     background: #4C566A;
     color: white;
 }
-
+/*styling of the container */
 .container {
     font-family: "Poppins", sans-serif;
     width: 100%;
@@ -17,10 +18,7 @@ body {
     font-size: 16px;
 }
 
-#med_tracker {
-    /*padding: 3px;*/
-}
-
+/*universal navigaition bar styling */
 .navbar {
     display: flex;
     align-items: center;
@@ -33,7 +31,6 @@ body {
     margin-top: 0;
     box-sizing: border-box;
     overflow: hidden;
-    /* border: 1px solid black; */
     font-size: 17px;
 }
 
@@ -78,14 +75,14 @@ body {
     margin-left: auto; /* Pushes the logout link to the right */
 }
 
-
+/*logo styling which does not move or need to be edited*/
 #logo {
     padding: 3px;
     width: 14%;
     margin-right: 30px; /* Space between the logo and the links */
     display: block;
 }
-
+/*logout styling which does not move or need to be edited*/
 .logout {
     margin-left: auto; /* Pushes the logout link to the right */
     margin-right: 10px; /* Adds some space to the right side */
@@ -93,7 +90,12 @@ body {
     align-items: center;
 }
 
+#loggout {
+    position: absolute;
+    font-size: 45px;
+}
 
+/* big table styling */
 .notification_container {
     display: flex;
     flex-wrap: nowrap;
@@ -122,6 +124,56 @@ body {
 
 .notification_table th {
     background-color: #f2f2f2;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Space between elements */
+    margin: 20px 0; /* Add spacing around pagination */
+}
+
+.pagination a, .pagination span {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-size: 12px;
+    border: 1px solid transparent; /* Add optional border for structure */
+    border-radius: 5px;
+    text-align: center; /* Center text inside buttons */
+}
+
+.pagination a.active, .pagination span.active {
+    background-color: #0098a5; /* Same active color */
+    color: white;
+    border: none; /* No border for active state */
+    border-radius: 5px;
+}
+
+.pagination a:hover:not(.active), .pagination .btn:hover {
+    background-color: #ddd; /* Hover effect */
+    border-radius: 5px;
+}
+
+/* Specific styles for Next and Previous buttons */
+.pagination .btn {
+    color: white; /* Same as normal buttons */
+    padding: 8px 20px; /* Larger padding for emphasis */
+    font-size: 12px; /* Match text size with other links */
+    background-color: #0098a5; /* Keep background consistent */
+    border: 1px solid #ddd; /* Subtle border for definition */
+    border-radius: 5px;
+}
+
+.pagination .btn:hover {
+    background-color: #0098a5; /* Hover effect for consistency */
+    color: white; /* Match hover color */
+}
+
+/* Spacing around active span */
+.pagination span {
+    margin: 0; /* Remove excess spacing */
 }
 
 #out_date th{
@@ -184,9 +236,6 @@ body {
     border: 1px solid black;
 }
 
-.button-link:hover {
-
-}
 .searchbar {
     display: flex;
     justify-content: flex-start; /* Align items to the start */
@@ -218,28 +267,6 @@ body {
     background-color: #007a85;
 }
 
-.big_table_container {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-around; /* Distribute space around the tables */
-    align-items: flex-start;
-    text-decoration: none;
-    padding-top: 30px;
-}
-
-#big_table {
-    border: 2px solid black;
-    border-collapse: collapse;
-    width: 99%;
-    box-sizing: border-box; /* Ensures padding and border are included in the width */
-    margin: 8px; /* Adjust spacing between tables */
-    text-align: left;
-}
-#big_table th {
-    border: 2px black solid;
-    padding: 1px;
-}
-
 .profile a {
     font-size: 100%;
     text-decoration: underline;
@@ -251,7 +278,7 @@ body {
     text-decoration: underline;
     color: #B4182D;
 }
-
+/*login form css*/
 #isaac_prof_form {
     font-family: "monospace", Calibri;
     font-size:32px;
@@ -264,11 +291,6 @@ body {
     top: 40%;
     left: 50%;
     transform: translate(-60%, -50%);
-}
-
-#loggout {
-    position: absolute;
-    font-size: 45px;
 }
 
 .add_meds {
@@ -290,6 +312,7 @@ body {
     margin-left: 65%;
 }
 
+/* administer form styling */
 #administer_form {
     border: 1px solid black;
     display: flex;
@@ -328,37 +351,6 @@ body {
 #administer_form_submit {
     width: 100%;
    font-size: 20px;
-}
-
-.pagination {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /*border: 1px solid black;*/
-    margin-top: 20%;
-}
-
-.pagination a, .pagination span
-{
-    color: black;
-    padding: 8px 16px;
-    text-decoration: none;
-    margin: 3px;
-}
-
-.pagination a.active, .pagination span {
-    background-color: #0098a5;
-    color: white;
-    border-radius: 5px;
-}
-
-.pagination a:hover:not(.active) {
-    background-color: #ddd;
-    border-radius: 5px;
-}
-.pagination span {
-    border-radius: 5px;
-    margin-left: 65%;
 }
 
     /* Tooltip container */
