@@ -4,7 +4,7 @@
     <head>
 
         <meta charset="UTF-8">
-        <title>Administer Medicaition</title>
+        <title>Log</title>
         <link rel="stylesheet" href="../style.css">
 
     </head>
@@ -33,18 +33,13 @@
 
             </div>
 
-            <!-- administer medicaition form to put into data base-->
-            <div class="administer_meds">
+            <!-- choose student for log page -->
+            <div class="enter_student_log">
 
                 <!-- sends to php to output student to select from database -->
-                <form action="choose_stu.php" method="post">
+                <form action="choose_student.php" method="post">
 
-                    <table id="administer_form">
-
-                        <tr>
-                            <td><label for="sc">Staff code of staff that administered meds: </label></td>
-                            <td><input type="text" id="sc" name="staff_code" placeholder="Enter Staff code" required></td>
-                        </tr>
+                    <table>
 
                         <tr>
                             <td><label for="sfn">Student First name: </label></td>
@@ -57,7 +52,7 @@
                         </tr>
 
                         <tr>
-                            <td> <button id="administer_form_submit" type="submit">Submit</button></td>
+                            <td><button type="submit">Submit</button></td>
                         </tr>
 
                     </table>
