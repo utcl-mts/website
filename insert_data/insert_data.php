@@ -28,9 +28,10 @@
 
     </div>
 
+    <h1>Import</h1>
 
     <fieldset>
-        <legend>Insert Data</legend>
+        <legend>Bulk Upload Students</legend>
         <button>
             <a href="import_students_template.csv" download>Download CSV Template</a>
         </button><br><br>
@@ -147,6 +148,27 @@
             }
         }
         ?>
+    </fieldset>
+    <br>
+    <fieldset>
+        <legend>Insert Single Student</legend>
+        <p>The Format MUST be the same</p>
+        <form action="" method="post" enctype="multipart/form-data">
+            <input type="text" id="" name="email" placeholder="Enter First Name" required>
+            <input type="text" id="" name="email" placeholder="Enter Last Name" required><br>
+            <input type="text" id="" name="email" placeholder="Enter Year Group" required><br>
+            <button type="submit" class="">Login</button>
+        </form>
+    </fieldset>
+    <h1>Export</h1>
+    <fieldset>
+        <legend>Export Students</legend>
+    </fieldset>
+    <fieldset>
+        <legend>Export Medication</legend>
+    </fieldset>
+    <fieldset>
+        <legend>Export Brands</legend>
     </fieldset>
 </div>
 </body>
