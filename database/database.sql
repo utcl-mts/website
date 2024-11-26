@@ -491,3 +491,54 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+DELIMITER $$
+
+-- Trigger for `students` table
+CREATE TRIGGER `before_insert_students`
+BEFORE INSERT ON `students`
+FOR EACH ROW
+BEGIN
+    SET NEW.first_name = UPPER(NEW.first_name);
+    SET NEW.last_name = UPPER(NEW.last_name);
+END$$
+
+CREATE TRIGGER `before_update_students`
+BEFORE UPDATE ON `students`
+FOR EACH ROW
+BEGIN
+    SET NEW.first_name = UPPER(NEW.first_name);
+    SET NEW.last_name = UPPER(NEW.last_name);
+END$$
+
+-- Trigger for `brand` table
+CREATE TRIGGER `before_insert_brand`
+BEFORE INSERT ON `brand`
+FOR EACH ROW
+BEGIN
+    SET NEW.brand_name = UPPER(NEW.brand_name);
+END$$
+
+CREATE TRIGGER `before_update_brand`
+BEFORE UPDATE ON `brand`
+FOR EACH ROW
+BEGIN
+    SET NEW.brand_name = UPPER(NEW.brand_name);
+END$$
+
+-- Trigger for `med` table
+CREATE TRIGGER `before_insert_med`
+BEFORE INSERT ON `med`
+FOR EACH ROW
+BEGIN
+    SET NEW.med_name = UPPER(NEW.med_name);
+END$$
+
+CREATE TRIGGER `before_update_med`
+BEFORE UPDATE ON `med`
+FOR EACH ROW
+BEGIN
+    SET NEW.med_name = UPPER(NEW.med_name);
+END$$
+
+DELIMITER ;
