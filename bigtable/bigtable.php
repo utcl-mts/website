@@ -38,7 +38,7 @@
     include "../server/db_connect.php";
 
     // Set the number of results per page
-    $results_per_page = 15;
+    $results_per_page = 10;
 
     // Get the current page number from the URL, defaulting to page 1
     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -87,7 +87,7 @@
         $total_pages = ceil($total_records / $results_per_page);
 
         // SQL query to join tables, including pagination (LIMIT and OFFSET)
-        $sql = "SELECT takes.*, med.med_name, brand.brand_name, students.first_name, students.last_name, students.year FROM takes INNER JOIN med ON takes.med_id = med.med_id INNER JOIN brand ON takes.brand_id = brand.brand_id INNER JOIN students ON takes.student_id = students.student_id WHERE CONCAT(students.first_name, ' ', students.last_name) LIKE :search OR med.med_name LIKE :search OR brand.brand_name LIKE :search LIMIT :limit OFFSET :offset";
+        $sql = "SELECT takes.takes_id, takes.exp_date,takes.current_dose, takes.min_dose, takes.min_dose, takes.strength, takes.notes ,med.med_name, brand.brand_name, students.first_name, students.last_name, students.year FROM takes INNER JOIN med ON takes.med_id = med.med_id INNER JOIN brand ON takes.brand_id = brand.brand_id INNER JOIN students ON takes.student_id = students.student_id WHERE CONCAT(students.first_name, ' ', students.last_name) LIKE :search OR med.med_name LIKE :search OR brand.brand_name LIKE :search LIMIT :limit OFFSET :offset";
 
         // Prepare and execute the query
         $stmt = $conn->prepare($sql);
