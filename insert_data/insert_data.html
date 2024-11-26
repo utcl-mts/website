@@ -22,20 +22,27 @@
         </ul>
     </div>
 
-    <!-- Fieldset for the upload form -->
     <fieldset>
-        <legend>Insert Data</legend>
-
-        <!-- CSV Template Download -->
+        <legend>Bulk Upload Students</legend>
         <button>
             <a href="import_students_template.csv" download>Download CSV Template</a>
         </button><br><br>
-
-        <!-- File Upload Form -->
         <form action="process_csv.php" method="post" enctype="multipart/form-data">
             <label for="file">Upload a CSV File:</label><br>
             <input id="file" accept=".csv" type="file" name="file" required><br><br>
             <input type="submit" name="submit" value="Upload">
+        </form>
+    </fieldset>
+
+    <fieldset>
+        <legend>Create One Student</legend>
+        <form action="upload_single.php" method="post">
+            <input type="text" name="first_name" id="" placeholder="Enter First Name" required>
+            <input type="text" name="last_name" id="" placeholder="Enter Last Name" required>
+            <br><br>
+            <input type="text" name="year" id="" placeholder="Enter Year Group" required>
+            <br><br>
+            <input type="submit" name="submit" value="Submit">
         </form>
     </fieldset>
 </div>

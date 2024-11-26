@@ -36,12 +36,6 @@
                 $fileType = mime_content_type($fileTmpPath);
                 $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
 
-                echo "<h3>Debugging Information</h3>";
-                echo "Uploaded File Name: " . htmlspecialchars($fileName) . "<br>";
-                echo "Temporary File Path: " . htmlspecialchars($fileTmpPath) . "<br>";
-                echo "Detected MIME Type: " . htmlspecialchars($fileType) . "<br>";
-                echo "File Extension: " . htmlspecialchars($fileExtension) . "<br>";
-
                 if ($fileExtension === 'csv') {
                     if (($handle = fopen($fileTmpPath, 'r')) !== false) {
                         echo "<h2>CSV Content</h2>";
