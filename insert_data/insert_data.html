@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <title>Insert Data</title>
+</head>
+<body>
+<div class="container">
+    <!-- Navbar -->
+    <div class="navbar">
+        <img id="logo" src="../assets/UTCLeeds.svg" alt="UTC Leeds">
+        <h1 id="med_tracker">Med Tracker</h1>
+        <ul>
+            <li><a href="../dashboard/dashboard.php">Home</a></li>
+            <li><a href="insert_data.html">Insert Data</a></li>
+            <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
+            <li><a href="../administer/administer.html">Administer Medication</a></li>
+            <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
+            <li class="logout"><a href="../logout.php">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Fieldset for the upload form -->
+    <fieldset>
+        <legend>Insert Data</legend>
+
+        <!-- CSV Template Download -->
+        <button>
+            <a href="import_students_template.csv" download>Download CSV Template</a>
+        </button><br><br>
+
+        <!-- File Upload Form -->
+        <form action="process_csv.php" method="post" enctype="multipart/form-data">
+            <label for="file">Upload a CSV File:</label><br>
+            <input id="file" accept=".csv" type="file" name="file" required><br><br>
+            <input type="submit" name="submit" value="Upload">
+        </form>
+    </fieldset>
+</div>
+</body>
+</html>
