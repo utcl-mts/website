@@ -27,11 +27,10 @@ session_start();
 include "../server/db_connect.php";
 
 $first_name = $_POST['first_name'];
-$last_name = $_POST['last_name'];
-$year = $_POST['year'];
-
 $first_name = strtoupper($first_name);
+$last_name = $_POST['last_name'];
 $last_name = strtoupper($last_name);
+$year = $_POST['year'];
 
 $sql = "INSERT INTO students (first_name, last_name, year) VALUES (?, ?, ?)";
 $stmt = $conn->prepare($sql);

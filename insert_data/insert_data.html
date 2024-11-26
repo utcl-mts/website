@@ -45,6 +45,42 @@
             <input type="submit" name="submit" value="Submit">
         </form>
     </fieldset>
+
+    <fieldset>
+        <legend>Export Students</legend>
+        <form action="export_students.php" method="post">
+            <label for="export_meds">Export as All Students Excel/CSV</label>
+            <select id="1" name="export_meds">
+                <option value="excel">Excel</option>
+                <option value="csv">CSV</option>
+            </select>
+            <input type="submit">
+        </form>
+    </fieldset>
+
+    <fieldset>
+        <legend>Export Brands</legend>
+        <form action="export_brands.php" method="post">
+            <label for="export_brands">Export as All Brands Excel/CSV</label>
+            <select id="cars" name="export_brands">
+                <option value="excel">Excel</option>
+                <option value="csv">CSV</option>
+            </select>
+            <input type="submit">
+        </form>
+    </fieldset>
+
+    <fieldset>
+        <legend>Export Medications</legend>
+        <form action="export_meds.php" method="post">
+            <label for="export_meds">Export as All Medication Excel/CSV</label>
+            <select id="" name="export_meds">
+                <option value="excel">Excel</option>
+                <option value="csv">CSV</option>
+            </select>
+            <input type="submit">
+        </form>
+    </fieldset>
 </div>
 </body>
 </html>

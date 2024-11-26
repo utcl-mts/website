@@ -30,74 +30,97 @@
         include "../server/db_connect.php";
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
-                $fileTmpPath = $_FILES['file']['tmp_name'];
-                $fileName = $_FILES['file']['name'];
-                $fileType = mime_content_type($fileTmpPath);
-                $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
-
-                if ($fileExtension === 'csv') {
-                    if (($handle = fopen($fileTmpPath, 'r')) !== false) {
-                        echo "<h2>CSV Content</h2>";
-                        echo "<table border='1' class='csv-table'>";
-                        $rowIndex = 0;
-
-                        // Prepare for database insertion
+            if (isset($_POST['confirm_insertion'])) {
+                // Handle data insertion after confirmation
+                $filePath = $_SESSION['uploaded_file'];
+                if (file_exists($filePath)) {
+                    if (($handle = fopen($filePath, 'r')) !== false) {
+                        echo "<h2>Inserting Data...</h2>";
                         $insertCount = 0;
 
                         // Begin a transaction
                         $conn->beginTransaction();
-
-                        // Prepare SQL statement
                         $stmt = $conn->prepare("INSERT INTO students (first_name, last_name, year) VALUES (?, ?, ?)");
 
+                        $rowIndex = 0;
                         while (($row = fgetcsv($handle, 1000, ',')) !== false) {
-                            echo "<tr>";
-                            foreach ($row as $cell) {
-                                if ($rowIndex === 0) {
-                                    echo "<th>" . htmlspecialchars($cell) . "</th>"; // Header
-                                } else {
-                                    echo "<td>" . htmlspecialchars($cell) . "</td>"; // Data
-                                }
-                            }
-                            echo "</tr>";
-
-                            // Skip the header row
-                            if ($rowIndex > 0) {
+                            if ($rowIndex > 0) { // Skip header
                                 try {
-                                    // Insert data into the database
                                     $stmt->execute([$row[0], $row[1], $row[2]]);
-                                    $insertCount += $stmt->rowCount(); // Count successful inserts
+                                    $insertCount += $stmt->rowCount();
                                 } catch (PDOException $e) {
                                     echo "<p style='color: red;'>Error inserting row: " . htmlspecialchars(implode(", ", $row)) . "</p>";
                                 }
                             }
-
                             $rowIndex++;
                         }
 
-                        // Commit the transaction
                         $conn->commit();
-
                         fclose($handle);
-                        echo "</table>";
 
-                        // Display success message
                         echo "<p>Data successfully inserted into the database! Rows inserted: <strong>$insertCount</strong></p>";
+
+                        // Log activity
                         $staff_id = $_SESSION["staff_id"];
                         $act = "$insertCount students have been added";
                         $date_time = date("U");
-                        $sql = "INSERT INTO audit_logs (staff_id, act, date_time) VALUES(?, ?, ?)";
+                        $logStmt = $conn->prepare("INSERT INTO audit_logs (staff_id, act, date_time) VALUES (?, ?, ?)");
+                        $logStmt->execute([$staff_id, $act, $date_time]);
 
-                        $stmt = $conn->prepare($sql);
+                        // Cleanup
+                        unlink($filePath); // Delete the temporary file
+                        unset($_SESSION['uploaded_file']); // Clear session variable
+                    }
+                } else {
+                    echo "<p style='color: red;'>Error: File not found for insertion.</p>";
+                }
+            } elseif (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
+                $fileTmpPath = $_FILES['file']['tmp_name'];
+                $fileName = basename($_FILES['file']['name']);
+                $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
 
-                        $stmt->bindParam(1,$staff_id);
-                        $stmt->bindParam(2,$act);
-                        $stmt->bindParam(3,$date_time);
+                if ($fileExtension === 'csv') {
+                    $uploadDir = '../uploads/';
+                    if (!is_dir($uploadDir)) {
+                        mkdir($uploadDir, 0777, true); // Create uploads directory if not exists
+                    }
 
-                        $stmt->execute();
+                    $savedFilePath = $uploadDir . uniqid() . '-' . $fileName;
+
+                    if (move_uploaded_file($fileTmpPath, $savedFilePath)) {
+                        $_SESSION['uploaded_file'] = $savedFilePath;
+
+                        if (($handle = fopen($savedFilePath, 'r')) !== false) {
+                            echo "<h2>CSV Content</h2>";
+                            echo "<table border='1' class='csv-table'>";
+                            $rowIndex = 0;
+
+                            while (($row = fgetcsv($handle, 1000, ',')) !== false) {
+                                echo "<tr>";
+                                foreach ($row as $cell) {
+                                    if ($rowIndex === 0) {
+                                        echo "<th>" . htmlspecialchars($cell) . "</th>";
+                                    } else {
+                                        echo "<td>" . htmlspecialchars($cell) . "</td>";
+                                    }
+                                }
+                                echo "</tr>";
+                                $rowIndex++;
+                            }
+
+                            fclose($handle);
+                            echo "</table>";
+
+                            // Display confirmation button
+                            echo '<form method="POST">';
+                            echo '<br>';
+                            echo '<button type="submit" name="confirm_insertion">Confirm and Insert Data</button>';
+                            echo '</form>';
+                        } else {
+                            echo "<p style='color: red;'>Error opening the file for preview.</p>";
+                        }
                     } else {
-                        echo "<p style='color: red;'>Error opening the file. Please try again.</p>";
+                        echo "<p style='color: red;'>Failed to save the uploaded file.</p>";
                     }
                 } else {
                     echo "<p style='color: red;'>Invalid file type. Please upload a valid CSV file.</p>";
