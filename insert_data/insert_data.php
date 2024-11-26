@@ -29,12 +29,12 @@
     </div>
 
 
-    <fieldset>
+    <fieldset class = "insert_data">
         <legend>Insert Data</legend>
         <button>
             <a href="import_students_template.csv" download>Download CSV Template</a>
         </button><br><br>
-        <form action="" method="post" enctype="multipart/form-data">
+        <form class ="insert_data_form" action="" method="post" enctype="multipart/form-data">
             <label for="file">Upload a CSV File:</label><br>
             <input id="file" accept=".csv" type="file" name="file" required><br><br>
             <input type="submit" name="submit" value="Upload To Preview">
