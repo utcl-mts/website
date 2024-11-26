@@ -26,6 +26,7 @@
         <legend>Upload Results</legend>
 
         <?php
+        session_start();
         include "../server/db_connect.php";
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -89,6 +90,18 @@
 
                         // Display success message
                         echo "<p>Data successfully inserted into the database! Rows inserted: <strong>$insertCount</strong></p>";
+                        $staff_id = $_SESSION["staff_id"];
+                        $act = "$insertCount students have been added";
+                        $date_time = date("U");
+                        $sql = "INSERT INTO audit_logs (staff_id, act, date_time) VALUES(?, ?, ?)";
+
+                        $stmt = $conn->prepare($sql);
+
+                        $stmt->bindParam(1,$staff_id);
+                        $stmt->bindParam(2,$act);
+                        $stmt->bindParam(3,$date_time);
+
+                        $stmt->execute();
                     } else {
                         echo "<p style='color: red;'>Error opening the file. Please try again.</p>";
                     }
