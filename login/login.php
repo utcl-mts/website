@@ -55,7 +55,7 @@ try {
 
         // Add cookie setting here
         setcookie(
-            'user_session',
+            'cookies_and_cream',
             'active',
             [
                 'expires' => time() + (2 * 60),  // 2 minutes

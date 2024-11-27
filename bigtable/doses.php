@@ -2,7 +2,7 @@
 session_start();
 
 // Check for valid session and cookie
-if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['user_session'])) {
+if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
     header("Location: ../index.html");
     exit();
 }
