@@ -20,15 +20,16 @@
 
     </div>
 
-    <div id="search-bar">
+    <div class="searchbar">
         <form method="GET" action="">
             <input
+                    id="search-input"
                     type="text"
                     name="search"
                     placeholder="Search by student name, medication, or brand"
                     value="<?php echo htmlspecialchars(isset($_GET['search']) ? $_GET['search'] : ''); ?>"
             >
-            <button type="submit">Search</button>
+            <button id="search-button" type="submit">Search</button>
         </form>
     </div>
 
@@ -109,7 +110,7 @@
         echo "<div id ='bigt'>";
         if ($results) {
 
-            echo "<table>";
+            echo "<table id='big_table'>";
             echo "<tr>";
             // Print table headers dynamically
             foreach (array_keys($results[0]) as $header) {
@@ -155,7 +156,7 @@
         // Loop through all pages
         for ($i = 1; $i <= $total_pages; $i++) {
             if ($i == $page) {
-                echo "<span>$i</span>";
+                echo "<span class='active'>$i</span>";
             } else {
                 echo "<a href='?search=" . urlencode($search_term) . "&page=$i'>$i</a>";
             }
