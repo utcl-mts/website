@@ -5,7 +5,6 @@ if (!file_exists("../server/db_connect.php")) {
     die("Error: db_connect.php file not found in expected directory.");
 }
 include "../server/db_connect.php";
-include "../server/functions.php";
 
 // Verify database connection
 if (!$conn) {
