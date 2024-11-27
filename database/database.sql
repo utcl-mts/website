@@ -203,7 +203,7 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`staff_id`, `first_name`, `last_name`, `email`, `password`, `group`) VALUES
-(1, 'Failed', 'Events', 'failed.events@utcleeds.co.uk', 'failed.events', 'system');
+(1, 'Failed', 'Events', 'failed.events@utcleeds.co.uk', 'failed.events', 'system'),
 (2, 'user1', 'user1', 'user.user@utcleeds.co.uk', 'user.user', 'admin');
 -- --------------------------------------------------------
 
