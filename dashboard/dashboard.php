@@ -26,6 +26,7 @@ $sql = "
         takes.takes_id, 
         students.first_name, 
         students.last_name, 
+        students.student_id,
         students.year, 
         med.med_name, 
         brand.brand_name,
@@ -44,6 +45,7 @@ $result = $stat->fetchAll(PDO::FETCH_ASSOC);
 foreach ($result as $row) {
     $expiry_date = $row["exp_date"];
     $takes_id = $row["takes_id"];
+    $student_id = $row["student_id"];
     $student_name = $row["first_name"] . " " . $row["last_name"];
     $student_year = $row["year"];
     $med_name = $row["med_name"];
@@ -140,6 +142,10 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Info</button>
                         </form>
+                        <form action="../med-brand/add_med.php" method="post" style="display:inline;">
+                            <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
+                            <button type="submit" > add new med</button>
+                        </form>
                         <?php if (!empty($medication['notes'])): ?>
                             <span class="tooltip">
                         <i class="info-icon"><i class="fa-solid fa-info"></i></i>
@@ -168,6 +174,10 @@ foreach ($dose_result as $row) {
                         <form action="info.php" method="post" style="display:inline;">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Info</button>
+                        </form>
+                        <form action="../med-brand/add_med.php" method="post" style="display:inline;">
+                            <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
+                            <button type="submit" > add new med</button>
                         </form>
                         <?php if (!empty($medication['notes'])): ?>
                             <span class="tooltip">
@@ -198,6 +208,10 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Info</button>
                         </form>
+                        <form action="../med-brand/add_med.php" method="post" style="display:inline;">
+                            <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
+                            <button type="submit" > add new med</button>
+                        </form>
                         <?php if (!empty($medication['notes'])): ?>
                             <span class="tooltip">
                         <i class="info-icon"><i class="fa-solid fa-info"></i></i>
@@ -226,6 +240,10 @@ foreach ($dose_result as $row) {
                         <form action="info.php" method="post" style="display:inline;">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Info</button>
+                        </form>
+                        <form action="../med-brand/add_med.php" method="post" style="display:inline;">
+                            <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
+                            <button type="submit" > add new med</button>
                         </form>
                         <?php if (!empty($medication['notes'])): ?>
                             <span class="tooltip">
