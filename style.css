@@ -109,9 +109,9 @@ body {
     border: 2px solid black;
     border-collapse: separate;
     border-spacing: 0;
-    width: 100%; /* Adjust the width to fit three tables side by side */
+    width: 100%; /* Adjust the width */
     box-sizing: border-box; /* Ensures padding and border are included in the width */
-    margin-right: 10px; /* Adjust spacing between tables */
+    /*margin-right: 10px; /* Adjust spacing between tables */
     border-radius:8px;
     overflow: hidden;
 }
