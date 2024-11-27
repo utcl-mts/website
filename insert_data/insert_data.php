@@ -14,7 +14,7 @@ if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['user_session'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheetinsert_data.php.css">
     <title>Insert Data</title>
 </head>
 <body>

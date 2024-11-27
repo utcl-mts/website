@@ -107,7 +107,7 @@ foreach ($dose_result as $row) {
         <h1 id="med_tracker">Med Tracker</h1>
         <ul>
             <li><a href="../dashboard/dashboard.php">Home</a></li>
-            <li><a href="../insert_data/insert_data.html">Insert Data</a></li>
+            <li><a href="../insert_data/insert_data.php">Insert Data</a></li>
             <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
             <li><a href="../administer/administer.html">Administer Medication</a></li>
             <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>

@@ -14,7 +14,7 @@
         <h1 id="med_tracker">Med Tracker</h1>
         <ul>
             <li><a href="../dashboard/dashboard.php">Home</a></li>
-            <li><a href="../insert_data/insert_data.html">Insert Data</a></li>
+            <li><a href="../insert_data/insert_data.php">Insert Data</a></li>
             <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
             <li><a href="../administer/administer.html">Administer Medication</a></li>
             <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
@@ -39,7 +39,7 @@ $stmt->bindParam(2,$last_name);
 $stmt->bindParam(3,$year);
 
 $stmt->execute();
-header("refresh:5; insert_data.html");
+header("refresh:5; insert_data.php");
 echo '<br>';
 echo "Successfully registered";
 ?>
