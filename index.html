@@ -11,30 +11,15 @@
 
 <div class="container">
 
-    <div id="isaac_prof_form">
-
-        <h2>Login</h2>
-
-        <form method="POST" action="login/login.php">
-
-            <table class = "login_form">
-
-                <tr>
-                    <td><label for="email">Email:</label></td>
-                    <td><input type="text" id="email" name="email" placeholder="Enter email" required></td>
-                </tr>
-
-                <tr>
-                    <td><label for="password">Password:</label></td>
-                    <td><input type="password" id="password" name="password" placeholder="Enter Password" required></td>
-                </tr>
-
-                <tr><td><button type="submit" class="button-link">Login</button></td></tr>
-
-            </table>
-
+    <div class="Login_container">
+        <h2 id="Login_title"><u>Login</u></h2>
+        <form method="POST" action="login/login.php" id="Login_form">
+            <label for="email">Email:</label> <br>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required> <br>
+            <label for="password">Password:</label> <br>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <button type="submit">Login</button>
         </form>
-
     </div>
 </div>
 
