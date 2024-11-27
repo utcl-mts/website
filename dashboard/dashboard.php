@@ -142,7 +142,7 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Info</button>
                         </form>
-                        <form action="add_new.php" method="post" style="display:inline;">
+                        <form action="../med-brand/add_med.php" method="post" style="display:inline;">
                             <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
                             <button type="submit" > add new med</button>
                         </form>
@@ -175,7 +175,7 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Info</button>
                         </form>
-                        <form action="add_new.php" method="post" style="display:inline;">
+                        <form action="../med-brand/add_med.php" method="post" style="display:inline;">
                             <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
                             <button type="submit" > add new med</button>
                         </form>
@@ -208,7 +208,7 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Info</button>
                         </form>
-                        <form action="add_new.php" method="post" style="display:inline;">
+                        <form action="../med-brand/add_med.php" method="post" style="display:inline;">
                             <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
                             <button type="submit" > add new med</button>
                         </form>
@@ -241,7 +241,7 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Info</button>
                         </form>
-                        <form action="add_new.php" method="post" style="display:inline;">
+                        <form action="../med-brand/add_med.php" method="post" style="display:inline;">
                             <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
                             <button type="submit" > add new med</button>
                         </form>

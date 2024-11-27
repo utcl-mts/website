@@ -1,14 +1,14 @@
 <?php
 
-    // Start a new session
-    session_start();
+// Start a new session
+session_start();
 
-    // Include the database connection file
-    include "../server/db_connect.php";
+// Include the database connection file
+include "../server/db_connect.php";
 
 ?>
 
-    <html lang="en">
+<html lang="en">
 
     <head>
 
@@ -46,7 +46,7 @@
 
                 $student_id = $_POST['student_id'];
 
-                $sql = 'SELECT first_name from Students where student_id = ?';
+                $sql = 'SELECT first_name from students where student_id = ?';
                 $stmt = $conn->prepare($sql);
 
                 $stmt -> bindParam(1, $student_id);
@@ -57,7 +57,7 @@
 
                 $fn = $result['first_name'];
 
-                $sql = 'SELECT last_name from Students where student_id = ?';
+                $sql = 'SELECT last_name from students where student_id = ?';
                 $stmt = $conn->prepare($sql);
 
                 $stmt -> bindParam(1, $student_id);
@@ -68,6 +68,24 @@
 
                 $ln = $result['last_name'];
 
+                $sql = 'SELECT med.med_name, brand.brand_name FROM takes INNER JOIN med ON takes.med_id = med.med_id INNER JOIN brand ON takes.brand_id = brand.brand_id INNER JOIN students ON takes.student_id = students.student_id WHERE students.student_id = ?';
+                $stmt = $conn->prepare($sql);
+
+                $stmt -> bindParam(1, $student_id);
+
+                $stmt->execute();
+
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                if (!empty($results)) {
+                    foreach ($results as $row) {
+                        echo "Medicine Name: " . htmlspecialchars($row['med_name']) . "<br>";
+                        echo "Brand Name: " . htmlspecialchars($row['brand_name']) . "<br>";
+                        echo "<hr>";
+                    }
+                } else {
+                    echo "No records found for student ID: " . htmlspecialchars($student_id);
+                }
             ?>
 
         </div>
@@ -75,4 +93,3 @@
     </body>
 
 </html>
-
