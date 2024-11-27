@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 20, 2024 at 11:04 AM
+-- Generation Time: Nov 20, 2024 at 11:58 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -83,42 +83,43 @@ CREATE TABLE `brand` (
 --
 
 INSERT INTO `brand` (`brand_id`, `brand_name`) VALUES
-(1, 'Tesco'),
-(2, 'co-op'),
-(3, 'Advil'),
-(4, 'Amoxil'),
-(5, 'Glucophage'),
-(6, 'Norvasc'),
-(7, 'Deltasone'),
-(8, 'Prinivil'),
-(9, 'Zithromax'),
-(10, 'Cipro'),
-(11, 'Prilosec'),
-(12, 'Zyrtec'),
-(13, 'ventolin'),
-(14, 'EpiPen'),
-(15, 'Strides Pharma'),
-(16, 'Evohaler'),
-(17, 'galpharm'),
-(18, 'PLIVA Pharma'),
-(19, 'Norvasc'),
-(20, 'Zyrtec'),
-(21, 'Zithromax'),
-(22, 'Cipro'),
-(23, 'Prilosec'),
-(24, 'galpharm'),
-(25, 'Valium'),
-(26, 'Zocor'),
-(27, 'Microzide'),
-(28, 'Lasix'),
-(29, 'Bayer'),
-(30, 'Ativan'),
-(31, 'Xyzal'),
-(32, 'Neurontin'),
-(33, 'Vibramycin'),
-(34, 'Deltasone'),
-(35, 'Plavix'),
-(36, 'Panadol');
+(1, 'TESCO'),
+(2, 'CO-OP'),
+(3, 'ADVIL'),
+(4, 'AMOXIL'),
+(5, 'GLUCOPHAGE'),
+(6, 'NORVASC'),
+(7, 'DELTASONE'),
+(8, 'PRINIVIL'),
+(9, 'ZITHROMAX'),
+(10, 'CIPRO'),
+(11, 'PRILOSEC'),
+(12, 'ZYRTEC'),
+(13, 'VENTOLIN'),
+(14, 'EPIPEN'),
+(15, 'STRIDES PHARMA'),
+(16, 'EVOHALER'),
+(17, 'GALPHARM'),
+(18, 'PLIVA PHARMA'),
+(19, 'NORVASC'),
+(20, 'ZYRTEC'),
+(21, 'ZITHROMAX'),
+(22, 'CIPRO'),
+(23, 'PRILOSEC'),
+(24, 'GALPHARM'),
+(25, 'VALIUM'),
+(26, 'ZOCOR'),
+(27, 'MICROZIDE'),
+(28, 'LASIX'),
+(29, 'BAYER'),
+(30, 'ATIVAN'),
+(31, 'XYZAL'),
+(32, 'NEURONTIN'),
+(33, 'VIBRAMYCIN'),
+(34, 'DELTASONE'),
+(35, 'PLAVIX'),
+(36, 'PANADOL');
+
 
 -- --------------------------------------------------------
 
@@ -129,6 +130,7 @@ INSERT INTO `brand` (`brand_id`, `brand_name`) VALUES
 CREATE TABLE `log` (
   `log_id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
+  `staff_id` int(11) NOT NULL,
   `notes` text NOT NULL,
   `date_time` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -149,36 +151,37 @@ CREATE TABLE `med` (
 --
 
 INSERT INTO `med` (`med_id`, `med_name`) VALUES
-(1, 'Paracetamol'),
-(2, 'Hayfever releif'),
-(3, 'Ibuprofen'),
-(4, 'Amoxicillin'),
-(5, 'Metformin'),
-(6, 'Amlodipine'),
-(7, 'Prednisone'),
-(8, 'Lisinopril'),
-(9, 'Azithromycin'),
-(10, 'Ciprofloxacin'),
-(11, 'Omeprazole'),
-(12, 'Cetirizine'),
-(13, 'salbutamol'),
-(14, 'Adrenaline Auto-Injector'),
-(15, 'Hydrocortisone Cream'),
-(16, 'Seretide inhaler'),
-(17, 'lanzoprazole'),
-(18, 'naproxen'),
-(19, 'Azithromycin'),
-(20, 'Seretide inhaler'),
-(21, 'Diazepam'),
-(22, 'Simvastatin'),
-(23, 'Hydrochlorothiazide'),
-(24, 'Furosemide'),
-(25, 'Aspirin'),
-(26, 'Lorazepam'),
-(27, 'Levocetirizine'),
-(28, 'Gabapentin'),
-(29, 'Doxycycline'),
-(30, 'Clopidogrel');
+(1, 'PARACETAMOL'),
+(2, 'HAYFEVER RELIEF'),
+(3, 'IBUPROFEN'),
+(4, 'AMOXICILLIN'),
+(5, 'METFORMIN'),
+(6, 'AMLODIPINE'),
+(7, 'PREDNISONE'),
+(8, 'LISINOPRIL'),
+(9, 'AZITHROMYCIN'),
+(10, 'CIPROFLOXACIN'),
+(11, 'OMEPRAZOLE'),
+(12, 'CETIRIZINE'),
+(13, 'SALBUTAMOL'),
+(14, 'ADRENALINE AUTO-INJECTOR'),
+(15, 'HYDROCORTISONE CREAM'),
+(16, 'SERETIDE INHALER'),
+(17, 'LANZOPRAZOLE'),
+(18, 'NAPROXEN'),
+(19, 'AZITHROMYCIN'),
+(20, 'SERETIDE INHALER'),
+(21, 'DIAZEPAM'),
+(22, 'SIMVASTATIN'),
+(23, 'HYDROCHLOROTHIAZIDE'),
+(24, 'FUROSEMIDE'),
+(25, 'ASPIRIN'),
+(26, 'LORAZEPAM'),
+(27, 'LEVOCETIRIZINE'),
+(28, 'GABAPENTIN'),
+(29, 'DOXYCYCLINE'),
+(30, 'CLOPIDOGREL');
+
 
 -- --------------------------------------------------------
 
@@ -200,8 +203,8 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`staff_id`, `first_name`, `last_name`, `email`, `password`, `group`) VALUES
-(1, 'Failed', 'Events', 'failed.events@utcleeds.co.uk', 'failed.events', 'sys');
-
+(1, 'Failed', 'Events', 'failed.events@utcleeds.co.uk', 'failed.events', 'system'),
+(2, 'user1', 'user1', 'user.user@utcleeds.co.uk', 'user.user', 'admin');
 -- --------------------------------------------------------
 
 --
@@ -220,79 +223,39 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`student_id`, `first_name`, `last_name`, `year`) VALUES
-(1, 'Jake', 'Peralta', '13'),
-(2, 'Amy', 'Santiago', '11'),
-(3, 'Charles', 'Boyle', '10'),
-(4, 'Rosa', 'Diaz', '12'),
-(5, 'Gina ', 'Linetti', '13'),
-(6, 'Raymond', 'Holt', '13'),
-(7, 'Lucy', 'Chen', '12'),
-(8, 'Tim ', 'Bradford', '11'),
-(9, 'John ', 'Nolan', '13'),
-(10, 'Jackson', 'West', '12'),
-(11, 'Bailey', 'Nune', '10'),
-(12, 'Wesley', 'Evens', '10'),
-(13, 'Angela', 'Lopez', '11'),
-(14, 'Rosalind', 'Dyer', '12'),
-(15, 'Nyla', 'Harper', '13'),
-(16, 'Aaron', 'Thorsen', '11'),
-(17, 'Tailia', 'Bishop', '11'),
-(18, 'Zoe ', 'Anderson', '12'),
-(19, 'Tamara', 'Collins', '10'),
-(20, 'Celina', 'Juarez', '10'),
-(21, 'Elija', 'Stone', '12'),
-(22, 'Monica', 'Stevens', '13'),
-(23, 'Oscar', 'Hutchinson', '12'),
-(24, 'Wade', 'Grey', '12'),
-(25, 'Emmet', 'Lang', '13'),
-(26, 'James', 'Murray', '13'),
-(27, 'Meredith', 'Grey', '11'),
-(28, 'Derek', 'Shepard', '12'),
-(29, 'Alex', 'Kerev', '10'),
-(30, 'Mark', 'Sloan', '11'),
-(31, 'Owen ', 'Hunt', '13'),
-(32, 'Cristina ', 'Yang', '11'),
-(33, 'Miranda', 'Bailey', '12'),
-(754, 'student1', 'student2', '11'),
-(755, 'student1', 'student2', '11'),
-(756, 'student1', 'student2', '11'),
-(757, 'student1', 'student2', '11'),
-(758, 'student1', 'student2', '11'),
-(759, 'student1', 'student2', '11'),
-(760, 'student1', 'student2', '11'),
-(761, 'student1', 'student2', '11'),
-(762, 'student1', 'student2', '11'),
-(763, 'student1', 'student2', '11'),
-(764, 'student1', 'student2', '11'),
-(765, 'student1', 'student2', '11'),
-(766, 'student1', 'student2', '11'),
-(767, 'student1', 'student2', '11'),
-(768, 'student1', 'student2', '11'),
-(769, 'student1', 'student2', '11'),
-(770, 'student1', 'student2', '11'),
-(771, 'student1', 'student2', '12'),
-(772, 'student1', 'student2', '12'),
-(773, 'student1', 'student2', '12'),
-(774, 'student1', 'student2', '12'),
-(775, 'student1', 'student2', '12'),
-(776, 'student1', 'student2', '12'),
-(777, 'student1', 'student2', '12'),
-(778, 'student1', 'student2', '12'),
-(779, 'student1', 'student2', '12'),
-(780, 'student1', 'student2', '12'),
-(781, 'student1', 'student2', '12'),
-(782, 'student1', 'student2', '12'),
-(783, 'student1', 'student2', '13'),
-(784, 'student1', 'student2', '13'),
-(785, 'student1', 'student2', '13'),
-(786, 'student1', 'student2', '13'),
-(787, 'student1', 'student2', '13'),
-(788, 'student1', 'student2', '13'),
-(789, 'student1', 'student2', '13'),
-(790, 'student1', 'student2', '13'),
-(791, 'student1', 'student2', '13'),
-(792, 'student1', 'student2', '12'),
-(793, 'student1', 'student2', '12');
+(1, 'JAKE', 'PERALTA', '13'),
+(2, 'AMY', 'SANTIAGO', '11'),
+(3, 'CHARLES', 'BOYLE', '10'),
+(4, 'ROSA', 'DIAZ', '12'),
+(5, 'GINA', 'LINETTI', '13'),
+(6, 'RAYMOND', 'HOLT', '13'),
+(7, 'LUCY', 'CHEN', '12'),
+(8, 'TIM', 'BRADFORD', '11'),
+(9, 'JOHN', 'NOLAN', '13'),
+(10, 'JACKSON', 'WEST', '12'),
+(11, 'BAILEY', 'NUNE', '10'),
+(12, 'WESLEY', 'EVENS', '10'),
+(13, 'ANGELA', 'LOPEZ', '11'),
+(14, 'ROSALIND', 'DYER', '12'),
+(15, 'NYLA', 'HARPER', '13'),
+(16, 'AARON', 'THORSEN', '11'),
+(17, 'TAILIA', 'BISHOP', '11'),
+(18, 'ZOE', 'ANDERSON', '12'),
+(19, 'TAMARA', 'COLLINS', '10'),
+(20, 'CELINA', 'JUAREZ', '10'),
+(21, 'ELIJA', 'STONE', '12'),
+(22, 'MONICA', 'STEVENS', '13'),
+(23, 'OSCAR', 'HUTCHINSON', '12'),
+(24, 'WADE', 'GREY', '12'),
+(25, 'EMMET', 'LANG', '13'),
+(26, 'JAMES', 'MURRAY', '13'),
+(27, 'MEREDITH', 'GREY', '11'),
+(28, 'DEREK', 'SHEPARD', '12'),
+(29, 'ALEX', 'KEREV', '10'),
+(30, 'MARK', 'SLOAN', '11'),
+(31, 'OWEN', 'HUNT', '13'),
+(32, 'CRISTINA', 'YANG', '11'),
+(33, 'MIRANDA', 'BAILEY', '12');
 
 -- --------------------------------------------------------
 
@@ -320,7 +283,7 @@ CREATE TABLE `takes` (
 
 INSERT INTO `takes` (`takes_id`, `student_id`, `med_id`, `brand_id`, `exp_date`, `current_dose`, `min_dose`, `max_dose`, `strength`, `notes`, `archived`) VALUES
 (103, 1, 1, 1, 1735862400, 2, 4, 8, '100mg', '', 0),
-(104, 2, 2, 2, 1707004800, 4, 1, 30, '50mg', '', 0),
+(104, 2, 2, 2, 1707004800, 4, 1, 30, '50mg', '', 1),
 (105, 2, 3, 2, 1733702400, 32, 6, 32, '200mg', '', 0),
 (106, 3, 3, 4, 1760659200, 6, 6, 49, '200 mg', '', 0),
 (107, 3, 4, 5, 1747008000, 30, 6, 31, '500 mg', '', 0),
@@ -332,38 +295,38 @@ INSERT INTO `takes` (`takes_id`, `student_id`, `med_id`, `brand_id`, `exp_date`,
 (113, 4, 10, 10, 1755907200, 27, 1, 40, '500 mg', '', 0),
 (114, 5, 11, 11, 1749772800, 26, 2, 42, '40 mg', '', 0),
 (115, 5, 12, 12, 1742860800, 3, 10, 39, '10 mg', '', 0),
-(116, 6, 13, 13, 1693526400, 21, 3, 60, '200mg', '', 0),
+(116, 6, 13, 13, 1693526400, 21, 3, 60, '200mg', '', 1),
 (117, 7, 14, 14, 1751328000, 1, 2, 1, '0.3mg', '', 0),
 (118, 7, 14, 14, 1751328000, 1, 8, 1, '0.3mg', '', 0),
 (119, 8, 15, 15, 1734134400, 5, 9, 7, '30g', '', 0),
 (120, 8, 20, 16, 1769904000, 40, 10, 60, '125mg', '', 0),
 (121, 9, 1, 17, 1759276800, 4, 6, 8, '500mg', '', 0),
-(122, 9, 18, 18, 1732838400, 6, 2, 7, '30mg', '', 0),
+(122, 9, 18, 18, 1732838400, 6, 2, 7, '30mg', '', 1),
 (123, 10, 18, 19, 1783296000, 4, 7, 7, '500mg', '', 0),
-(124, 11, 14, 14, 1678838400, 1, 2, 1, '0.3mg', '', 0),
-(125, 11, 14, 14, 1654560000, 1, 6, 1, '0.3mg', '', 0),
-(126, 12, 15, 2, 1726963200, 2, 3, 30, '50mg', '', 0),
+(124, 11, 14, 14, 1678838400, 1, 2, 1, '0.3mg', '', 1),
+(125, 11, 14, 14, 1654560000, 1, 6, 1, '0.3mg', '', 1),
+(126, 12, 15, 2, 1726963200, 2, 3, 30, '50mg', '', 1),
 (127, 13, 12, 20, 1739404800, 2, 2, 40, '10 mg', '', 0),
-(128, 14, 13, 13, 1668729600, 2, 2, 60, '200mg', '', 0),
-(129, 15, 19, 21, 1722643200, 27, 1, 15, '250 mg', '', 0),
-(130, 15, 10, 22, 1652054400, 27, 1, 24, '500 mg', '', 0),
-(131, 16, 11, 23, 1690329600, 26, 4, 42, '40 mg', '', 0),
+(128, 14, 13, 13, 1668729600, 2, 2, 60, '200mg', '', 1),
+(129, 15, 19, 21, 1722643200, 27, 1, 15, '250 mg', '', 1),
+(130, 15, 10, 22, 1652054400, 27, 1, 24, '500 mg', '', 1),
+(131, 16, 11, 23, 1690329600, 26, 4, 42, '40 mg', '', 1),
 (132, 17, 14, 14, 1760140800, 1, 6, 1, '0.3mg', '', 0),
 (133, 17, 14, 14, 1775001600, 1, 8, 1, '0.3mg', '', 0),
-(134, 18, 2, 2, 1716249600, 4, 3, 30, '50mg', '', 0),
-(135, 19, 3, 2, 1693353600, 32, 4, 32, '200mg', '', 0),
+(134, 18, 2, 2, 1716249600, 4, 3, 30, '50mg', '', 1),
+(135, 19, 3, 2, 1693353600, 32, 4, 32, '200mg', '', 1),
 (136, 20, 1, 1, 1799884800, 2, 3, 8, '100mg', '', 0),
 (137, 21, 16, 16, 1751414400, 40, 9, 60, '125mg', '', 0),
-(138, 22, 1, 18, 1709942400, 4, 6, 8, '500mg', '', 0),
+(138, 22, 1, 18, 1709942400, 4, 6, 8, '500mg', '', 1),
 (139, 23, 21, 26, 1797465600, 25, 1, 40, '5 mg', '', 0),
-(140, 24, 22, 26, 1643932800, 40, 3, 60, '20 mg', '', 0),
+(140, 24, 22, 26, 1643932800, 40, 3, 60, '20 mg', '', 1),
 (141, 25, 23, 27, 1747958400, 30, 9, 50, '25 mg', '', 0),
-(142, 26, 24, 28, 1696550400, 10, 6, 30, '40 mg', '', 0),
+(142, 26, 24, 28, 1696550400, 10, 6, 30, '40 mg', '', 1),
 (143, 27, 25, 29, 1821312000, 60, 9, 100, '81 mg', '', 0),
 (144, 27, 26, 30, 1775952000, 15, 3, 20, '1 mg', '', 0),
-(145, 28, 27, 31, 1669507200, 35, 3, 50, '5 mg', '', 0),
+(145, 28, 27, 31, 1669507200, 35, 3, 50, '5 mg', 'uasihdajsdkjasdasdjasojasd', 0),
 (146, 28, 28, 32, 1707091200, 12, 2, 30, '300 mg', '', 0),
-(147, 29, 29, 33, 1732406400, 20, 7, 30, '100 mg', '', 0),
+(147, 29, 29, 33, 1732406400, 20, 7, 30, '100 mg', 'asdfg', 0),
 (148, 29, 12, 20, 1696723200, 40, 10, 50, '10 mg', '', 0),
 (149, 30, 7, 34, 1800835200, 10, 4, 20, '5 mg', '', 0),
 (150, 31, 30, 35, 1710374400, 60, 10, 90, '75 mg', '', 0),
@@ -528,3 +491,54 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+DELIMITER $$
+
+-- Trigger for `students` table
+CREATE TRIGGER `before_insert_students`
+BEFORE INSERT ON `students`
+FOR EACH ROW
+BEGIN
+    SET NEW.first_name = UPPER(NEW.first_name);
+    SET NEW.last_name = UPPER(NEW.last_name);
+END$$
+
+CREATE TRIGGER `before_update_students`
+BEFORE UPDATE ON `students`
+FOR EACH ROW
+BEGIN
+    SET NEW.first_name = UPPER(NEW.first_name);
+    SET NEW.last_name = UPPER(NEW.last_name);
+END$$
+
+-- Trigger for `brand` table
+CREATE TRIGGER `before_insert_brand`
+BEFORE INSERT ON `brand`
+FOR EACH ROW
+BEGIN
+    SET NEW.brand_name = UPPER(NEW.brand_name);
+END$$
+
+CREATE TRIGGER `before_update_brand`
+BEFORE UPDATE ON `brand`
+FOR EACH ROW
+BEGIN
+    SET NEW.brand_name = UPPER(NEW.brand_name);
+END$$
+
+-- Trigger for `med` table
+CREATE TRIGGER `before_insert_med`
+BEFORE INSERT ON `med`
+FOR EACH ROW
+BEGIN
+    SET NEW.med_name = UPPER(NEW.med_name);
+END$$
+
+CREATE TRIGGER `before_update_med`
+BEFORE UPDATE ON `med`
+FOR EACH ROW
+BEGIN
+    SET NEW.med_name = UPPER(NEW.med_name);
+END$$
+
+DELIMITER ;
