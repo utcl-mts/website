@@ -1,12 +1,12 @@
 <?php
-// Start a new session
-//session_start();
-//
-//// Check for valid session and cookie
-//if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
-//    header("Location: ../index.html");
-//    exit();
-//}
+Start a new session
+session_start();
+
+// Check for valid session and cookie
+if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
+   header("Location: ../index.html");
+   exit();
+}
 echo'<link rel="stylesheet" href="../style.css">';
 ?>
 
