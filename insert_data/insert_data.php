@@ -1,12 +1,13 @@
 <?php
 // Start a new session
-session_start();
-
-// Check for valid session and cookie
-if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['user_session'])) {
-    header("Location: ../index.html");
-    exit();
-}
+//session_start();
+//
+//// Check for valid session and cookie
+//if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
+//    header("Location: ../index.html");
+//    exit();
+//}
+echo'<link rel="stylesheet" href="../style.css">';
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +15,6 @@ if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['user_session'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheetinsert_data.php.css">
     <title>Insert Data</title>
 </head>
 <body>
