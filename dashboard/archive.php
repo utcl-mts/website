@@ -1,4 +1,13 @@
 <?php
+
+session_start();
+
+// Check for valid session and cookie
+if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['user_session'])) {
+    header("Location: ../index.html");
+    exit();
+}
+
 include "../server/db_connect.php";
 
 if (isset($_POST['takes_id'])) {
