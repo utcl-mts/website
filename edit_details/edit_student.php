@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit">Update Student</button>
         </form>
 
-        <a href="../students_table/students_table.php">Back to Students Table</a>
+        <a href="../edit_details/students_table.php">Back to Students Table</a>
     </div>
 </div>
 </body>

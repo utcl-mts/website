@@ -74,7 +74,7 @@
                     echo "</tr>";
                 }
                 echo "</table>";
-                echo "<button type='submit' name='finalize_progress'>Finalize Progress</button>";
+                echo "<button type='submit' name='finalize_progress'>Finalise Progress</button>";
                 echo "</form>";
             } else {
                 echo "<p>No students found in Year $selected_year.</p>";
