@@ -18,6 +18,74 @@ body {
     font-size: 16px;
 }
 
+.Login_container {
+    font-size:18px;
+    color: white;
+    padding: 10px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 400px;
+    text-align: left;
+}
+
+#Login_title {
+    font-family: "monospace", Calibri;
+    font-size: 32px;
+    color: white; /* White text color for better readability */
+    text-align: center; /* Center the title */
+    margin-bottom: 20px; /* Space between title and form */
+}
+
+#Login_form {
+    font-family: "monospace", Calibri;
+    font-size: 18px; /* Adjust font size for better readability */
+    color: black; /* Change text color to black for readability */
+    padding: 10px; /* Increased padding for a more substantial feel */
+    background-color:#0098a5; /* Light background color */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    width: 100%; /* Full width */
+}
+
+
+#Login_form label {
+    margin-bottom: 5px; /* Space between label and input */
+    font-size: 26px; /* Font size for labels */
+}
+
+#Login_form input {
+    width: 95%; /* Full width for inputs */
+    max-width: 100%; /* Max width for better layout */
+    padding: 12px; /* Padding inside inputs */
+    margin-bottom: 15px; /* Space between inputs */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for inputs */
+    font-size: 18px; /* Adjust font size */
+}
+
+#Login_form button {
+    width: 100%; /* Full width for button */
+    max-width: 100%; /* Max width for better layout */
+    padding: 12px; /* Padding inside button */
+    background-color: white; /* Nice background color */
+    color: #0098a5; /* White text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 18px; /* Adjust font size */
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+#Login_form button:hover {
+    background-color: #007a85; /* Slightly darker color on hover */
+    color: white;
+}
+
+
 /*universal navigaition bar styling */
 .navbar {
     display: flex;
@@ -297,20 +365,6 @@ body {
     font-size: 100%;
     text-decoration: underline;
     color: #B4182D;
-}
-/*login form css*/
-#isaac_prof_form {
-    font-family: "monospace", Calibri;
-    font-size:32px;
-    /*background-color: black;*/
-    border: solid 1px black;
-    color: white;
-    display: inline-block;
-    padding: 10px;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-60%, -50%);
 }
 
 .add_meds {
