@@ -1,11 +1,11 @@
 <?php
-Start a new session
+// Start a new session
 session_start();
 
 // Check for valid session and cookie
 if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
-   header("Location: ../index.html");
-   exit();
+    header("Location: ../index.html");
+    exit();
 }
 echo'<link rel="stylesheet" href="../style.css">';
 ?>
@@ -28,7 +28,7 @@ echo'<link rel="stylesheet" href="../style.css">';
             <li><a href="insert_data.html">Insert Data</a></li>
             <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
             <li><a href="../administer/administer.html">Administer Medication</a></li>
-            <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
+            <li><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
             <li class="logout"><a href="../logout.php">Logout</a></li>
         </ul>
     </div>

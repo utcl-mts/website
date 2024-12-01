@@ -32,9 +32,9 @@
                     <li><a href="../dashboard/dashboard.php">Home</a></li>
                     <li><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
                     <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
-                    <li><a href="administer.html">Log Medication</a></li>
-                    <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
-                    <li class="logout"><a>Logout</a></li>
+                    <li><a href="../log/log.html">Log Incident</a></li>
+                    <li><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
+                    <li class="logout"><a href="../logout/logout.php">Logout</a></li>
                 </ul>
             </div>
 

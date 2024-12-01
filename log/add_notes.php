@@ -41,7 +41,7 @@ include '../server/db_connect.php';
                     <li><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
                     <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
                     <li><a href="administer.html">Log Medication</a></li>
-                    <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
+                    <li><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
                     <li class="logout"><a>Logout</a></li>
 
                 </ul>
