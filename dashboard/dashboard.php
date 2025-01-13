@@ -109,7 +109,7 @@ foreach ($dose_result as $row) {
 <body>
 <div class="container">
     <div class="navbar">
-        <img id="logo" src="../assets/UTCLeeds.svg" alt="UTC Leeds">
+        <img id="logo" src="../assets/images/utcleeds.svg" alt="UTC Leeds">
         <h1 id="med_tracker">Med Tracker</h1>
         <ul>
             <li><a href="../dashboard/dashboard.php">Home</a></li>

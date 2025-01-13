@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['archive'])) {
 
     <div class="navbar">
 
-        <img id="logo" src="../assets/UTCLeeds.svg" alt="UTC Leeds">
+        <img id="logo" src="../assets/images/utcleeds.svg" alt="UTC Leeds">
 
         <h1 id="med_tracker">Med Tracker</h1>
 
