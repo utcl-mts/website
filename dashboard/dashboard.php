@@ -2,12 +2,6 @@
 // Start a new session
 session_start();
 
-// Check for valid session and cookie
-if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
-    header("Location: ../index.html");
-    exit();
-}
-
 // Include the database connection file
 include "../server/db_connect.php";
 
@@ -115,7 +109,7 @@ foreach ($dose_result as $row) {
         <h1 id="med_tracker">Med Tracker</h1>
         <ul>
             <li><a href="../dashboard/dashboard.php">Home</a></li>
-            <li><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
+            <li><a href="../insert_data/insert_data.php">Insert Data</a></li>
             <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
             <li><a href="../administer/administer.html">Administer Medication</a></li>
             <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
@@ -142,7 +136,7 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Info</button>
                         </form>
-                        <form action="../med-brand/add_med.php" method="post" style="display:inline;">
+                        <form action="add_new.php" method="post" style="display:inline;">
                             <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
                             <button type="submit" > add new med</button>
                         </form>
@@ -175,7 +169,7 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Info</button>
                         </form>
-                        <form action="../med-brand/add_med.php" method="post" style="display:inline;">
+                        <form action="add_new.php" method="post" style="display:inline;">
                             <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
                             <button type="submit" > add new med</button>
                         </form>
@@ -208,7 +202,7 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Info</button>
                         </form>
-                        <form action="../med-brand/add_med.php" method="post" style="display:inline;">
+                        <form action="add_new.php" method="post" style="display:inline;">
                             <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
                             <button type="submit" > add new med</button>
                         </form>
@@ -241,7 +235,7 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button type="submit">Info</button>
                         </form>
-                        <form action="../med-brand/add_med.php" method="post" style="display:inline;">
+                        <form action="add_new.php" method="post" style="display:inline;">
                             <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
                             <button type="submit" > add new med</button>
                         </form>
@@ -260,5 +254,4 @@ foreach ($dose_result as $row) {
     </div>
 </div>
 </body>
-<script src="https://kit.fontawesome.com/c4b1ea9c2c.js" crossorigin="anonymous"></script>
 </html>
