@@ -316,3 +316,27 @@ select option {
 .administer_choose_student_td {
     border-bottom: 1px solid #ccc;
 }
+
+.temp_date_field{
+    padding: 10px;
+    font-family: Roboto;
+    font-size: 16px;
+    border: solid #0b0b0c;
+}
+
+.temp_date_field:focus {
+    border-color: #0b0c0c;
+    outline: 3px solid #ffdd00; /* Add yellow outline when focused */
+}
+
+.temp_time_field{
+    padding: 10px;
+    font-family: Roboto;
+    font-size: 16px;
+    border: solid #0b0b0c;
+}
+
+.temp_time_field:focus {
+    border-color: #0b0c0c;
+    outline: 3px solid #ffdd00; /* Add yellow outline when focused */
+}

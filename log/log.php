@@ -13,46 +13,28 @@
     include '../server/db_connect.php';
 
 ?>
-
-<html lang="en">
-
+    <!DOCTYPE html>
+    <html>
     <head>
-
-        <meta charset="UTF-8">
-        <title>Log</title>
-        <link rel="stylesheet" href="/style.css">
-
+        <title>Edit Notes</title>
+        <link rel="stylesheet" href="../assets/style/style.css">
     </head>
-
     <body>
-
-        <div class="container">
-
-            <!-- universal nav bar-->
-            <div class="navbar">
-
-                <img id="logo" src="../assets/images/utcleeds.svg" alt="UTC Leeds">
-
-                <h1 id="med_tracker">Med Tracker</h1>
-
-                <ul>
-
-                    <li><a href="../dashboard/dashboard.php">Home</a></li>
-                    <li><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
-                    <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
-                    <li><a href="administer.html">Log Medication</a></li>
-                    <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
-                    <li class="logout"><a>Logout</a></li>
-
-                </ul>
-
-            </div>
-
+    <div class="full_page_styling">
+        <div>
+            <ul class="nav_bar">
+                <div class="nav_left">
+                    <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
+                    <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
+                    <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
+                    <li class="navbar_li"><a href="../administer/administer.html">Administer Medication</a></li>
+                    <li class="navbar_li"><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
+                </div>
+                <div class="nav_left">
+                    <li class="navbar_li"><a href="../logout.php">Logout</a></li>
+                </div>
+            </ul>
         </div>
-
-    </body>
-
-</html>
 
 <?php
 
@@ -85,7 +67,7 @@
 
         // Execute the statement
         if($stmt->execute()) {
-            echo "Data successfully inserted!";
+            echo "<br>Data successfully inserted!";
             echo "";
         } else {
             echo "Error inserting data.";
