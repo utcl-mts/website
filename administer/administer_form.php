@@ -46,7 +46,7 @@ if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
                 <input class="text_input" type="text" id="sfn" name="student_fname" required>
                 <br><br>
                 <div class='text-element'>Enter students year group</div>
-                <div class='text-element-faded'>Example: Joe</div>
+                <div class='text-element-faded'>Example: 12</div>
                 <input class="small_int_input" type="text" id="syg" name="student_yeargroup" required>
                 <br><br>
                 <button class="small_submit">Submit</button>
