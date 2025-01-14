@@ -19,7 +19,7 @@ include '../server/db_connect.php';
     <head>
 
         <meta charset="UTF-8">
-        <title>Administer Medicaition</title>
+        <title>Hours Tracking - Add Notes</title>
         <link rel="stylesheet" href="../assets/style/style.css">
 
     </head>

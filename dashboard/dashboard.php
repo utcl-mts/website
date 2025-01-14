@@ -107,6 +107,7 @@ foreach ($dose_result as $row) {
 ?>
 <link rel="stylesheet" href="../assets/style/style.css">
 <body class="full_page_styling">
+<title>Hours Tracking - Dashboard</title>
 <div>
     <div>
         <ul class="nav_bar">

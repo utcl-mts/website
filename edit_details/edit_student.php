@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- universal nav bar -->
     <div class="navbar">
         <img id="logo" src="../assets/images/utcleeds.svg" alt="UTC Leeds">
-        <h1 id="med_tracker">Med Tracker</h1>
+        <h1 id="med_tracker">Hours Tracking - Edit Student</h1>
         <ul>
             <li><a href="../dashboard/dashboard.php">Home</a></li>
             <li><a href="../insert_data/insert_data.php">Insert Data</a></li>

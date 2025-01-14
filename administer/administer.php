@@ -18,7 +18,7 @@
     <head>
 
         <meta charset="UTF-8">
-        <title>Administer Medicaition</title>
+        <title>Hours Tracking - Administer</title>
         <link rel="stylesheet" href="../assets/style/style.css">
 
     </head>

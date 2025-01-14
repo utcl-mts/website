@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/style/style.css">
-    <title>CSV Upload Results</title>
+    <title>Hours Tracking - Process CSV</title>
 </head>
 <body class="full_page_styling">
 <div>

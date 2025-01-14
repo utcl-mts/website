@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updated_notes'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Edit Notes</title>
+    <title>Hours Tracking - Edit Info</title>
     <link rel="stylesheet" href="../assets/style/style.css">
 </head>
 <body>

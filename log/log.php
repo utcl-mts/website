@@ -16,7 +16,7 @@
     <!DOCTYPE html>
     <html>
     <head>
-        <title>Edit Notes</title>
+        <title>Hours Tracking - Log</title>
         <link rel="stylesheet" href="../assets/style/style.css">
     </head>
     <body>

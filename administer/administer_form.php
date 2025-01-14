@@ -14,7 +14,7 @@ if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
     <head>
 
         <meta charset="UTF-8">
-        <title>Administer Medicaition</title>
+        <title>Hours Tracking - Administer Form</title>
         <link rel="stylesheet" href="../assets/style/style.css">
 
     </head>
