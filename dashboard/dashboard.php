@@ -129,11 +129,11 @@ foreach ($dose_result as $row) {
         <!-- Expired Table -->
         <table class="notification_table" id="out_date">
             <tr>
-                <th><h2>Expired</h2></th>
+                <th class="notification_table_th"><h2>Expired</h2></th>
             </tr>
             <?php foreach ($expired as $medication): ?>
                 <tr>
-                    <td>
+                    <td class="notification_table_td">
                         <?php echo $medication['info']; ?>
                         <br> <!-- Add break here -->
                         <form action="archive.php" method="post" style="display:inline;">
@@ -158,11 +158,11 @@ foreach ($dose_result as $row) {
         <!-- Less than 2 Weeks Table -->
         <table class="notification_table" id="near_out_date">
             <tr>
-                <th><h2>Less than 2 Weeks</h2></th>
+                <th class="notification_table_th"><h2>Less than 2 Weeks</h2></th>
             </tr>
             <?php foreach ($less_than_2_weeks as $medication): ?>
                 <tr>
-                    <td>
+                    <td class="notification_table_td">
                         <?php echo $medication['info']; ?>
                         <br> <!-- Add break here -->
                         <form action="archive.php" method="post" style="display:inline;">
@@ -187,11 +187,11 @@ foreach ($dose_result as $row) {
         <!-- Less than 4 Weeks Table -->
         <table class="notification_table" id="far_out_date">
             <tr>
-                <th><h2>Less than 4 Weeks</h2></th>
+                <th class="notification_table_th"><h2>Less than 4 Weeks</h2></th>
             </tr>
             <?php foreach ($less_than_4_weeks as $medication): ?>
                 <tr>
-                    <td>
+                    <td class="notification_table_td">
                         <?php echo $medication['info']; ?>
                         <br> <!-- Add break here -->
                         <form action="archive.php" method="post" style="display:inline;">
@@ -216,11 +216,11 @@ foreach ($dose_result as $row) {
         <!-- Below Minimum Doses Table -->
         <table class="notification_table" id="below_min_dose">
             <tr>
-                <th><h2>Below Minimum Doses</h2></th>
+                <th class="notification_table_th"><h2>Below Minimum Doses</h2></th>
             </tr>
             <?php foreach ($below_minimum_doses as $medication): ?>
                 <tr>
-                    <td>
+                    <td class="notification_table_td">
                         <?php echo $medication['info']; ?>
                         <br> <!-- Add break here -->
                         <form action="archive.php" method="post" style="display:inline;">

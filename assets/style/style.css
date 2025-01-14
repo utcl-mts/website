@@ -140,7 +140,14 @@
     overflow: hidden;
 }
 
-.notification_table th, td {
+.notification_table_th {
+    /*border: 1px solid black;*/
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+.notification_table_td {
     /*border: 1px solid black;*/
     padding: 8px;
     text-align: left;
