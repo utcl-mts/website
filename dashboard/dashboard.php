@@ -147,7 +147,7 @@
                                     <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                                     <button type="submit">Info</button>
                                 </form>
-                                <form action="../add-med/add_new_med.php" method="post" style="display:inline;">
+                                <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
                                     <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
                                     <button type="submit" > Add New Med</button>
                                 </form>
@@ -180,7 +180,7 @@
                                     <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                                     <button type="submit">Info</button>
                                 </form>
-                                <form action="../add-med/add_new_med.php" method="post" style="display:inline;">
+                                <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
                                     <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
                                     <button type="submit" > Add New Med</button>
                                 </form>
@@ -213,7 +213,7 @@
                                     <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                                     <button type="submit">Info</button>
                                 </form>
-                                <form action="../add-med/add_new_med.php" method="post" style="display:inline;">
+                                <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
                                     <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
                                     <button type="submit" > Add New Med</button>
                                 </form>
@@ -246,7 +246,7 @@
                                     <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                                     <button type="submit">Info</button>
                                 </form>
-                                <form action="../add-med/add_new_med.php" method="post" style="display:inline;">
+                                <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
                                     <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
                                     <button type="submit" > Add New Med</button>
                                 </form>
