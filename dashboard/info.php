@@ -46,10 +46,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updated_notes'])) {
 <html>
 <head>
     <title>Edit Notes</title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../assets/style/style.css">
 </head>
 <body>
-<div class="container">
+<div class="full_page_styling">
+    <div>
+        <ul class="nav_bar">
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
+                <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
+                <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
+                <li class="navbar_li"><a href="../administer/administer.html">Administer Medication</a></li>
+                <li class="navbar_li"><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
+            </div>
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../logout.php">Logout</a></li>
+            </div>
+        </ul>
+    </div>
     <h1>Edit Notes</h1>
 
     <!-- Display any success/error messages -->
@@ -60,13 +74,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updated_notes'])) {
     <!-- Form to Edit Notes -->
     <form action="info.php" method="post">
         <input type="hidden" name="takes_id" value="<?php echo htmlspecialchars($takes_id); ?>">
-        <textarea name="updated_notes" rows="10" cols="50"><?php echo htmlspecialchars($notes); ?></textarea>
+        <div class='text-element'>Provide and notes about the student</div>
+        <div class='text-element-faded'>This is not required</div>
+        <textarea class="text_area" name="updated_notes"><?php echo htmlspecialchars($notes); ?></textarea>
         <br><br>
-        <button type="submit">Save Changes</button>
+        <button class="submit" type="submit">Save Changes</button>
     </form>
 
     <br>
-    <a href="dashboard.php">Go Back</a>
+    <a class="back_link" href="dashboard.php">< <u>Back</u></a>
 </div>
 </body>
 </html>
