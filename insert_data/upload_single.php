@@ -39,7 +39,7 @@ $stmt->bindParam(2,$last_name);
 $stmt->bindParam(3,$year);
 
 $stmt->execute();
-header("refresh:5; insert_data.php");
+header("refresh:5; insert_data_home.php");
 echo '<br>';
 echo "Successfully registered";
 ?>

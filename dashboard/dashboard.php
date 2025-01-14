@@ -109,7 +109,6 @@ foreach ($dose_result as $row) {
 <body class="full_page_styling">
 <div>
     <div>
-<!--        <img id="logo" src="../assets/images/utcleeds.svg" alt="UTC Leeds">-->
         <ul class="nav_bar">
             <div class="nav_left">
                 <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>

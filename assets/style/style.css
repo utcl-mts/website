@@ -40,6 +40,7 @@
     font-size: 20px;
     padding: 10px;
     border: solid #0b0c0c;
+    cursor: pointer;
 }
 
 .text_input:focus{
@@ -55,8 +56,12 @@
     font-size: 16px;
     width: 250px;
     background: #00703c;
-    border: #00703c solid;
+    border: none;
     color: white;
+}
+
+.submit:hover {
+    background-color: #004a27; /* Darker green on hover */
 }
 
 /*Navbar*/
@@ -207,4 +212,92 @@
 .back_link:hover{
     text-decoration: none;
     border-bottom: 2px solid #0b0b0c;
+}
+
+.download_template{
+    font-size: 16px;
+    font-family: Roboto;
+    padding: 15px;
+    background-color: #00703c;
+    border: none;
+    cursor: pointer;
+}
+
+.download_template a{
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.download_template:hover {
+    background-color: #004a27; /* Darker green on hover */
+}
+
+.file_upload{
+    font-family: Roboto;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.small_submit{
+    font-weight: bold;
+    cursor: pointer;
+    font-family: Roboto;
+    padding: 10px;
+    font-size: 16px;
+    width: 100px;
+    background: #00703c;
+    border: none;
+    color: white;
+}
+
+.small_submit:hover {
+    background-color: #004a27; /* Darker green on hover */
+}
+
+.small_int_input{
+    font-family: Roboto;
+    width: 50px;
+    font-size: 20px;
+    padding: 10px;
+    border: solid #0b0c0c;
+    cursor: pointer;
+}
+
+.small_int_input:focus{
+    border-color: #0b0c0c;
+    outline: 3px solid #ffdd00; /* Add yellow outline when focused */
+}
+
+select {
+    background-color: transparent;
+    border: solid #0b0c0c;
+    padding: 10px;
+    font-size: 16px;
+    color: #0b0c0c;
+    width: 200px;
+    cursor: pointer;
+    outline: none;
+    font-family: Roboto;
+}
+
+select::after {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+select:focus {
+    border-color: #0b0c0c;
+    outline: 3px solid #ffdd00; /* Add yellow outline when focused */
+}
+
+select option {
+    font-family: Roboto;
+    background-color: white;
+    color: #333;
+    font-size: 16px;
+    /*padding: 10px;*/
 }

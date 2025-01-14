@@ -6,7 +6,7 @@ if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
    header("Location: ../index.html");
    exit();
 }
-echo'<link rel="stylesheet" href="../style.css">';
+echo'<link rel="stylesheet" href="../assets/style/style.css">';
 ?>
 
 <!DOCTYPE html>
@@ -16,81 +16,93 @@ echo'<link rel="stylesheet" href="../style.css">';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insert Data</title>
 </head>
-<body>
-<div class="container">
-    <!-- Navbar -->
-    <div class="navbar">
-        <img id="logo" src="../assets/images/utcleeds.svg" alt="UTC Leeds">
-        <h1 id="med_tracker">Med Tracker</h1>
-        <ul>
-            <li><a href="../dashboard/dashboard.php">Home</a></li>
-            <li><a href="insert_data.html">Insert Data</a></li>
-            <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
-            <li><a href="../administer/administer.html">Administer Medication</a></li>
-            <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
-            <li class="logout"><a href="../logout.php">Logout</a></li>
+<body class="full_page_styling">
+<div>
+    <div>
+        <ul class="nav_bar">
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
+                <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
+                <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
+                <li class="navbar_li"><a href="../administer/administer.html">Administer Medication</a></li>
+                <li class="navbar_li"><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
+            </div>
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../logout.php">Logout</a></li>
+            </div>
         </ul>
     </div>
 
-    <fieldset>
-        <legend>Bulk Upload Students</legend>
-        <button>
-            <a href="import_students_template.csv" download>Download CSV Template</a>
-        </button><br><br>
-        <form action="process_csv.php" method="post" enctype="multipart/form-data">
-            <label for="file">Upload a CSV File:</label><br>
-            <input id="file" accept=".csv" type="file" name="file" required><br><br>
-            <input type="submit" name="submit" value="Upload">
-        </form>
-    </fieldset>
+    <h1>Edit Notes</h1>
+    <button class="download_template"><a href="import_students_template.csv" download>Download CSV Template</a></button>
+    <br><br>
+    <form action="process_csv.php" method="post" enctype="multipart/form-data">
+        <div class='text-element'>Upload a File</div>
+        <div class='text-element-faded'>.CSV is the only allowed format</div>
+        <input class="file_upload" id="file" accept=".csv" type="file" name="file" required><br><br>
+        <input class="small_submit" type="submit" name="submit" value="Upload">
+    </form>
 
-    <fieldset>
-        <legend>Create One Student</legend>
-        <form action="upload_single.php" method="post">
-            <input type="text" name="first_name" id="" placeholder="Enter First Name" required>
-            <input type="text" name="last_name" id="" placeholder="Enter Last Name" required>
-            <br><br>
-            <input type="text" name="year" id="" placeholder="Enter Year Group" required>
-            <br><br>
-            <input type="submit" name="submit" value="Submit">
-        </form>
-    </fieldset>
+    <hr>
 
-    <fieldset>
-        <legend>Export Students</legend>
-        <form action="export_students.php" method="post">
-            <label for="export_meds">Export as All Students Excel/CSV</label>
-            <select id="1" name="export_meds">
-                <option value="excel">Excel</option>
-                <option value="csv">CSV</option>
-            </select>
-            <input type="submit">
-        </form>
-    </fieldset>
+    <h1>Create One Student</h1>
+    <form action="upload_single.php" method="post">
+        <div class='text-element'>Enter students first name</div>
+        <div class='text-element-faded'>Example: Joe</div>
+        <input class="text_input" type="text" name="first_name" id="" required>
+        <br><br>
+        <div class='text-element'>Enter students last name</div>
+        <div class='text-element-faded'>Example: Bloggs</div>
+        <input class="text_input" type="text" name="last_name" id="" required>
+        <br><br>
+        <div class='text-element'>Enter students year group</div>
+        <div class='text-element-faded'>Example: 12</div>
+        <input class="small_int_input" type="text" name="year" id="" required>
+        <br><br>
+        <input class="small_submit" type="submit" name="submit" value="Submit">
+    </form>
+    <hr>
 
-    <fieldset>
-        <legend>Export Brands</legend>
-        <form action="export_brands.php" method="post">
-            <label for="export_brands">Export as All Brands Excel/CSV</label>
-            <select id="cars" name="export_brands">
-                <option value="excel">Excel</option>
-                <option value="csv">CSV</option>
-            </select>
-            <input type="submit">
-        </form>
-    </fieldset>
+    <h1>Export Students</h1>
+    <form action="export_students.php" method="post">
+        <label class="text-element" for="export_meds">Export as All Students Excel/CSV</label>
+        <br><br>
+        <select id="1" name="export_meds">
+            <option value="excel">Excel</option>
+            <option value="csv">CSV</option>
+        </select>
+        <br><br>
+        <input class="small_submit" type="submit">
+    </form>
 
-    <fieldset>
-        <legend>Export Medications</legend>
-        <form action="export_meds.php" method="post">
-            <label for="export_meds">Export as All Medication Excel/CSV</label>
-            <select id="" name="export_meds">
-                <option value="excel">Excel</option>
-                <option value="csv">CSV</option>
-            </select>
-            <input type="submit">
-        </form>
-    </fieldset>
+    <hr>
+
+    <h1>Export Brands</h1>
+    <form action="export_brands.php" method="post">
+        <label class="text-element"  for="export_brands">Export as All Brands Excel/CSV</label>
+        <br><br>
+        <select id="export_brands" name="export_brands">
+            <option value="excel">Excel</option>
+            <option value="csv">CSV</option>
+        </select>
+        <br><br>
+        <input class="small_submit" type="submit">
+    </form>
+
+    <hr>
+
+    <h1>Export Medications</h1>
+    <form action="export_meds.php" method="post">
+        <label class="text-element" for="export_meds">Export as All Medication Excel/CSV</label>
+        <br><br>
+        <select id="" name="export_meds">
+            <option value="excel">Excel</option>
+            <option value="csv">CSV</option>
+        </select>
+        <br><br>
+        <input class="submit" type="submit">
+    </form>
+    <br><br><br>
 </div>
 </body>
 </html>
