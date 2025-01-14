@@ -36,21 +36,21 @@ if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
             </ul>
         </div>
             <h1>Create a log</h1>
-             <form action="choose_stu.php" method="post">
-                 <div class='text-element'>Enter staff code</div>
-                 <div class='text-element-faded'>Example: AWA</div>
-                 <input class="text_input" type="text" id="sc" name="staff_code" required>
-                 <br><br>
-                 <div class='text-element'>Enter students first name</div>
-                 <div class='text-element-faded'>Example: Joe</div>
-                 <input class="text_input" type="text" id="sfn" name="student_fname" required>
-                 <br><br>
-                 <div class='text-element'>Enter students year group</div>
-                 <div class='text-element-faded'>Example: Joe</div>
-                 <input class="small_int_input" type="text" id="syg" name="student_yeargroup" required>
-                 <br><br>
-                 <button class="small_submit">Submit</button>
-             </form>
+            <form action="choose_stu.php" method="post">
+                <div class='text-element'>Enter staff code</div>
+                <div class='text-element-faded'>Example: AWA</div>
+                <input class="text_input" type="text" id="sc" name="staff_code" required>
+                <br><br>
+                <div class='text-element'>Enter students first name</div>
+                <div class='text-element-faded'>Example: Joe</div>
+                <input class="text_input" type="text" id="sfn" name="student_fname" required>
+                <br><br>
+                <div class='text-element'>Enter students year group</div>
+                <div class='text-element-faded'>Example: Joe</div>
+                <input class="small_int_input" type="text" id="syg" name="student_yeargroup" required>
+                <br><br>
+                <button class="small_submit">Submit</button>
+            </form>
         </div>
     </body>
 </html>
