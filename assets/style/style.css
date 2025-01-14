@@ -21,19 +21,6 @@
     font-size: 40px;
 }
 
-.home_labels{
-    padding-top: 5px;
-    padding-bottom: 5px;
-    font-size: 20px;
-}
-
-.home_labels_example{
-    padding-top: 5px;
-    padding-bottom: 5px;
-    font-size: 16px;
-    color: rgba(11, 12, 12, 0.25);
-}
-
 .text_input{
     font-family: Roboto;
     width: 400px;
@@ -193,7 +180,7 @@
 
 .text-element-faded {
     font-size: 20px; /* Adjust font size */
-    color: rgba(0, 0, 0, 0.5); /* Adjust text color */
+    color: rgba(0, 0, 0, 0.75); /* Adjust text color */
     padding-bottom: 5px;
 }
 
