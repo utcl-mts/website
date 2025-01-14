@@ -308,3 +308,11 @@ select option {
     font-size: 16px;
     /*padding: 10px;*/
 }
+
+.administer_choose_student{
+    font-size: 20px;
+}
+
+.administer_choose_student_td {
+    border-bottom: 1px solid #ccc;
+}
