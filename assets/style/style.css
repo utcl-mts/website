@@ -340,3 +340,83 @@ select option {
     border-color: #0b0c0c;
     outline: 3px solid #ffdd00; /* Add yellow outline when focused */
 }
+
+.searchbar{
+    justify-content: center;
+}
+
+.search_bar{
+    font-family: Roboto;
+    width: 400px;
+    font-size: 16px;
+    padding: 10px;
+    border: solid #0b0c0c;
+    cursor: pointer;
+}
+
+.text_input:focus{
+    border-color: #0b0c0c;
+    outline: 3px solid #ffdd00; /* Add yellow outline when focused */
+}
+
+/* Table Styling */
+.big_table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+/* Table Header Styling */
+.big_table_th {
+    font-weight: bold;
+    padding: 12px; /* Padding for table header cells */
+    text-align: left;
+    border-bottom: 1px solid #0b0b0c; /* Light gray border */
+}
+
+/* Table Data Styling */
+.big_table_td {
+    padding: 12px; /* Padding for table data cells */
+    text-align: left;
+    border-bottom: 1px solid #0b0b0c; /* Light gray border */
+}
+
+
+/* Add additional spacing between rows */
+.big_table tr {
+    border-bottom: 1px solid #0b0b0c; /* Light gray border */
+}
+
+/* Pagination Styling */
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a,
+.pagination .active {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #007bff;
+    background-color: #f1f1f1;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination .active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+.pagination a:disabled {
+    color: #aaa;
+    border: 1px solid #ddd;
+    pointer-events: none;
+}
