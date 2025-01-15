@@ -47,7 +47,7 @@ try {
     }
 
     // Normal login process continues for non-system accounts
-    if ($user && $password === $user['password']) {
+    if ($user && password_verify($password, $user['password'])) {
         $_SESSION['staff_id'] = $user['staff_id'];
         $_SESSION["ssnlogin"] = true;
         $_SESSION["email"] = $user["email"];
