@@ -373,6 +373,7 @@ select option {
     padding: 12px; /* Padding for table header cells */
     text-align: left;
     border-bottom: 1px solid #0b0b0c; /* Light gray border */
+    font-size: 20px;
 }
 
 /* Table Data Styling */
@@ -380,6 +381,7 @@ select option {
     padding: 12px; /* Padding for table data cells */
     text-align: left;
     border-bottom: 1px solid #0b0b0c; /* Light gray border */
+    font-size: 20px;
 }
 
 
@@ -420,4 +422,43 @@ select option {
     color: #aaa;
     border: 1px solid #ddd;
     pointer-events: none;
+}
+
+.remove_a{
+    text-decoration: none;
+    color: white;
+}
+
+select {
+
+    background-color: transparent;
+    border: solid #0b0c0c;
+    padding: 10px;
+    font-size: 20px;
+    color: #0b0c0c;
+    width: 250px;
+    cursor: pointer;
+    outline: none;
+    font-family: Roboto;
+}
+
+select::after {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    /*transform: translateY(-50%);*/
+    /*pointer-events: none;*/
+}
+
+select:focus {
+    border-color: #0b0c0c;
+    outline: 3px solid #ffdd00; /* Add yellow outline when focused */
+}
+
+select option {
+    font-family: Roboto;
+    background-color: white;
+    color: #333;
+    font-size: 16px;
+    /*padding: 10px;*/
 }
