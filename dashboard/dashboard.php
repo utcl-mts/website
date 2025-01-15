@@ -149,7 +149,7 @@
                                 </form>
                                 <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
                                     <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
-                                    <button type="submit" > Add New Med</button>
+                                    <button type="submit" > Log New Med</button>
                                 </form>
                                 <?php if (!empty($medication['notes'])): ?>
                                     <span class="tooltip">
@@ -182,7 +182,7 @@
                                 </form>
                                 <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
                                     <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
-                                    <button type="submit" > Add New Med</button>
+                                    <button type="submit" > Log New Med</button>
                                 </form>
                                 <?php if (!empty($medication['notes'])): ?>
                                     <span class="tooltip">
@@ -215,7 +215,7 @@
                                 </form>
                                 <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
                                     <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
-                                    <button type="submit" > Add New Med</button>
+                                    <button type="submit" > Log New Med</button>
                                 </form>
                                 <?php if (!empty($medication['notes'])): ?>
                                     <span class="tooltip">
@@ -248,7 +248,7 @@
                                 </form>
                                 <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
                                     <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
-                                    <button type="submit" > Add New Med</button>
+                                    <button type="submit" > Log New Med</button>
                                 </form>
                                 <?php if (!empty($medication['notes'])): ?>
                                     <span class="tooltip">
