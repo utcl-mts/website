@@ -1,24 +1,28 @@
-<link rel="stylesheet" href="../style.css">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hours Tracking - Student Medication</title>
+    <link rel="stylesheet" href="../assets/style/style.css">
+</head>
 <body>
-<div class="container">
-
-    <!-- universal nav bar-->
-    <div class="navbar">
-
-        <img id="logo" src="../assets/UTCLeeds.svg" alt="UTC Leeds">
-
-        <h1 id="med_tracker">Med Tracker</h1>
-
-        <ul>
-            <li><a href="../dashboard/dashboard.php">Home</a></li>
-            <li><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
-            <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
-            <li><a href="../administer/administer.html">Administer Medication</a></li>
-            <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
-            <li class="logout"><a>Logout</a></li>
+<div class="full_page_styling">
+    <div>
+        <ul class="nav_bar">
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
+                <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
+                <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
+<!--                <li class="navbar_li"><a href="../administer/administer_form.php">Administer Medication</a></li>-->
+                <li class="navbar_li"><a href="../log/log_form.php">Log Medication</a></li>
+                <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
+            </div>
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../logout.php">Logout</a></li>
+            </div>
         </ul>
-
     </div>
+
+    <br><br>
 
     <div class="searchbar">
         <form method="GET" action="">
@@ -26,12 +30,15 @@
                     id="search-input"
                     type="text"
                     name="search"
+                    class="search_bar"
                     placeholder="Search by student name, medication, or brand"
                     value="<?php echo htmlspecialchars(isset($_GET['search']) ? $_GET['search'] : ''); ?>"
             >
-            <button id="search-button" type="submit">Search</button>
+            <button class="small_submit" id="search-button" type="submit">Search</button>
         </form>
     </div>
+
+    <br><br>
 
     <?php
 
@@ -55,33 +62,6 @@
 
     // Get the search term if provided
     $search_term = isset($_GET['search']) ? trim($_GET['search']) : '';
-
-    // Handle the decrement action
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['decrement'])) {
-        $takes_id = intval($_POST['takes_id']);
-
-        try {
-            // Check the current dose
-            $check_sql = "SELECT current_dose FROM takes WHERE takes_id = :takes_id";
-            $check_stmt = $conn->prepare($check_sql);
-            $check_stmt->bindParam(':takes_id', $takes_id, PDO::PARAM_INT);
-            $check_stmt->execute();
-            $result = $check_stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($result && $result['current_dose'] > 0) {
-                // Decrement the dose
-                $update_sql = "UPDATE takes SET current_dose = current_dose - 1 WHERE takes_id = :takes_id";
-                $update_stmt = $conn->prepare($update_sql);
-                $update_stmt->bindParam(':takes_id', $takes_id, PDO::PARAM_INT);
-                $update_stmt->execute();
-                echo "<p class='success'>Dose decremented successfully.</p>";
-            } else {
-                echo "<p class='error'>Cannot decrement. Dose is already at zero.</p>";
-            }
-        } catch (PDOException $e) {
-            die("<p class='error'>Database error: " . htmlspecialchars($e->getMessage()) . "</p>");
-        }
-    }
 
     try {
         // SQL query to get the total number of records (for pagination)
@@ -109,35 +89,34 @@
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         echo "<div id ='bigt'>";
         if ($results) {
-
-            echo "<table id='big_table'>";
+            echo "<table class='big_table'>";
             echo "<tr>";
+
             // Print table headers dynamically
-            foreach (array_keys($results[0]) as $header) {
-                echo "<th>" . htmlspecialchars($header) . "</th>";
+            $headers = ['first_name' => 'First Name', 'last_name' => 'Last Name', 'med_name' => 'Medication Name', 'brand_name' => 'Brand Name', 'year' => 'Year'];
+            foreach ($headers as $key => $label) {
+                echo "<th class='big_table_th'>" . htmlspecialchars($label) . "</th>";
             }
-            echo "<th>Actions</th>"; // Add a header for the button
+            echo "<th class='big_table_th'>Actions</th>"; // Add a header for the button
             echo "</tr>";
 
             // Print rows
             foreach ($results as $row) {
                 echo "<tr>";
-                foreach ($row as $key => $value) {
-                    // Format exp_date column if it's an epoch timestamp
-                    if ($key === 'exp_date' && is_numeric($value)) {
-                        $value = date('d/m/y', $value);
-                    }
-                    echo "<td>" . htmlspecialchars($value) . "</td>";
+                foreach ($headers as $key => $label) {
+                    // Format the data according to each header
+                    echo "<td class='big_table_td'>" . htmlspecialchars($row[$key] ?? '') . "</td>";
                 }
+
                 // Add the decrement button
-                echo "<td>
-                            <form method='POST' action=''>
-                                <input type='hidden' name='takes_id' value='" . htmlspecialchars($row['takes_id']) . "'>
-                                <button type='submit' name='decrement' " . ($row['current_dose'] <= 0 ? "disabled" : "") . ">
-                                    Decrement Dose
-                                </button>
-                            </form>
-                        </td>";
+                echo "<td class='big_table_td'>
+                        <form method='POST' action=''>
+                            <input type='hidden' name='takes_id' value='" . htmlspecialchars($row['takes_id']) . "'>
+                            <button type='submit' name='decrement' " . ($row['current_dose'] <= 0 ? "disabled" : "") . ">
+                                Decrement Dose
+                            </button>
+                        </form>
+                    </td>";
                 echo "</tr>";
             }
 
@@ -150,7 +129,7 @@
         // Pagination links
         echo "<div class='pagination'>";
         if ($page > 1) {
-            echo "<a href='?search=" . urlencode($search_term) . "&page=" . ($page - 1) . "'>Previous</a>";
+            echo "<a href='?search=" . urlencode($search_term) . "&page=" . ($page - 1) . "'>←  Previous</a>";
         }
 
         // Loop through all pages
@@ -163,13 +142,14 @@
         }
 
         if ($page < $total_pages) {
-            echo "<a href='?search=" . urlencode($search_term) . "&page=" . ($page + 1) . "'>Next</a>";
+            echo "<a href='?search=" . urlencode($search_term) . "&page=" . ($page + 1) . "'>Next →</a>";
         }
         echo "</div>";
     } catch (PDOException $e) {
         die("Database error: " . $e->getMessage());
     }
-
     ?>
+
 </div>
 </body>
+</html>

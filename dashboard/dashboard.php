@@ -105,40 +105,47 @@ foreach ($dose_result as $row) {
     $below_minimum_doses[] = $medication_info;
 }
 ?>
-<link rel="stylesheet" href="../style.css">
-<body>
-<div class="container">
-    <div class="navbar">
-        <img id="logo" src="../assets/UTCLeeds.svg" alt="UTC Leeds">
-        <h1 id="med_tracker">Med Tracker</h1>
-        <ul>
-            <li><a href="../dashboard/dashboard.php">Home</a></li>
-            <li><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
-            <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
-            <li><a href="../administer/administer.html">Administer Medication</a></li>
-            <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
-            <li class="logout"><a>Logout</a></li>
+<link rel="stylesheet" href="../assets/style/style.css">
+<body class="full_page_styling">
+<title>Hours Tracking - Dashboard</title>
+<div>
+    <div>
+        <ul class="nav_bar">
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
+                <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
+                <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
+<!--                <li class="navbar_li"><a href="../administer/administer_form.php">Administer Medication</a></li>-->
+                <li class="navbar_li"><a href="../log/log_form.php">Log Medication</a></li>
+                <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
+            </div>
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../admin/admin_home.php">Admin</a></li>
+                <li class="navbar_li"><a href="../logout.php">Logout</a></li>
+            </div>
         </ul>
     </div>
+
+    <br><br>
 
     <div class="notification_container">
         <!-- Expired Table -->
         <table class="notification_table" id="out_date">
             <tr>
-                <th><h2>Expired</h2></th>
+                <th class="notification_table_th"><h2>Expired</h2></th>
             </tr>
             <?php foreach ($expired as $medication): ?>
                 <tr>
-                    <td>
+                    <td class="notification_table_td">
                         <?php echo $medication['info']; ?>
                         <br> <!-- Add break here -->
                         <form action="archive.php" method="post" style="display:inline;">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
-                            <button type="submit">Archive</button>
+                            <button class="secondary_button" type="submit">Archive</button>
                         </form>
                         <form action="info.php" method="post" style="display:inline;">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
-                            <button type="submit">Info</button>
+                            <button class="secondary_button" type="submit">Info</button>
                         </form>
                         <?php if (!empty($medication['notes'])): ?>
                             <span class="tooltip">
@@ -154,20 +161,20 @@ foreach ($dose_result as $row) {
         <!-- Less than 2 Weeks Table -->
         <table class="notification_table" id="near_out_date">
             <tr>
-                <th><h2>Less than 2 Weeks</h2></th>
+                <th class="notification_table_th"><h2>Less than 2 Weeks</h2></th>
             </tr>
             <?php foreach ($less_than_2_weeks as $medication): ?>
                 <tr>
-                    <td>
+                    <td class="notification_table_td">
                         <?php echo $medication['info']; ?>
                         <br> <!-- Add break here -->
                         <form action="archive.php" method="post" style="display:inline;">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
-                            <button type="submit">Archive</button>
+                            <button class="secondary_button" type="submit">Archive</button>
                         </form>
                         <form action="info.php" method="post" style="display:inline;">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
-                            <button type="submit">Info</button>
+                            <button class="secondary_button" type="submit">Info</button>
                         </form>
                         <?php if (!empty($medication['notes'])): ?>
                             <span class="tooltip">
@@ -183,25 +190,25 @@ foreach ($dose_result as $row) {
         <!-- Less than 4 Weeks Table -->
         <table class="notification_table" id="far_out_date">
             <tr>
-                <th><h2>Less than 4 Weeks</h2></th>
+                <th class="notification_table_th"><h2>Less than 4 Weeks</h2></th>
             </tr>
             <?php foreach ($less_than_4_weeks as $medication): ?>
                 <tr>
-                    <td>
+                    <td class="notification_table_td">
                         <?php echo $medication['info']; ?>
                         <br> <!-- Add break here -->
                         <form action="archive.php" method="post" style="display:inline;">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
-                            <button type="submit">Archive</button>
+                            <button class="secondary_button" type="submit">Archive</button>
                         </form>
                         <form action="info.php" method="post" style="display:inline;">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
-                            <button type="submit">Info</button>
+                            <button class="secondary_button" type="submit">Info</button>
                         </form>
                         <?php if (!empty($medication['notes'])): ?>
                             <span class="tooltip">
                         <i class="info-icon"><i class="fa-solid fa-info"></i></i>
-                        <span class="tooltiptext"><?php echo htmlspecialchars($medication['notes']); ?></span>
+                        <span class="secondary_button" class="tooltiptext"><?php echo htmlspecialchars($medication['notes']); ?></span>
                     </span>
                         <?php endif; ?>
                     </td>
@@ -212,24 +219,23 @@ foreach ($dose_result as $row) {
         <!-- Below Minimum Doses Table -->
         <table class="notification_table" id="below_min_dose">
             <tr>
-                <th><h2>Below Minimum Doses</h2></th>
+                <th class="notification_table_th"><h2>Below Minimum Doses</h2></th>
             </tr>
             <?php foreach ($below_minimum_doses as $medication): ?>
                 <tr>
-                    <td>
+                    <td class="notification_table_td">
                         <?php echo $medication['info']; ?>
                         <br> <!-- Add break here -->
                         <form action="archive.php" method="post" style="display:inline;">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
-                            <button type="submit">Archive</button>
+                            <button class="secondary_button" type="submit">Archive</button>
                         </form>
                         <form action="info.php" method="post" style="display:inline;">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
-                            <button type="submit">Info</button>
+                            <button class="secondary_button" type="submit">Info</button>
                         </form>
                         <?php if (!empty($medication['notes'])): ?>
                             <span class="tooltip">
-                        <i class="info-icon"><i class="fa-solid fa-info"></i></i>
                         <span class="tooltiptext"><?php echo htmlspecialchars($medication['notes']); ?></span>
                     </span>
                         <?php endif; ?>
@@ -242,5 +248,3 @@ foreach ($dose_result as $row) {
     </div>
 </div>
 </body>
-<script src="https://kit.fontawesome.com/c4b1ea9c2c.js" crossorigin="anonymous"></script>
-</html>
