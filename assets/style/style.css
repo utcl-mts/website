@@ -263,6 +263,20 @@
     outline: 3px solid #ffdd00; /* Add yellow outline when focused */
 }
 
+.smaller_int_input{
+    font-family: Roboto;
+    width: 100px;
+    font-size: 20px;
+    padding: 10px;
+    border: solid #0b0c0c;
+    cursor: pointer;
+}
+
+.smaller_int_input:focus{
+    border-color: #0b0c0c;
+    outline: 3px solid #ffdd00; /* Add yellow outline when focused */
+}
+
 select {
     background-color: transparent;
     border: solid #0b0c0c;

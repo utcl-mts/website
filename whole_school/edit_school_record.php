@@ -61,25 +61,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_record'])) {
 }
 ?>
 
-<link rel="stylesheet" href="../style.css">
-<body>
-<div class="container">
-
-    <div class="navbar">
-
-        <img id="logo" src="../assets/images/utcleeds.svg" alt="UTC Leeds">
-
-        <h1 id="med_tracker">Med Tracker</h1>
-
-        <ul>
-            <li><a href="../dashboard/dashboard.php">Home</a></li>
-            <li><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
-            <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
-            <li><a href="../administer/administer.html">Administer Medication</a></li>
-            <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
-            <li class="logout"><a>Logout</a></li>
+<link rel="stylesheet" href="../assets/style/style.css">
+<body class="full_page_styling">
+<title>Hours Tracking - Whole School</title>
+<div>
+    <div>
+        <ul class="nav_bar">
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
+                <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
+                <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
+                <!--                <li class="navbar_li"><a href="../administer/administer_form.php">Administer Medication</a></li>-->
+                <li class="navbar_li"><a href="../log/log_form.php">Log Medication</a></li>
+                <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
+            </div>
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../logout.php">Logout</a></li>
+            </div>
         </ul>
-
     </div>
 
     <!-- Edit Record Form -->
@@ -93,19 +92,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_record'])) {
         <?php endif; ?>
 
         <form method="POST" action="">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>" required>
-
-            <label for="exp_date">Expiration Date:</label>
-            <input type="date" id="exp_date" name="exp_date" value="<?php echo htmlspecialchars($exp_date); ?>" required>
-
-            <label for="amount_left">Amount Left:</label>
-            <input type="number" id="amount_left" name="amount_left" value="<?php echo htmlspecialchars($amount_left); ?>" min="0" required>
-
-            <label for="notes">Notes:</label>
-            <textarea id="notes" name="notes"><?php echo htmlspecialchars($notes); ?></textarea>
-
-            <button type="submit" name="update_record">Update Record</button>
+            <div class='text-element'>Enter item name:</div>
+            <div class='text-element-faded'>Example: Defib Pads</div>
+            <input class="text_input" type="text" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>" required>
+            <br><br>
+            <div class='text-element'>Enter exp date:</div>
+            <div class='text-element-faded'>Example: 01/02/25</div>
+            <input class="temp_date_field" type="date" id="exp_date" name="exp_date" value="<?php echo htmlspecialchars($exp_date); ?>" required>
+            <br><br>
+            <div class='text-element'>Enter amount:</div>
+            <div class='text-element-faded'>Example: 150</div>
+            <input class="smaller_int_input" type="number" id="amount_left" name="amount_left" value="<?php echo htmlspecialchars($amount_left); ?>" min="0" required>
+            <br><br>
+            <div class='text-element'>Enter notes:</div>
+            <div class='text-element-faded'>Example: There is a delivery of items each month</div>
+            <textarea class="text_area" id="notes" name="notes"><?php echo htmlspecialchars($notes); ?></textarea>
+            <br><br>
+            <button class="submit" type="submit" name="update_record">Update Record</button>
         </form>
     </div>
 </div>
