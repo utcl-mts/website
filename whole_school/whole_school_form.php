@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_record'])) {
         </form>
 
         <!-- Button to go back to the table -->
-        <a href="whole_school.php">
+        <a href="whole_school_table.php">
             <button>Back to Records Table</button>
         </a>
     </div>
