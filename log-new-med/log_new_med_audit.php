@@ -33,7 +33,7 @@
 
         $stmt = $conn->prepare($sql);
 
-        $stmt->bindParam(1, $bid);
+        $stmt->bindParam(1, $brand);
         $stmt->execute();
 
         $result = $stmt->fetch();
