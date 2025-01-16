@@ -29,7 +29,7 @@
         $mid = $result["med_id"];
 
         // Get brand_id so can put into the takes table
-        $sql = "SELECT brand_id from med where brand_name =?";
+        $sql = "SELECT brand_id from brand where brand_name =?";
 
         $stmt = $conn->prepare($sql);
 
