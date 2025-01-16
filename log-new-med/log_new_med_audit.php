@@ -13,7 +13,7 @@
     $brand = $_POST['brand'];
     $strength = $_POST['strength'];
 
-    $sql = "INSERT into takes VALUES (?,?,?,?,?,?,?)"
+    $sql = "INSERT into takes VALUES (?,?,?,?,?,?,?)";
 
     $stmt = $conn->prepare($sql);
     $stmt ->bindParam(1, $sid, PDO::PARAM_STR);
