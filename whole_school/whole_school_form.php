@@ -24,7 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_record'])) {
                 $stmt->bindParam(':amount_left', $amount_left, PDO::PARAM_INT);
                 $stmt->bindParam(':notes', $notes, PDO::PARAM_STR);
                 $stmt->execute();
-
+                
+                header("Location: whole_school_table.php");
                 $success_message = "New record added successfully.";
             } catch (PDOException $e) {
                 $error_message = "Database error: " . htmlspecialchars($e->getMessage());
@@ -38,20 +39,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_record'])) {
 }
 ?>
 
-<link rel="stylesheet" href="../style.css">
-<body>
-<div class="container">
-
-    <div class="navbar">
-        <img id="logo" src="../assets/UTCLeeds.svg" alt="UTC Leeds">
-        <h1 id="med_tracker">Med Tracker</h1>
-        <ul>
-            <li><a href="../dashboard/dashboard.php">Home</a></li>
-            <li><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
-            <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
-            <li><a href="../administer/administer.html">Administer Medication</a></li>
-            <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
-            <li class="logout"><a>Logout</a></li>
+<link rel="stylesheet" href="../assets/style/style.css">
+<body class="full_page_styling">
+<title>Hours Tracking - Create Whole School Item</title>
+<div>
+    <div>
+        <ul class="nav_bar">
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
+                <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
+                <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
+<!--                <li class="navbar_li"><a href="../administer/administer_form.php">Administer Medication</a></li>-->
+                <li class="navbar_li"><a href="../log/log_form.php">Log Medication</a></li>
+                <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
+            </div>
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../logout.php">Logout</a></li>
+            </div>
         </ul>
     </div>
 
@@ -65,25 +69,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_record'])) {
             <p class="error"><?php echo htmlspecialchars($error_message); ?></p>
         <?php endif; ?>
         <form method="POST" action="">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-
-            <label for="exp_date">Expiration Date (dd/mm/yyyy):</label>
-            <input type="text" id="exp_date" name="exp_date" placeholder="e.g., 01/12/2024" required>
-
-            <label for="amount_left">Amount Left:</label>
-            <input type="number" id="amount_left" name="amount_left" min="0" required>
-
-            <label for="notes">Notes:</label>
-            <textarea id="notes" name="notes"></textarea>
-
-            <button type="submit" name="add_record">Add Record</button>
+            <div class='text-element'>Enter item name:</div>
+            <div class='text-element-faded'>Example: Defib Pads</div>
+            <input class="text_input" type="text" id="name" name="name" required>
+            <br><br>
+            <div class='text-element'>Enter date:</div>
+            <div class='text-element-faded'>Example: 01/12/2025</div>
+            <input class="temp_date_field" type="text" id="exp_date" name="exp_date" required>
+            <br><br>
+            <div class='text-element'>Enter amount:</div>
+            <div class='text-element-faded'>Example: 12</div>
+            <input class="smaller_int_input" type="number" id="amount_left" name="amount_left" min="0" required>
+            <br><br>
+            <div class='text-element'>Enter amount:</div>
+            <div class='text-element-faded'>Example: 12</div>
+            <textarea class="text_area" id="notes" name="notes"></textarea>
+            <br><br>
+            <button class="submit" type="submit" name="add_record">Add Record</button>
         </form>
-
-        <!-- Button to go back to the table -->
-        <a href="whole_school_table.php">
-            <button>Back to Records Table</button>
-        </a>
     </div>
 </div>
 </body>

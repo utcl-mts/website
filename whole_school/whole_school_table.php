@@ -37,35 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['archive'])) {
         </ul>
     </div>
 
-    <!-- Add Record Form -->
-    <div id="add-record">
-        <h2>Add New Whole School Record</h2>
-        <?php if (!empty($success_message)) : ?>
-            <p class="success"><?php echo htmlspecialchars($success_message); ?></p>
-        <?php endif; ?>
-        <?php if (!empty($error_message)) : ?>
-            <p class="error"><?php echo htmlspecialchars($error_message); ?></p>
-        <?php endif; ?>
-        <form method="POST" action="">
-            <div class='text-element'>Enter item name:</div>
-            <div class='text-element-faded'>Example: Defib Pads</div>
-            <input class="text_input" type="text" id="name" name="name" required>
-            <br><br>
-            <div class='text-element'>Enter exp date:</div>
-            <div class='text-element-faded'>Example: 01/12/2025</div>
-            <input class="temp_date_field" type="date" id="exp_date" name="exp_date" required>
-            <br><br>
-            <div class='text-element'>Enter amount:</div>
-            <div class='text-element-faded'>Example: Defib Pads</div>
-            <input class="smaller_int_input" type="number" id="amount_left" name="amount_left" min="0" required>
-            <br><br>
-            <div class='text-element'>Enter notes:</div>
-            <div class='text-element-faded'>Example: Defib Pads</div>
-            <textarea class="text_area" id="notes" name="notes"></textarea>
-            <br><br>
-            <button class="submit" type="submit" name="add_record">Add Record</button>
-        </form>
-    </div>
+    <br><br>
+
+    <a href="whole_school_form.php">
+        <button class="submit">Add New Record</button>
+    </a>
 
     <!-- Display Active Records -->
     <div id="bigt">
@@ -116,9 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['archive'])) {
         ?>
    
     <!-- Button to go to the form to add new records -->
-    <a href="whole_school_form.php">
-        <button>Add New Record</button>
-    </a>
+
     <!-- Display Archived Records -->
     <div id="archived-records">
         <h2>Archived Records</h2>
