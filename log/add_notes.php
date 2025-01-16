@@ -13,76 +13,65 @@ if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
 include '../server/db_connect.php';
 
 ?>
-
+    <!DOCTYPE html>
     <html lang="en">
 
     <head>
 
         <meta charset="UTF-8">
-        <title>Log</title>
-        <link rel="stylesheet" href="/style.css">
+        <title>Hours Tracking - Add Notes</title>
+        <link rel="stylesheet" href="../assets/style/style.css">
 
     </head>
 
-    <body>
-
-        <div class="container">
-
-            <!-- universal nav bar-->
-            <div class="navbar">
-
-                <img id="logo" src="../assets/UTCLeeds.svg" alt="UTC Leeds">
-
-                <h1 id="med_tracker">Med Tracker</h1>
-
-                <ul>
-
-                    <li><a href="../dashboard/dashboard.php">Home</a></li>
-                    <li><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
-                    <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
-                    <li><a href="administer.html">Log Medication</a></li>
-                    <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
-                    <li class="logout"><a>Logout</a></li>
-
-                </ul>
-
-            </div>
-
+    <body class="full_page_styling">
+    <div>
+        <div>
+            <ul class="nav_bar">
+                <div class="nav_left">
+                    <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
+                    <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
+                    <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
+    <!--                <li class="navbar_li"><a href="../administer/administer_form.php">Administer Medication</a></li>-->
+                    <li class="navbar_li"><a href="../log/log_form.php">Log Medication</a></li>
+                    <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
+                </div>
+                <div class="nav_left">
+                    <li class="navbar_li"><a href="../logout.php">Logout</a></li>
+                </div>
+            </ul>
         </div>
-
+    </div>
     </body>
-
-</html>
+    </html>
 
 <?php
-
+    echo "<h1>Add Notes</h1>";
     echo "<form action='log.php' method='POST'>";
+        echo "<td><input type='hidden' name='sid' value='" . $_POST['sid'] . "'></td>";
 
-        echo "<table>";
-
-            // Hidden field to pass student_id
-            echo "<td><input type='hidden' name='sid' value='" . $_POST['sid'] . "'></td>";
-
-            // Date input field of each medication
-            echo "<label for='log_date'>Select Date: </label>";
-            echo "<input type='date' id='log_date' name='log_date' >";
-
+            ### TODO: Discuss using https://design-system.service.gov.uk/patterns/dates/ this date format instead and try and change the logic to still work with epoch -- James
+            ### Still going to style it to match the style for the rest of the site but might be changed
+            ### Working Example, https://github.com/SilentSmeary/hours-tracking/blob/main/student/insert_log.php
+            echo "<div class='text-element'>Enter date</div>
+                  <div class='text-element-faded'>Example: 12/05/2025</div>";
+            echo "<input class='temp_date_field' type='date' id='log_date' name='log_date' >";
+            echo "<br><br>";
             // Time input field of each medication
-            echo "<label for='log_time' >Select Time: </label>";
-            echo "<input type='time' id='log_time' name='log_time' >";
-
+            echo "<div class='text-element'>Enter time</div>
+                  <div class='text-element-faded'>Example: 12/05/2025</div>";
+            echo "<input class='temp_time_field' type='time' id='log_time' name='log_time' >";
+            echo "<br><br>";
             // Notes input for log
-            echo "<label for='log_notes' >Enter Notes: </label>";
-            echo"<input type='text' id='log_notes' name='log_notes' >";
-
+            echo "<div class='text-element'>Enter notes</div>
+                  <div class='text-element-faded'>Example: 2x Given</div>";
+//            echo "<input type='text' id='log_notes' name='log_notes' >";
+            echo "<textarea class='text_area' name='log_notes'></textarea>";
+            echo "<br><br>";
         // Submit button for the form
         echo "</table>";
 
-        echo "<input type='submit' name='submit' value='Submit notes'>";
-
-    echo "</form>";
-
-        echo "</table>";
+        echo "<input class='submit' type='submit' name='submit' value='Save and Continue'>";
 
     echo "</form>";
 

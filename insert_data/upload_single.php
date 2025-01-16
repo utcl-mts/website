@@ -4,21 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style.css">
-    <title>CSV Upload Results</title>
+    <title>Hours Tracking - Upload Single</title>
 </head>
 <body>
 <div class="container">
-    <!-- Navbar -->
-    <div class="navbar">
-        <img id="logo" src="../assets/UTCLeeds.svg" alt="UTC Leeds">
-        <h1 id="med_tracker">Med Tracker</h1>
-        <ul>
-            <li><a href="../dashboard/dashboard.php">Home</a></li>
-            <li><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
-            <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
-            <li><a href="../administer/administer.html">Administer Medication</a></li>
-            <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
-            <li class="logout"><a href="../logout.php">Logout</a></li>
+    <div>
+        <ul class="nav_bar">
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
+                <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
+                <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
+<!--                <li class="navbar_li"><a href="../administer/administer_form.php">Administer Medication</a></li>-->
+                <li class="navbar_li"><a href="../log/log_form.php">Log Medication</a></li>
+                <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
+            </div>
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../logout.php">Logout</a></li>
+            </div>
         </ul>
     </div>
 
@@ -39,7 +41,7 @@ $stmt->bindParam(2,$last_name);
 $stmt->bindParam(3,$year);
 
 $stmt->execute();
-header("refresh:5; insert_data.php");
+header("refresh:5; insert_data_home.php");
 echo '<br>';
 echo "Successfully registered";
 ?>
