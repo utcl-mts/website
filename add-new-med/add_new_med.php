@@ -31,26 +31,24 @@
 
             </div>
 
+                <form>
+
+                    <table>
+
+                        <tr>
+
+                            <td><label for="medication">Medication Name: </label></td>
+                            <td><input type="text" id="medication" placeholder="Enter Medication Name" required></td>
+
+                        </tr>
+
+
+                    </table>
+
+                </form>
+
         </div>
 
     </body>
 
 </html>
-
-<?php
-
-    $student_id = $_SESSION['student_id'];
-
-    // Fetch student details
-    $sql = 'SELECT first_name, last_name from Students where student_id = ?';
-    $stmt = $conn->prepare($sql);
-    $stmt -> bindParam(1, $student_id);
-    $stmt->execute();
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    $fn = $result['first_name'];
-    $ln = $result['last_name'];
-
-
-?>
-
-
