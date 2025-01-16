@@ -3,13 +3,6 @@
     // Start a new session
     session_start();
 
-    // Check if the user is logged in (example check, adapt to your app)
-    if (!isset($_SESSION['user_id'])) {
-
-        header("Location: ../login.php");
-        exit();
-    }
-
     // Include the database connection file
     include "../server/db_connect.php";
 
@@ -24,8 +17,30 @@
         $brand = htmlspecialchars($_POST['brand']);
         $strength = htmlspecialchars($_POST['strength']);
 
+        // Get med_id so can put into the takes table
+        $sql = "SELECT med_id from med where med_name =?";
+
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bindParam(1, $med);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+        $mid = $result["med_id"];
+
+        // Get brand_id so can put into the takes table
+        $sql = "SELECT brand_id from med where brand_name =?";
+
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bindParam(1, $bid);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+        $mid = $result["brand_id"];
+
         // Prepare the SQL query with explicit column names
-        $sql = "INSERT INTO takes (student_id, max_dose, min_dose, expiry, med_name, brand_name, strength) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO takes (student_id, max_dose, min_dose, exp_date, med_id, brand_id, strength) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $conn->prepare($sql);
 
@@ -34,8 +49,8 @@
         $stmt->bindParam(2, $max_dose, PDO::PARAM_STR);
         $stmt->bindParam(3, $min_dose, PDO::PARAM_STR);
         $stmt->bindParam(4, $expiry, PDO::PARAM_STR);
-        $stmt->bindParam(5, $med, PDO::PARAM_STR);
-        $stmt->bindParam(6, $brand, PDO::PARAM_STR);
+        $stmt->bindParam(5, $mid, PDO::PARAM_STR);
+        $stmt->bindParam(6, $bid, PDO::PARAM_STR);
         $stmt->bindParam(7, $strength, PDO::PARAM_STR);
 
         // Execute the query

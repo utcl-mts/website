@@ -3,12 +3,6 @@
     // Start a new session or connect to an existing one
     session_start();
 
-    // Check if the user is logged in (example check, adapt to your app)
-    if (!isset($_SESSION['user_id'])) {
-        header("Location: ../login.php");
-        exit();
-    }
-
     // Include the database connection file
     include "../server/db_connect.php";
 
