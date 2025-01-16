@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['archive'])) {
         ?>
    
     <!-- Button to go to the form to add new records -->
-    <a href="whole_school_table.php">
+    <a href="whole_school_form.php">
         <button>Add New Record</button>
     </a>
     <!-- Display Archived Records -->
