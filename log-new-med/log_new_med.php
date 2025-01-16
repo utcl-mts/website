@@ -68,8 +68,6 @@
                 echo "<form method='post' action='log_new_med_audit.php' id='add_new_med_form'>";
 
                     echo "<input type='hidden' name='student_id' value='$student_id'>";
-                    echo "<input type='hidden' name='first_name' value='$fn'>";
-                    echo "<input type='hidden' name='last_name' value='$ln'>";
 
                     echo "<label for='meds'>Medication:</label>";
 
@@ -101,6 +99,9 @@
 
                     echo "<label for='expiry'>Enter expiry date:</label>";
                     echo "<input type='date' name='expiry' id='expiry' required>";
+
+                    echo "label for='strength'>Strength:</label>";
+                    echo"<input type='number' name='strength' id='strength' required>";
 
                     echo "<input type='submit' value='Log'>";
 
