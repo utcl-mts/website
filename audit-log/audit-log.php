@@ -11,12 +11,13 @@ function logAction($staff_id, $action, $ip_address) {
 
     include "../server/db_connect.php";
 
+    try {
         // Include the IP address in the action description
         $action_with_ip = "$action, IP: $ip_address";
 
         // Prepare the SQL query
         $query = "INSERT INTO audit_log (staff_id, act) VALUES (:staff_id, :act)";
-        $stmt = $db->prepare($query);
+        $stmt = $conn->prepare($query);
 
         // Bind parameters and execute the query
         $stmt->execute([
