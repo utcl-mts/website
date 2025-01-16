@@ -2,41 +2,6 @@
 // Include the database connection file
 include "../server/db_connect.php";
 
-// Handle adding a new record
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_record'])) {
-    $name = trim($_POST['name']);
-    $exp_date_input = trim($_POST['exp_date']); // User input for the date
-    $amount_left = trim($_POST['amount_left']); // Keep as string for validation first
-    $notes = trim($_POST['notes']);
-
-    // Validate inputs
-    if (!empty($name) && !empty($exp_date_input) && is_numeric($amount_left) && intval($amount_left) >= 0) {
-        $exp_date = strtotime($exp_date_input); // Convert date to timestamp
-
-        // Ensure the date conversion is successful
-        if ($exp_date) {
-            try {
-                // Insert the new record
-                $sql = "INSERT INTO whole_school (name, exp_date, amount_left, notes, archived) VALUES (:name, :exp_date, :amount_left, :notes, 0)";
-                $stmt = $conn->prepare($sql);
-                $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-                $stmt->bindParam(':exp_date', $exp_date, PDO::PARAM_INT);
-                $stmt->bindParam(':amount_left', $amount_left, PDO::PARAM_INT);
-                $stmt->bindParam(':notes', $notes, PDO::PARAM_STR);
-                $stmt->execute();
-
-                $success_message = "New record added successfully.";
-            } catch (PDOException $e) {
-                $error_message = "Database error: " . htmlspecialchars($e->getMessage());
-            }
-        } else {
-            $error_message = "Invalid expiration date. Please use the format 'dd/mm/yyyy'.";
-        }
-    } else {
-        $error_message = "All fields are required, and amount left must be a non-negative integer.";
-    }
-}
-
 // Handle archiving a record
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['archive'])) {
     $whole_school_id = intval($_POST['whole_school_id']);
@@ -149,8 +114,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['archive'])) {
             echo "<p class='error'>Database error: " . htmlspecialchars($e->getMessage()) . "</p>";
         }
         ?>
-    </div>
-
+   
+    <!-- Button to go to the form to add new records -->
+    <a href="whole_school_form.php">
+        <button>Add New Record</button>
+    </a>
     <!-- Display Archived Records -->
     <div id="archived-records">
         <h2>Archived Records</h2>
@@ -187,7 +155,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['archive'])) {
             echo "<p class='error'>Database error: " . htmlspecialchars($e->getMessage()) . "</p>";
         }
         ?>
-    </div>
 </div>
 </body>
-
