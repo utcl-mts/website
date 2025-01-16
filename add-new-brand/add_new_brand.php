@@ -2,12 +2,34 @@
 
 ##TODO
 
+    // Check if form is submitted
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (!empty($_POST['brand'])) {
+            try {
+                $sql = "INSERT INTO brand (brand_name) VALUES (?)";
+                $stmt = $conn->prepare($sql);
+                $stmt->bindParam(1, $_POST['brand'], PDO::PARAM_STR);
+                $stmt->execute();
+                echo "Brand successfully added!";
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        } else {
+            echo "Please fill in the brand name.";
+        }
+    }
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
-    <link rel="stylesheet" href="../style.css">
+    <head>
+
+        <link rel="stylesheet" href="../style.css">
+        <title>Med Tracker</title>
+
+    </head>
 
     <body>
 
@@ -25,25 +47,26 @@
                     <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
                     <li><a href="../administer/administer.html">Administer Medication</a></li>
                     <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
-                    <li class="logout"><a>Logout</a></li>
+                    <li class="logout"><a href="../logout.php">Logout</a></li>
 
                 </ul>
 
             </div>
 
-            <form>
+            <form method="post" action="">
 
                 <table>
 
                     <tr>
 
                         <td><label for="brand">Brand Name: </label></td>
-                        <td><input type="text" id="brand" placeholder="Enter Brand Name" required></td>
+                        <td><input type="text" id="brand" name="brand" placeholder="Enter Brand Name" required></td>
 
                     </tr>
 
-
                 </table>
+
+                <button type="submit">Submit</button>
 
             </form>
 
@@ -52,13 +75,3 @@
     </body>
 
 </html>
-
-<?php
-
-    $sql = "INSERT INTO brand VALUES =?";
-
-    $stmt = $conn->prepare($sql);
-    $stmt -> bindParam(1, $_POST['brand']);
-    $stmt -> execute();
-
-?>
