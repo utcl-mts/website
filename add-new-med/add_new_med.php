@@ -31,7 +31,7 @@
 
             </div>
 
-                <form>
+                <form method="post">
 
                     <table>
 
@@ -52,3 +52,13 @@
     </body>
 
 </html>
+
+<?php
+
+    $sql = "INSERT INTO med VALUES =?";
+
+    $stmt = $conn->prepare($sql);
+    $stmt -> bindParam(1, $_POST['medication']);
+    $stmt -> execute();
+
+?>

@@ -7,48 +7,58 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../style.css">
 
-<body>
+    <body>
 
-<div class="container">
+        <div class="container">
 
-    <div class="navbar">
+            <div class="navbar">
 
-        <img id="logo" src="../assets/UTCLeeds.svg" alt="UTC Leeds">
-        <h1 id="med_tracker">Med Tracker</h1>
+                <img id="logo" src="../assets/UTCLeeds.svg" alt="UTC Leeds">
+                <h1 id="med_tracker">Med Tracker</h1>
 
-        <ul>
+                <ul>
 
-            <li><a href="../dashboard/dashboard.php">Home</a></li>
-            <li><a href="../insert_data/insert_data.php">Insert Data</a></li>
-            <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
-            <li><a href="../administer/administer.html">Administer Medication</a></li>
-            <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
-            <li class="logout"><a>Logout</a></li>
+                    <li><a href="../dashboard/dashboard.php">Home</a></li>
+                    <li><a href="../insert_data/insert_data.php">Insert Data</a></li>
+                    <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
+                    <li><a href="../administer/administer.html">Administer Medication</a></li>
+                    <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
+                    <li class="logout"><a>Logout</a></li>
 
-        </ul>
+                </ul>
 
-    </div>
+            </div>
 
-    <form>
+            <form>
 
-        <table>
+                <table>
 
-            <tr>
+                    <tr>
 
-                <td><label for="brand">Brand Name: </label></td>
-                <td><input type="text" id="brand" placeholder="Enter Brand Name" required></td>
+                        <td><label for="brand">Brand Name: </label></td>
+                        <td><input type="text" id="brand" placeholder="Enter Brand Name" required></td>
 
-            </tr>
+                    </tr>
 
 
-        </table>
+                </table>
 
-    </form>
+            </form>
 
-</div>
+        </div>
 
-</body>
+    </body>
 
 </html>
+
+<?php
+
+    $sql = "INSERT INTO brand VALUES =?";
+
+    $stmt = $conn->prepare($sql);
+    $stmt -> bindParam(1, $_POST['brand']);
+    $stmt -> execute();
+
+?>
