@@ -7,25 +7,18 @@
  * @param string $ip_address The IP address of the user.
  * @return void
  */
-function logAction($staff_id, $action, $ip_address) {
-
-    include "../server/db_connect.php";
-
+function logAction($conn, $staff_id, $action) {
     try {
-        // Include the IP address in the action description
-        $action_with_ip = "$action, IP: $ip_address";
-
-        // Prepare the SQL query
-        $query = "INSERT INTO audit_log (staff_id, act) VALUES (:staff_id, :act)";
-        $stmt = $conn->prepare($query);
-
-        // Bind parameters and execute the query
-        $stmt->execute([
-            ':staff_id' => $staff_id,
-            ':act' => $action_with_ip
+        $ip_address = $_SERVER['REMOTE_ADDR']; // Capture the IP address
+        $action_with_ip = "$action, IP: $ip_address"; // Append IP address to the action
+        $log_sql = "INSERT INTO audit_logs (staff_id, act, date_time) VALUES (:staff_id, :act, :date_time)";
+        $log_stmt = $conn->prepare($log_sql);
+        $log_stmt->execute([
+            'staff_id' => $staff_id,
+            'act' => $action_with_ip,
+            'date_time' => time()
         ]);
     } catch (PDOException $e) {
-        // Handle database errors
         error_log("Failed to log action: " . $e->getMessage());
     }
 }
