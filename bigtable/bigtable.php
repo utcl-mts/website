@@ -66,12 +66,11 @@ $search_term = isset($_GET['search']) ? trim($_GET['search']) : '';
 
 // Log the search term if it's not empty
 if (!empty($search_term)) {
-     $staff_id = $_SESSION['staff_id'];
-     $ip_address = $_SERVER['REMOTE_ADDR'];
-     $action = "Searched for: " . $search_term;
-
-    echo "Calling logAction..."; // Debug output
-    logAction($staff_id, $action, $ip_address);
+    $staff_id = $_SESSION['staff_id'];
+    $ip_address = $_SERVER['REMOTE_ADDR'];
+    $action = "Searched for: " . $search_term;
+    // ID of the user performing the action
+    logAction($conn, $staff_id, $action);
 }
 
 
