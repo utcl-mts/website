@@ -27,6 +27,13 @@
         <?php
         session_start();
         include "../server/db_connect.php";
+        include "../audit-log/audit-log.php";
+
+        // Check for valid session and cookie
+        if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
+            header("Location: ../index.html");
+            exit();
+        }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['confirm_insertion'])) {
@@ -62,11 +69,11 @@
 
 
                         // Log activity
+                        $ip_address = $_SERVER['REMOTE_ADDR'];
                         $staff_id = $_SESSION["staff_id"];
-                        $act = "$insertCount students have been added";
-                        $date_time = date("U");
-                        $logStmt = $conn->prepare("INSERT INTO audit_logs (staff_id, act, date_time) VALUES (?, ?, ?)");
-                        $logStmt->execute([$staff_id, $act, $date_time]);
+                        $action = "$insertCount students have been added";
+
+                        logAction($conn, $staff_id, $action);
 
                         // Cleanup
                         unlink($filePath); // Delete the temporary file
