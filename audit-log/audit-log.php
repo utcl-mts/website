@@ -1,31 +1,29 @@
 <?php
 /**
- * Logs an action into the audit_log table, including the user's IP address in the action description.
+ * Logs an action into the audit_log table, including an anonymized IP address in the action description.
  *
+ * @param PDO $conn The database connection.
  * @param int $staff_id The ID of the user performing the action.
  * @param string $action The description of the action being performed.
- * @param string $ip_address The IP address of the user.
  * @return void
  */
 function logAction($conn, $staff_id, $action) {
     try {
-        $ip_address = $_SERVER['REMOTE_ADDR']; // Capture the IP address
-        $action_with_ip = "$action, IP: $ip_address"; // Append IP address to the action
-        $log_sql = "INSERT INTO audit_logs (staff_id, act, date_time) VALUES (:staff_id, :act, :date_time)";
-        $log_stmt = $conn->prepare($log_sql);
-        $log_stmt->execute([
-            'staff_id' => $staff_id,
-            'act' => $action_with_ip,
-            'date_time' => time()
-        ]);
+        // Capture and anonymize the IP address
+        $ip_address = $_SERVER['REMOTE_ADDR'];
+        // Append anonymized IP address to the action
+        $action_with_ip = "IP: $ip_address, $action";
+
+        $date_time = time();
+
+        $sql = "INSERT INTO audit_logs (staff_id, act, date_time) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(1, $staff_id);
+        $stmt->bindParam(2, $action_with_ip);
+        $stmt->bindParam(3, $date_time);
+        $stmt->execute(); // Execute the statement
     } catch (PDOException $e) {
         error_log("Failed to log action: " . $e->getMessage());
+        throw $e; // Optional: Re-throw for debugging during development
     }
 }
-
-// Example Usage
-$staff_id = 1; // ID of the user performing the action
-$action = "Logged in"; // Description of the action
-$ip_address = $_SERVER['REMOTE_ADDR']; // User's IP address
-
-logAction($staff_id, $action, $ip_address);
