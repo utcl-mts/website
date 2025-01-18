@@ -7,7 +7,7 @@ if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
     exit();
 }
 
-include "../server/db_connect.php";
+include "../../server/db_connect.php";
 
 $first_name = $_POST['first_name'];
 $last_name = $_POST['last_name'];
@@ -46,7 +46,7 @@ if($password!=$c_password){
                 $stmt->bindParam(5,$group);
 
                 $stmt->execute();
-                header("refresh:5; url=admin_home.php");
+                header("refresh:5; url=staff_home.php");
                 echo '<br>';
                 echo "Successfully registered";
             } catch (PDOException $e) {

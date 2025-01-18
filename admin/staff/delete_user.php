@@ -7,7 +7,7 @@ if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
     exit();
 }
 
-include "../server/db_connect.php";
+include "../../server/db_connect.php";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     try {
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $conn = null;
     }
 
-    header("Location: admin_home.php");
+    header("Location: staff_home.php");
     exit;
 }
 ?>

@@ -7,7 +7,7 @@ if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
     exit();
 }
 
-include "../server/db_connect.php";
+include "../../server/db_connect.php";
 
 // Fetch staff data
 $query = "SELECT staff_id, first_name, last_name, email FROM staff WHERE staff_id != 1";
@@ -20,27 +20,28 @@ $staffData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <html>
 <head>
     <title>Hours Tracking - Admin Home</title>
-    <link rel="stylesheet" href="../assets/style/style.css">
+    <link rel="stylesheet" href="../../assets/style/style.css">
 </head>
 <body>
 <div class="full_page_styling">
     <div>
         <ul class="nav_bar">
             <div class="nav_left">
-                <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
-                <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
-                <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
+                <li class="navbar_li"><a href="../../dashboard/dashboard.php">Home</a></li>
+                <li class="navbar_li"><a href="../../insert_data/insert_data_home.php">Insert Data</a></li>
+                <li class="navbar_li"><a href="../../bigtable/bigtable.php">Student Medication</a></li>
                 <!--                <li class="navbar_li"><a href="../administer/administer_form.php">Administer Medication</a></li>-->
-                <li class="navbar_li"><a href="../log/log_form.php">Log Medication</a></li>
-                <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
+                <li class="navbar_li"><a href="../../log/log_form.php">Log Medication</a></li>
+                <li class="navbar_li"><a href="../../whole_school/whole_school_table.php">Whole School Medication</a></li>
             </div>
             <div class="nav_left">
-                <li class="navbar_li"><a href="../logout.php">Logout</a></li>
+                <li class="navbar_li"><a href="../../logout.php">Logout</a></li>
             </div>
         </ul>
     </div>
 
-<h1>Manage Staff</h1>
+<h1>Staff Management</h1>
+
 
     <button class="submit"><a class="remove_a" href="create_user_form.php">Create a new user</a></button>
 
@@ -83,6 +84,8 @@ $staffData = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <?php endif; ?>
     </tbody>
 </table>
+    <br><br>
+    <a class="back_link" href="../admin_dashboard.php">< Go Back</a>
 
 <?php
 $conn = null; // Close the database connection
