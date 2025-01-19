@@ -23,7 +23,8 @@ $below_minimum_doses = [];
 $sql = "
     SELECT 
         takes.exp_date, 
-        takes.takes_id, 
+        takes.takes_id,
+        students.student_id, 
         students.first_name, 
         students.last_name, 
         students.year, 
@@ -69,7 +70,8 @@ foreach ($result as $row) {
 // Get meds below minimum dose
 $sql = "
     SELECT 
-        takes.takes_id, 
+        takes.takes_id,
+        students.student_id, 
         students.first_name, 
         students.last_name, 
         students.year, 
@@ -92,6 +94,7 @@ foreach ($dose_result as $row) {
     $takes_id = $row["takes_id"];
     $student_name = $row["first_name"] . " " . $row["last_name"];
     $student_year = $row["year"];
+    $student_id = $row["student_id"];
     $med_name = $row["med_name"];
     $brand_name = $row["brand_name"];
     $current_dose = $row["current_dose"];
@@ -118,6 +121,7 @@ foreach ($dose_result as $row) {
 <!--                <li class="navbar_li"><a href="../administer/administer_form.php">Administer Medication</a></li>-->
                 <li class="navbar_li"><a href="../log/log_form.php">Log Medication</a></li>
                 <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
+                <li class="navbar_li"><a href="../log_new_med/whole_school_table.php">Create a new med</a></li>
             </div>
             <div class="nav_left">
                 <li class="navbar_li"><a href="../admin/admin_dashboard.php">Admin Dashboard</a></li>
