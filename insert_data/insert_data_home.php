@@ -37,7 +37,7 @@ echo'<link rel="stylesheet" href="../assets/style/style.css">';
         </ul>
     </div>
 
-    <h1>Edit Notes</h1>
+    <h1>Bulk Upload</h1>
     <button class="download_template"><a href="import_students_template.csv" download>Download CSV Template</a></button>
     <br><br>
     <form action="process_csv.php" method="post" enctype="multipart/form-data">
