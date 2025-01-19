@@ -63,7 +63,7 @@ try {
             'cookies_and_cream',
             'active',
             [
-                'expires' => time() + (2 * 10000),  // 2 minutes
+                'expires' => time() + (2 * 60),  // 2 minutes
                 'path' => '/',
                 'secure' => true,
                 'httponly' => true,
