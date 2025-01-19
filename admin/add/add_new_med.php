@@ -33,9 +33,10 @@
                 <br><br>
                 <button class="submit" type="submit">Submit</button>
             </form>
-
+            <br><br>
+            <a class="back_link" href="../admin_dashboard.php">< Go Back</a>
         </div>
-
+        
     </body>
 
 </html>
