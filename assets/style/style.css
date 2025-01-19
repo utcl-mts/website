@@ -281,9 +281,9 @@ select {
     background-color: transparent;
     border: solid #0b0c0c;
     padding: 10px;
-    font-size: 16px;
+    font-size: 20px;
     color: #0b0c0c;
-    width: 200px;
+    width: 300px;
     cursor: pointer;
     outline: none;
     font-family: Roboto;
@@ -429,36 +429,107 @@ select option {
     color: white;
 }
 
-select {
 
-    background-color: transparent;
-    border: solid #0b0c0c;
-    padding: 10px;
-    font-size: 20px;
-    color: #0b0c0c;
-    width: 250px;
+.blue_submit{
+    font-weight: bold;
     cursor: pointer;
-    outline: none;
     font-family: Roboto;
-}
-
-select::after {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    /*transform: translateY(-50%);*/
-    /*pointer-events: none;*/
-}
-
-select:focus {
-    border-color: #0b0c0c;
-    outline: 3px solid #ffdd00; /* Add yellow outline when focused */
-}
-
-select option {
-    font-family: Roboto;
-    background-color: white;
-    color: #333;
+    padding: 10px;
     font-size: 16px;
-    /*padding: 10px;*/
+    width: 250px;
+    background: #1d70b8;
+    border: none;
+    color: white;
+}
+
+.blue_submit:hover {
+    background-color: #165084; /* Darker green on hover */
+}
+
+.success-banner {
+    border-left: 4px solid #00703c;
+    padding: 16px 20px;
+    font-family: Roboto;
+    width: 750px;
+    box-sizing: border-box;
+}
+
+.success-header {
+    background-color: #00703c;
+    color: white;
+    padding: 8px 20px;
+    margin: -16px -20px 16px -20px;
+}
+
+.success-header h2 {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.success-content {
+    color: #0b0c0c;
+}
+
+.success-content p {
+    margin: 0;
+    font-size: 16px;
+    word-wrap: break-word;
+}
+
+.success-content p + p {
+    margin-top: 8px;
+}
+
+.success-content a {
+    color: #0b0c0c;
+    text-decoration: underline;
+}
+
+.success-content a:hover {
+    text-decoration: none;
+}
+
+.error-banner {
+    border-left: 4px solid #d4351c;
+    padding: 16px 20px;
+    font-family: Roboto;
+    width: 750px;
+    box-sizing: border-box;
+}
+
+.error-header {
+    background-color: #d4351c;
+    color: white;
+    padding: 8px 20px;
+    margin: -16px -20px 16px -20px;
+}
+
+.error-header h2 {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.error-content {
+    color: #0b0c0c;
+}
+
+.error-content p {
+    margin: 0;
+    font-size: 16px;
+    word-wrap: break-word;
+}
+
+.error-content p + p {
+    margin-top: 8px;
+}
+
+.error-content a {
+    color: #0b0c0c;
+    text-decoration: underline;
+}
+
+.error-content a:hover {
+    text-decoration: none;
 }

@@ -1,36 +1,39 @@
-<link rel="stylesheet" href="../style.css">
-<body>
-<div class="container">
-
-    <!-- universal nav bar-->
-    <div class="navbar">
-
-        <img id="logo" src="../assets/UTCLeeds.svg" alt="UTC Leeds">
-
-        <h1 id="med_tracker">Med Tracker</h1>
-
-        <ul>
-            <li><a href="../dashboard/dashboard.php">Home</a></li>
-            <li><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
-            <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
-            <li><a href="../administer/administer.html">Administer Medication</a></li>
-            <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
-            <li><a href="../student_profile/student_profile.php">Student Profile</a></li>
-            <li class="logout"><a>Logout</a></li>
+<link rel="stylesheet" href="../assets/style/style.css">
+<body class="full_page_styling">
+<title>Hours Tracking - Dashboard</title>
+<div>
+    <div>
+        <ul class="nav_bar">
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
+                <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
+                <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
+                <li class="navbar_li"><a href="../log/log_form.php">Log Medication</a></li>
+                <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
+                <li class="navbar_li"><a href="../student_profile/student_profile.php">Student Profile</a></li>
+            </div>
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../admin/admin_dashboard.php">Admin Dashboard</a></li>
+                <li class="navbar_li"><a href="../logout.php">Logout</a></li>
+            </div>
         </ul>
-
     </div>
+
+    <h1>View Student Details</h1>
 
     <div class="searchbar">
         <form method="GET" action="">
+            <div class='text-element'>Enter either first name or last name</div>
+            <div class='text-element-faded'>Example: Joe</div>
             <input
+                    class="text_input"
                     id="search-input"
                     type="text"
                     name="student_name"
-                    placeholder="Enter student name"
                     value="<?php echo htmlspecialchars(isset($_GET['student_name']) ? $_GET['student_name'] : ''); ?>"
             >
-            <button id="search-button" type="submit">Search</button>
+            <br><br>
+            <button class="blue_submit" id="search-button" type="submit">Continue</button>
         </form>
     </div>
 
@@ -65,7 +68,7 @@
 
             echo "<div id='student_data'>";
             if ($results) {
-                echo "<h2>Select a Student</h2>";
+                echo"<h2>Select student</h2>";
                 echo "<form method='POST' action=''>";
                 echo "<select name='selected_student' required>";
                 echo "<option value=''>--Select a Student--</option>";
@@ -75,7 +78,8 @@
                     echo "<option value='$student_id'>$full_name (Year: " . htmlspecialchars($row['year']) . ")</option>";
                 }
                 echo "</select>";
-                echo "<button type='submit' name='view_student'>View Student</button>";
+                echo "<br><br>";
+                echo "<button class='blue_submit' type='submit' name='view_student'>View Student</button>";
                 echo "</form>";
             } else {
                 echo "<p>No records found for the given student name.</p>";
@@ -107,23 +111,30 @@
 
             $student_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            if ($student_data) {
+            if (!empty($student_data)) {
                 $full_name = htmlspecialchars($student_data[0]['first_name'] . ' ' . $student_data[0]['last_name']);
                 $year = htmlspecialchars($student_data[0]['year']);
                 echo "<h2>Details for $full_name (Year: $year)</h2>";
-                echo "<table id='student_table'>";
-                echo "<tr><th>Medication</th><th>Brand</th><th>Current Dose</th><th>Expiry Date</th></tr>";
+                echo "<table class='notification_table'>";
+                echo "<tr>
+                            <th class='notification_table_th'>Medication</th>
+                            <th class='notification_table_th'>Brand</th>
+                            <th class='notification_table_th'>Current Dose</th>
+                            <th class='notification_table_th'>Expiry Date</th>
+                    </tr>";
                 foreach ($student_data as $row) {
                     echo "<tr>";
-                    echo "<td>" . htmlspecialchars($row['med_name']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['brand_name']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['current_dose']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['exp_date']) . "</td>";
+                    echo "<td class='notification_table_td'>" . htmlspecialchars($row['med_name'] ?? 'N/A') . "</td>";
+                    echo "<td class='notification_table_td'>" . htmlspecialchars($row['brand_name'] ?? 'N/A') . "</td>";
+                    echo "<td class='notification_table_td'>" . htmlspecialchars($row['current_dose'] ?? 'N/A') . "</td>";
+                    echo "<td class='notification_table_td'>" . 
+                        (isset($row['exp_date']) ? date('Y-m-d', htmlspecialchars($row['exp_date'])) : 'N/A') . 
+                        "</td>";
                     echo "</tr>";
                 }
                 echo "</table>";
             } else {
-                echo "<p>No medication records found for this student.</p>";
+                echo "<h2>No details available for the selected student.</h2>";
             }
 
         } catch (PDOException $e) {
