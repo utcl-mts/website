@@ -12,7 +12,7 @@
                 <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
                 <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
                 <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
-                <li class="navbar_li"><a href="../log/log_form.php">Log Medication</a></li>
+                <li class="navbar_li"><a href="../log/log_form.php">Create Notes</a></li>
                 <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
                 <li class="navbar_li"><a href="../student_profile/student_profile.php">Student Profile</a></li>
                 <li class="navbar_li"><a href="../edit_details/student_table.php">Student Management</a></li>
@@ -33,13 +33,13 @@
                 name="search"
                 class="search_bar"
                 placeholder="Search by student name, medication, or brand"
-                value="<?php echo htmlspecialchars(isset($_GET['search']) ? $_GET['search'] : ''); ?>"
+                value="<?php echo htmlspecialchars($_GET['search'] ?? '', ENT_QUOTES); ?>"
             >
             <button class="submit" type="submit">Search</button>
         </form>
     </div>
 
-    <br><br>    
+    <br><br>
 
     <?php
     include "../server/db_connect.php";
@@ -47,7 +47,7 @@
     $results_per_page = 15;
     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
     $start_from = ($page - 1) * $results_per_page;
-    $search_term = isset($_GET['search']) ? trim($_GET['search']) : '';
+    $search_term = trim($_GET['search'] ?? '');
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['decrement'])) {
         $takes_id = intval($_POST['takes_id']);
@@ -69,7 +69,7 @@
                 echo "<p class='error'>Cannot decrement. Dose is already at zero.</p>";
             }
         } catch (PDOException $e) {
-            die("<p class='error'>Database error: " . htmlspecialchars($e->getMessage()) . "</p>");
+            die("<p class='error'>Database error: " . htmlspecialchars($e->getMessage(), ENT_QUOTES) . "</p>");
         }
     }
 
@@ -89,8 +89,8 @@
         $total_pages = ceil($total_records / $results_per_page);
 
         $sql = "SELECT takes.takes_id, takes.exp_date, takes.current_dose, takes.min_dose, 
-                       takes.strength, takes.notes, med.med_name, brand.brand_name, 
-                       students.first_name, students.last_name, students.year 
+                       takes.strength, med.med_name, brand.brand_name, 
+                       students.student_id, students.first_name, students.last_name, students.year 
                 FROM takes 
                 INNER JOIN med ON takes.med_id = med.med_id 
                 INNER JOIN brand ON takes.brand_id = brand.brand_id 
@@ -111,7 +111,6 @@
             'current_dose' => 'Current Dose',
             'min_dose' => 'Minimum Dose',
             'strength' => 'Strength',
-            'notes' => 'Notes',
             'med_name' => 'Medication Name',
             'brand_name' => 'Brand Name',
             'first_name' => 'First Name',
@@ -125,28 +124,37 @@
             echo "<table class='big_table'>";
             echo "<tr>";
             foreach ($custom_headings as $heading) {
-                echo "<th>" . htmlspecialchars($heading) . "</th>";
+                echo "<th>" . htmlspecialchars($heading, ENT_QUOTES) . "</th>";
             }
             echo "<th>Actions</th>";
+            echo "<th>Notes</th>";
             echo "</tr>";
 
             foreach ($results as $row) {
                 echo "<tr>";
                 foreach ($custom_headings as $column => $heading) {
-                    $value = isset($row[$column]) ? $row[$column] : '';
+                    $value = $row[$column] ?? '';
                     if ($column === 'exp_date' && is_numeric($value)) {
                         $value = date('d/m/y', $value);
                     }
-                    echo "<td class='big_table_td'>" . htmlspecialchars($value) . "</td>";
+                    echo "<td class='big_table_td'>" . htmlspecialchars($value, ENT_QUOTES) . "</td>";
                 }
                 echo "<td>
                         <form method='POST' action=''>
-                            <input type='hidden' name='takes_id' value='" . htmlspecialchars($row['takes_id']) . "'>
+                            <input type='hidden' name='takes_id' value='" . htmlspecialchars($row['takes_id'], ENT_QUOTES) . "'>
                             <button type='submit' name='decrement' " . ($row['current_dose'] <= 0 ? "disabled" : "") . ">
                                 Decrement Dose
                             </button>
                         </form>
-                      </td>";
+                    </td>";
+                echo "<td>
+                        <form method='GET' action='notes.php'>
+                            <input type='hidden' name='student_id' value='" . htmlspecialchars($row['student_id'], ENT_QUOTES) . "'>
+                            <button type='submit'>
+                                Notes
+                            </button>
+                        </form>
+                    </td>";
                 echo "</tr>";
             }
 
@@ -174,7 +182,7 @@
         }
         echo "</div>";
     } catch (PDOException $e) {
-        die("Database error: " . $e->getMessage());
+        die("Database error: " . htmlspecialchars($e->getMessage(), ENT_QUOTES));
     }
     ?>
 </div>

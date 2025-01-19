@@ -119,7 +119,7 @@ foreach ($dose_result as $row) {
                 <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
                 <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
 <!--                <li class="navbar_li"><a href="../administer/administer_form.php">Administer Medication</a></li>-->
-                <li class="navbar_li"><a href="../log/log_form.php">Log Medication</a></li>
+                <li class="navbar_li"><a href="../log/log_form.php">Create Notes</a></li>
                 <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
                 <li class="navbar_li"><a href="../student_profile/student_profile.php">Student Profile</a></li>
                 <li class="navbar_li"><a href="../edit_details/student_table.php">Student Management</a></li>
@@ -148,10 +148,7 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button class="secondary_button" type="submit">Archive</button>
                         </form>
-                        <form action="info.php" method="post" style="display:inline;">
-                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
-                            <button class="secondary_button" type="submit">Info</button>
-                        </form>
+                        
                         <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
                             <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
                             <button class="secondary_button" type="submit" > Log New Med</button>
@@ -181,10 +178,7 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button class="secondary_button" type="submit">Archive</button>
                         </form>
-                        <form action="info.php" method="post" style="display:inline;">
-                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
-                            <button class="secondary_button" type="submit">Info</button>
-                        </form>
+                        
                         <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
                             <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
                             <button class="secondary_button" type="submit" > Log New Med</button>
@@ -214,10 +208,7 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button class="secondary_button" type="submit">Archive</button>
                         </form>
-                        <form action="info.php" method="post" style="display:inline;">
-                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
-                            <button class="secondary_button" type="submit">Info</button>
-                        </form>
+                        
                         <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
                             <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
                             <button class="secondary_button" type="submit" > Log New Med</button>
@@ -247,10 +238,7 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button class="secondary_button" type="submit">Archive</button>
                         </form>
-                        <form action="info.php" method="post" style="display:inline;">
-                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
-                            <button class="secondary_button" type="submit">Info</button>
-                        </form>
+                        
                         <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
                             <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
                             <button class="secondary_button" type="submit" > Log New Med</button>
