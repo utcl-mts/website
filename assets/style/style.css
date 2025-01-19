@@ -533,3 +533,14 @@ select option {
 .error-content a:hover {
     text-decoration: none;
 }
+
+.centered-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.centered-form form {
+    text-align: center; /* Align content inside the form */
+}

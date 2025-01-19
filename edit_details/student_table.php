@@ -1,6 +1,6 @@
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/style/style.css">
 <body>
-<div class="container">
+<div class="full_page_styling">
 
     <!-- universal nav bar -->
 <div>
@@ -13,6 +13,7 @@
                 <li class="navbar_li"><a href="../log/log_form.php">Log Medication</a></li>
                 <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
                 <li class="navbar_li"><a href="../student_profile/student_profile.php">Student Profile</a></li>
+                <li class="navbar_li"><a href="../edit_details/student_table.php">Student Management</a></li>
             </div>
             <div class="nav_left">
                 <li class="navbar_li"><a href="../admin/admin_dashboard.php">Admin Dashboard</a></li>
@@ -21,23 +22,28 @@
         </ul>
     </div>
 
+    <h1>Student Management</h1>
+
     <div id="search-bar">
         <form method="GET" action="">
             <input
                 type="text"
                 name="search"
+                class = "search_bar"
                 placeholder="Search by student name or year"
                 value="<?php echo htmlspecialchars(isset($_GET['search']) ? $_GET['search'] : ''); ?>"
             >
-            <button type="submit">Search</button>
+            <button class="small_submit" type="submit">Search</button>
         </form>
     </div>
 
     <div id="progress-year">
         <form method="GET" action="">
-            <label for="year">Select Year Group to Progress:</label>
-            <input type="text" id="year" name="year" placeholder="Enter Year (e.g., 11)" required>
-            <button type="submit" name="progress">Progress Year Group</button>
+            <div class='text-element'>Enter year group</div>
+            <div class='text-element-faded'>Example: 12</div>
+            <input class="small_int_input" type="text" id="year" name="year" required>
+            <br><br>
+            <button class="submit" type="submit" name="progress">Progress Year Group</button>
         </form>
     </div>
 
@@ -60,7 +66,7 @@
             if ($students) {
                 echo "<form method='POST' action=''>";
                 echo "<h2>Progress Year Group $selected_year</h2>";
-                echo "<table>";
+                echo "<table class='big_table'>";
                 echo "<tr>";
                 foreach (array_keys($students[0]) as $header) {
                     echo "<th>" . htmlspecialchars($header) . "</th>";
@@ -73,7 +79,7 @@
                     foreach ($student as $key => $value) {
                         echo "<td>" . htmlspecialchars($value) . "</td>";
                     }
-                    echo "<td>
+                    echo "<td class='big_table_td'>
                             <input type='checkbox' name='progress_ids[]' value='" . htmlspecialchars($student['student_id']) . "' checked>
                           </td>";
                     echo "</tr>";
@@ -110,7 +116,7 @@
     }
 
     // Default student table display logic
-    $results_per_page = 15;
+    $results_per_page = 10;
     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
     $start_from = ($page - 1) * $results_per_page;
     $search_term = isset($_GET['search']) ? trim($_GET['search']) : '';
@@ -132,9 +138,8 @@
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        echo "<div id='bigt'>";
         if ($results) {
-            echo "<table>";
+            echo "<table class='big_table'>";
             echo "<tr>";
             foreach (array_keys($results[0]) as $header) {
                 echo "<th>" . htmlspecialchars($header) . "</th>";
@@ -147,12 +152,14 @@
                 foreach ($row as $value) {
                     echo "<td>" . htmlspecialchars($value) . "</td>";
                 }
-                echo "<td>
-                        <form method='GET' action='edit_student.php'>
-                            <input type='hidden' name='student_id' value='" . htmlspecialchars($row['student_id']) . "'>
-                            <button type='submit'>Edit</button>
-                        </form>
-                      </td>";
+                echo "<td >
+                        <div class='centered-form'>
+                            <form method='GET' action='edit_student.php'>
+                                <input type='hidden' name='student_id' value='" . htmlspecialchars($row['student_id']) . "'>
+                                <button class='secondary_button' type='submit'>Edit</button>
+                            </form>
+                        </div>
+                    </td>";
                 echo "</tr>";
             }
             echo "</table>";
@@ -167,7 +174,7 @@
         }
         for ($i = 1; $i <= $total_pages; $i++) {
             if ($i == $page) {
-                echo "<span>$i</span>";
+                echo "<span class='active'>$i</span>";
             } else {
                 echo "<a href='?search=" . urlencode($search_term) . "&page=$i'>$i</a>";
             }

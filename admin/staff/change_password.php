@@ -11,9 +11,6 @@ if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
 include "../../server/db_connect.php";
 
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
     if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['staff_id'])) {
         $staff_id = $_GET['staff_id'];
     } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['staff_id'])) {
@@ -82,6 +79,7 @@ try {
                 <li class="navbar_li"><a href="../../log/log_form.php">Log Medication</a></li>
                 <li class="navbar_li"><a href="../../whole_school/whole_school_table.php">Whole School Medication</a></li>
                 <li class="navbar_li"><a href="../../student_profile/student_profile.php">Student Profile</a></li>
+                <li class="navbar_li"><a href="../../edit_details/student_table.php">Student Management</a></li>
             </div>
             <div class="nav_left">
                 <li class="navbar_li"><a href="../../admin/admin_dashboard.php">Admin Dashboard</a></li>

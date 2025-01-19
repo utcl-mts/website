@@ -18,6 +18,7 @@
                 <li class="navbar_li"><a href="../log/log_form.php">Log Medication</a></li>
                 <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
                 <li class="navbar_li"><a href="../student_profile/student_profile.php">Student Profile</a></li>
+                <li class="navbar_li"><a href="../edit_details/student_table.php">Student Management</a></li>
             </div>
             <div class="nav_left">
                 <li class="navbar_li"><a href="../admin/admin_dashboard.php">Admin Dashboard</a></li>
