@@ -12,7 +12,9 @@
         $sid = htmlspecialchars($_POST['student_id']);
         $max_dose = htmlspecialchars($_POST['max_dose']);
         $min_dose = htmlspecialchars($_POST['min_dose']);
+        $current_dose = htmlspecialchars($_POST['current_dose']);
         $expiry = htmlspecialchars($_POST['expiry']);
+        $epoch = strtotime($expiry);
         $med = htmlspecialchars($_POST['meds']);
         $brand = htmlspecialchars($_POST['brand']);
         $strength = htmlspecialchars($_POST['strength']);
@@ -37,25 +39,24 @@
         $stmt->execute();
 
         $result = $stmt->fetch();
-        $mid = $result["brand_id"];
+        $bid = $result["brand_id"];
 
         // Prepare the SQL query with explicit column names
-        $sql = "INSERT INTO takes (student_id, max_dose, min_dose, exp_date, med_id, brand_id, strength) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
+        $sql = "INSERT INTO takes (student_id, max_dose, min_dose, exp_date, current_dose, med_id, brand_id, strength) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
 
         // Bind parameters
         $stmt->bindParam(1, $sid, PDO::PARAM_STR);
         $stmt->bindParam(2, $max_dose, PDO::PARAM_STR);
         $stmt->bindParam(3, $min_dose, PDO::PARAM_STR);
-        $stmt->bindParam(4, $expiry, PDO::PARAM_STR);
-        $stmt->bindParam(5, $mid, PDO::PARAM_STR);
-        $stmt->bindParam(6, $bid, PDO::PARAM_STR);
-        $stmt->bindParam(7, $strength, PDO::PARAM_STR);
-
+        $stmt->bindParam(4, $epoch, PDO::PARAM_STR);
+        $stmt->bindParam(5, $current_dose, PDO::PARAM_STR);
+        $stmt->bindParam(6, $mid, PDO::PARAM_STR);
+        $stmt->bindParam(7, $bid, PDO::PARAM_STR);
+        $stmt->bindParam(8, $strength, PDO::PARAM_STR);
         // Execute the query
         if ($stmt->execute()) {
-
+            header("Location: ../dashboard/dashboard.php");
             echo "Record successfully added!";
 
         } else {

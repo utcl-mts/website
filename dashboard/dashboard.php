@@ -121,7 +121,7 @@ foreach ($dose_result as $row) {
 <!--                <li class="navbar_li"><a href="../administer/administer_form.php">Administer Medication</a></li>-->
                 <li class="navbar_li"><a href="../log/log_form.php">Log Medication</a></li>
                 <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
-                <li class="navbar_li"><a href="../log_new_med/whole_school_table.php">Create a new med</a></li>
+                <li class="navbar_li"><a href="../log-new-med/log_new_med.php">Create a new med</a></li>
             </div>
             <div class="nav_left">
                 <li class="navbar_li"><a href="../admin/admin_dashboard.php">Admin Dashboard</a></li>
