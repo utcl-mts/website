@@ -34,4 +34,9 @@ if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
 
     <br><br>
 
-    <button class="submit"><a class="remove_a" href="staff/staff_home.php">Staff Management</a></button>
+    <button class="submit"><a class="remove_a" href="staff/staff_home.php">Staff Management</a></button>    
+
+    <br><br>
+
+    <button class="submit"><a class="remove_a" href="add/add_new_brand.php">Add new brand</a></button>
+    <button class="submit"><a class="remove_a" href="add/add_new_med.php">Add new med</a></button>    
