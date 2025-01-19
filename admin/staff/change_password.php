@@ -11,9 +11,6 @@ if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
 include "../../server/db_connect.php";
 
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
     if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['staff_id'])) {
         $staff_id = $_GET['staff_id'];
     } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['staff_id'])) {
@@ -37,10 +34,24 @@ try {
             $stmt->bindParam(':staff_id', $staff_id, PDO::PARAM_INT);
 
             if ($stmt->execute()) {
-                $success = "Password updated successfully.";
+                echo '<div class="success-banner">';
+                echo '<div class="success-header">';
+                    echo '<h2>Success</h2>';
+            echo '</div>';
+            echo '<div class="success-content">';
+                echo '<p>Password sucessfully changed</p>';
+            echo '</div>';
+            echo '</div>';
                 header("Location: staff_home.php");
             } else {
-                $error = "Failed to update the password.";
+                echo '<div class="error-banner">';
+                echo '<div class="error-header">';
+                    echo '<h2>Error</h2>';
+                echo '</div>';
+                echo '<div class="error-content">';
+                    echo '<p>Failed to update the password.</p>';
+                echo '</div>';
+                echo '</div>';
             }
         }
     } else {
@@ -57,19 +68,21 @@ try {
     <title>Hours Tracking - Admin Home</title>
     <link rel="stylesheet" href="../../assets/style/style.css">
 </head>
-<body>
-<div class="full_page_styling">
-    <div>
+<body class='full_page_styling'>
+<div>
         <ul class="nav_bar">
             <div class="nav_left">
                 <li class="navbar_li"><a href="../../dashboard/dashboard.php">Home</a></li>
                 <li class="navbar_li"><a href="../../insert_data/insert_data_home.php">Insert Data</a></li>
                 <li class="navbar_li"><a href="../../bigtable/bigtable.php">Student Medication</a></li>
-                <!--                <li class="navbar_li"><a href="../administer/administer_form.php">Administer Medication</a></li>-->
+<!--                <li class="navbar_li"><a href=/administer/administer_form.php">Administer Medication</a></li>-->
                 <li class="navbar_li"><a href="../../log/log_form.php">Log Medication</a></li>
                 <li class="navbar_li"><a href="../../whole_school/whole_school_table.php">Whole School Medication</a></li>
+                <li class="navbar_li"><a href="../../student_profile/student_profile.php">Student Profile</a></li>
+                <li class="navbar_li"><a href="../../edit_details/student_table.php">Student Management</a></li>
             </div>
             <div class="nav_left">
+                <li class="navbar_li"><a href="../../admin/admin_dashboard.php">Admin Dashboard</a></li>
                 <li class="navbar_li"><a href="../../logout.php">Logout</a></li>
             </div>
         </ul>

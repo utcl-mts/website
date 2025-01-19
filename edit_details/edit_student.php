@@ -61,11 +61,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/style/style.css">
 <body>
-<div class="container">
+<div class="full_page_styling">
+
     <!-- universal nav bar -->
-    <div>
+<div>
         <ul class="nav_bar">
             <div class="nav_left">
                 <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
@@ -74,8 +75,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!--                <li class="navbar_li"><a href="../administer/administer_form.php">Administer Medication</a></li>-->
                 <li class="navbar_li"><a href="../log/log_form.php">Log Medication</a></li>
                 <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
+                <li class="navbar_li"><a href="../student_profile/student_profile.php">Student Profile</a></li>
             </div>
             <div class="nav_left">
+                <li class="navbar_li"><a href="../admin/admin_dashboard.php">Admin Dashboard</a></li>
                 <li class="navbar_li"><a href="../logout.php">Logout</a></li>
             </div>
         </ul>
@@ -94,19 +97,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <!-- Form for editing student -->
         <form method="POST" action="">
-            <label for="first_name">First Name:</label>
-            <input type="text" id="first_name" name="first_name" value="<?php echo htmlspecialchars($first_name); ?>" required>
-
-            <label for="last_name">Last Name:</label>
-            <input type="text" id="last_name" name="last_name" value="<?php echo htmlspecialchars($last_name); ?>" required>
-
-            <label for="year">Year:</label>
-            <input type="text" id="year" name="year" value="<?php echo htmlspecialchars($year); ?>" required>
-
-            <button type="submit">Update Student</button>
+            <div class='text-element'>Enter first name</div>
+            <div class='text-element-faded'>Example: Joe</div>
+            <input class="text_input" type="text" id="first_name" name="first_name" value="<?php echo htmlspecialchars($first_name); ?>" required>
+            <br><br>
+            <div class='text-element'>Enter year group</div>
+            <div class='text-element-faded'>Example: 12</div>
+            <input class="text_input" type="text" id="last_name" name="last_name" value="<?php echo htmlspecialchars($last_name); ?>" required>
+            <br><br>
+            <div class='text-element'>Enter year group</div>
+            <div class='text-element-faded'>Example: 12</div>
+            <input class='smaller_int_input' type="text" id="year" name="year" value="<?php echo htmlspecialchars($year); ?>" required>
+            <br><br>
+            <button class='submit' type="submit">Update Student</button>
         </form>
 
-        <a href="../edit_details/students_table.php">Back to Students Table</a>
+        <a class="back_link" href="student_table.php"> > Go Back</a>
     </div>
 </div>
 </body>

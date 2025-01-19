@@ -23,7 +23,8 @@ $below_minimum_doses = [];
 $sql = "
     SELECT 
         takes.exp_date, 
-        takes.takes_id, 
+        takes.takes_id,
+        students.student_id, 
         students.first_name, 
         students.last_name, 
         students.year, 
@@ -69,7 +70,8 @@ foreach ($result as $row) {
 // Get meds below minimum dose
 $sql = "
     SELECT 
-        takes.takes_id, 
+        takes.takes_id,
+        students.student_id, 
         students.first_name, 
         students.last_name, 
         students.year, 
@@ -92,6 +94,7 @@ foreach ($dose_result as $row) {
     $takes_id = $row["takes_id"];
     $student_name = $row["first_name"] . " " . $row["last_name"];
     $student_year = $row["year"];
+    $student_id = $row["student_id"];
     $med_name = $row["med_name"];
     $brand_name = $row["brand_name"];
     $current_dose = $row["current_dose"];
@@ -118,6 +121,8 @@ foreach ($dose_result as $row) {
 <!--                <li class="navbar_li"><a href="../administer/administer_form.php">Administer Medication</a></li>-->
                 <li class="navbar_li"><a href="../log/log_form.php">Log Medication</a></li>
                 <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
+                <li class="navbar_li"><a href="../student_profile/student_profile.php">Student Profile</a></li>
+                <li class="navbar_li"><a href="../edit_details/student_table.php">Student Management</a></li>
             </div>
             <div class="nav_left">
                 <li class="navbar_li"><a href="../admin/admin_dashboard.php">Admin Dashboard</a></li>
@@ -146,6 +151,10 @@ foreach ($dose_result as $row) {
                         <form action="info.php" method="post" style="display:inline;">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button class="secondary_button" type="submit">Info</button>
+                        </form>
+                        <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
+                            <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
+                            <button class="secondary_button" type="submit" > Log New Med</button>
                         </form>
                         <?php if (!empty($medication['notes'])): ?>
                             <span class="tooltip">
@@ -176,6 +185,10 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button class="secondary_button" type="submit">Info</button>
                         </form>
+                        <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
+                            <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
+                            <button class="secondary_button" type="submit" > Log New Med</button>
+                        </form>
                         <?php if (!empty($medication['notes'])): ?>
                             <span class="tooltip">
                         <i class="info-icon"><i class="fa-solid fa-info"></i></i>
@@ -205,6 +218,10 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button class="secondary_button" type="submit">Info</button>
                         </form>
+                        <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
+                            <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
+                            <button class="secondary_button" type="submit" > Log New Med</button>
+                        </form>
                         <?php if (!empty($medication['notes'])): ?>
                             <span class="tooltip">
                         <i class="info-icon"><i class="fa-solid fa-info"></i></i>
@@ -233,6 +250,10 @@ foreach ($dose_result as $row) {
                         <form action="info.php" method="post" style="display:inline;">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button class="secondary_button" type="submit">Info</button>
+                        </form>
+                        <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
+                            <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
+                            <button class="secondary_button" type="submit" > Log New Med</button>
                         </form>
                         <?php if (!empty($medication['notes'])): ?>
                             <span class="tooltip">
