@@ -147,10 +147,7 @@
                                     <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                                     <button type="submit">Info</button>
                                 </form>
-                                <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
-                                    <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
-                                    <button type="submit" > Log New Med</button>
-                                </form>
+
                                 <?php if (!empty($medication['notes'])): ?>
                                     <span class="tooltip">
                                 <i class="info-icon"><i class="fa-solid fa-info"></i></i>
@@ -268,3 +265,144 @@
     </body>
 
 </HTML>
+<link rel="stylesheet" href="../assets/style/style.css">
+<body class="full_page_styling">
+<title>Hours Tracking - Dashboard</title>
+<div>
+    <div>
+        <ul class="nav_bar">
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
+                <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
+                <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
+<!--                <li class="navbar_li"><a href="../administer/administer_form.php">Administer Medication</a></li>-->
+                <li class="navbar_li"><a href="../log/log_form.php">Log Medication</a></li>
+                <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
+            </div>
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../admin/admin_dashboard.php">Admin Dashboard</a></li>
+                <li class="navbar_li"><a href="../logout.php">Logout</a></li>
+            </div>
+        </ul>
+    </div>
+
+    <br><br>
+
+    <div class="notification_container">
+        <!-- Expired Table -->
+        <table class="notification_table" id="out_date">
+            <tr>
+                <th class="notification_table_th"><h2>Expired</h2></th>
+            </tr>
+            <?php foreach ($expired as $medication): ?>
+                <tr>
+                    <td class="notification_table_td">
+                        <?php echo $medication['info']; ?>
+                        <br> <!-- Add break here -->
+                        <form action="archive.php" method="post" style="display:inline;">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
+                            <button class="secondary_button" type="submit">Archive</button>
+                        </form>
+                        <form action="info.php" method="post" style="display:inline;">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
+                            <button class="secondary_button" type="submit">Info</button>
+                        </form>
+                        <?php if (!empty($medication['notes'])): ?>
+                            <span class="tooltip">
+                        <i class="info-icon"><i class="fa-solid fa-info"></i></i>
+                        <span class="tooltiptext"><?php echo htmlspecialchars($medication['notes']); ?></span>
+                    </span>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+
+        <!-- Less than 2 Weeks Table -->
+        <table class="notification_table" id="near_out_date">
+            <tr>
+                <th class="notification_table_th"><h2>Less than 2 Weeks</h2></th>
+            </tr>
+            <?php foreach ($less_than_2_weeks as $medication): ?>
+                <tr>
+                    <td class="notification_table_td">
+                        <?php echo $medication['info']; ?>
+                        <br> <!-- Add break here -->
+                        <form action="archive.php" method="post" style="display:inline;">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
+                            <button class="secondary_button" type="submit">Archive</button>
+                        </form>
+                        <form action="info.php" method="post" style="display:inline;">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
+                            <button class="secondary_button" type="submit">Info</button>
+                        </form>
+                        <?php if (!empty($medication['notes'])): ?>
+                            <span class="tooltip">
+                        <i class="info-icon"><i class="fa-solid fa-info"></i></i>
+                        <span class="tooltiptext"><?php echo htmlspecialchars($medication['notes']); ?></span>
+                    </span>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+
+        <!-- Less than 4 Weeks Table -->
+        <table class="notification_table" id="far_out_date">
+            <tr>
+                <th class="notification_table_th"><h2>Less than 4 Weeks</h2></th>
+            </tr>
+            <?php foreach ($less_than_4_weeks as $medication): ?>
+                <tr>
+                    <td class="notification_table_td">
+                        <?php echo $medication['info']; ?>
+                        <br> <!-- Add break here -->
+                        <form action="archive.php" method="post" style="display:inline;">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
+                            <button class="secondary_button" type="submit">Archive</button>
+                        </form>
+                        <form action="info.php" method="post" style="display:inline;">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
+                            <button class="secondary_button" type="submit">Info</button>
+                        </form>
+                        <?php if (!empty($medication['notes'])): ?>
+                            <span class="tooltip">
+                        <i class="info-icon"><i class="fa-solid fa-info"></i></i>
+                        <span class="secondary_button" class="tooltiptext"><?php echo htmlspecialchars($medication['notes']); ?></span>
+                    </span>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+
+        <!-- Below Minimum Doses Table -->
+        <table class="notification_table" id="below_min_dose">
+            <tr>
+                <th class="notification_table_th"><h2>Below Minimum Doses</h2></th>
+            </tr>
+            <?php foreach ($below_minimum_doses as $medication): ?>
+                <tr>
+                    <td class="notification_table_td">
+                        <?php echo $medication['info']; ?>
+                        <br> <!-- Add break here -->
+                        <form action="archive.php" method="post" style="display:inline;">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
+                            <button class="secondary_button" type="submit">Archive</button>
+                        </form>
+                        <form action="info.php" method="post" style="display:inline;">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
+                            <button class="secondary_button" type="submit">Info</button>
+                        </form>
+                        <?php if (!empty($medication['notes'])): ?>
+                            <span class="tooltip">
+                        <span class="tooltiptext"><?php echo htmlspecialchars($medication['notes']); ?></span>
+                    </span>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+</div>
+</body>

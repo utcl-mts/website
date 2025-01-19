@@ -1,42 +1,24 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="style.css"> <!-- Link to CSS file -->
-    <title>Login</title>
+    <link rel="stylesheet" href="assets/style/style.css">
+    <title>Hours Tracking - Login</title>
 </head>
-<body>
-
-<div class="container">
-
-    <div id="isaac_prof_form">
-
-        <h2>Login</h2>
-
-        <form method="POST" action="login/login.php">
-
-            <table class = "login_form">
-
-                <tr>
-                    <td><label for="email">Email:</label></td>
-                    <td><input type="text" id="email" name="email" placeholder="Enter email" required></td>
-                </tr>
-
-                <tr>
-                    <td><label for="password">Password:</label></td>
-                    <td><input type="password" id="password" name="password" placeholder="Enter Password" required></td>
-                </tr>
-
-                <tr><td><button type="submit" class="button-link">Login</button></td></tr>
-
-            </table>
-
-        </form>
-
-    </div>
+<body class="home">
+<div>
+    <h1 class="title">UTC Leeds Medical Tracker </h1>
+    <form action="login/login.php" method="post">
+        <div class='text-element'>Enter email *</div>
+        <div class='text-element-faded'>user.user@utcleeds.co.uk</div>
+        <input class="text_input" type="text" id="email" name="email" required>
+        <br><br>
+        <div class='text-element'>Enter password *</div>
+        <input class="text_input" type="password" id="password" name="password" required>
+        <br><br>
+        <input class="submit" type="submit" value="Log In">
+    </form>                                 
 </div>
-
 </body>
 </html>

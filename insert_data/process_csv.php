@@ -3,31 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style.css">
-    <title>CSV Upload Results</title>
+    <link rel="stylesheet" href="../assets/style/style.css">
+    <title>Hours Tracking - Process CSV</title>
 </head>
-<body>
-<div class="container">
-    <!-- Navbar -->
-    <div class="navbar">
-        <img id="logo" src="../assets/UTCLeeds.svg" alt="UTC Leeds">
-        <h1 id="med_tracker">Med Tracker</h1>
-        <ul>
-            <li><a href="../dashboard/dashboard.php">Home</a></li>
-            <li><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
-            <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
-            <li><a href="../administer/administer.html">Administer Medication</a></li>
-            <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
-            <li class="logout"><a href="../logout.php">Logout</a></li>
+<body class="full_page_styling">
+<div>
+    <div>
+        <ul class="nav_bar">
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
+                <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
+                <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
+<!--                <li class="navbar_li"><a href="../administer/administer_form.php">Administer Medication</a></li>-->
+                <li class="navbar_li"><a href="../log/log_form.php">Log Medication</a></li>
+                <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
+            </div>
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../logout.php">Logout</a></li>
+            </div>
         </ul>
     </div>
-
-    <fieldset>
-        <legend>Upload Results</legend>
 
         <?php
         session_start();
         include "../server/db_connect.php";
+        include "../audit-log/audit-log.php";
+
+        // Check for valid session and cookie
+        if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
+            header("Location: ../index.html");
+            exit();
+        }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['confirm_insertion'])) {
@@ -59,13 +65,15 @@
                         fclose($handle);
 
                         echo "<p>Data successfully inserted into the database! Rows inserted: <strong>$insertCount</strong></p>";
+                        header("refresh:5; insert_data_home.php");
+
 
                         // Log activity
+                        $ip_address = $_SERVER['REMOTE_ADDR'];
                         $staff_id = $_SESSION["staff_id"];
-                        $act = "$insertCount students have been added";
-                        $date_time = date("U");
-                        $logStmt = $conn->prepare("INSERT INTO audit_logs (staff_id, act, date_time) VALUES (?, ?, ?)");
-                        $logStmt->execute([$staff_id, $act, $date_time]);
+                        $action = "$insertCount students have been added";
+
+                        logAction($conn, $staff_id, $action);
 
                         // Cleanup
                         unlink($filePath); // Delete the temporary file
@@ -92,7 +100,7 @@
 
                         if (($handle = fopen($savedFilePath, 'r')) !== false) {
                             echo "<h2>CSV Content</h2>";
-                            echo "<table border='1' class='csv-table'>";
+                            echo "<table class='csv-table'>";
                             $rowIndex = 0;
 
                             while (($row = fgetcsv($handle, 1000, ',')) !== false) {
@@ -114,7 +122,7 @@
                             // Display confirmation button
                             echo '<form method="POST">';
                             echo '<br>';
-                            echo '<button type="submit" name="confirm_insertion">Confirm and Insert Data</button>';
+                            echo '<button class="submit" type="submit" name="confirm_insertion">Confirm and Insert Data</button>';
                             echo '</form>';
                         } else {
                             echo "<p style='color: red;'>Error opening the file for preview.</p>";
@@ -130,7 +138,6 @@
             }
         }
         ?>
-    </fieldset>
 </div>
 </body>
 </html>

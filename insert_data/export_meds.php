@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "../server/db_connect.php";
+include "../audit-log/audit-log.php";
 
 try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -64,8 +65,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST["export_meds"])) {
         $exportType = $_POST["export_meds"];
         if ($exportType === "csv") {
+            $ip_address = $_SERVER['REMOTE_ADDR'];
+            $staff_id = $_SESSION["staff_id"];
+            $action = "All meds were exported via CSV";
+
+            logAction($conn, $staff_id, $action);
             exportCSV($conn);
         } elseif ($exportType === "excel") {
+            $ip_address = $_SERVER['REMOTE_ADDR'];
+            $staff_id = $_SESSION["staff_id"];
+            $action = "All meds were exported via Excel";
+
+            logAction($conn, $staff_id, $action);
             exportExcel($conn);
         } else {
             echo "Invalid export type.";
