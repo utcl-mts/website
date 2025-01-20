@@ -3,7 +3,7 @@ session_start();
 
 // Check for valid session and cookie
 if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
-    header("Location: ../index.html");
+    header("Location: ../../index.html");
     exit();
 }
 
@@ -53,11 +53,11 @@ if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
         <br><br>
         <div class='text-element'>Enter password: </div>
         <div class='text-element-faded'>Example: Password123@#!!</div>
-        <input class="text_input" type="text" name="password" id="" required>
+        <input class="text_input" type="password" name="password" id="" required>
         <br><br>
         <div class='text-element'>Enter confirm password: </div>
         <div class='text-element-faded'>Example: Password123@#!!</div>
-        <input class="text_input" type="text" name="c_password" id="" required>
+        <input class="text_input" type="password" name="c_password" id="" required>
         <br><br>
         <div class='text-element'>Select the user group: </div>
         <div class='text-element-faded'>Example: Admin</div>

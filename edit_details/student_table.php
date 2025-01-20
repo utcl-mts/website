@@ -81,14 +81,18 @@
                         echo "<td>" . htmlspecialchars($value) . "</td>";
                     }
                     echo "<td class='big_table_td'>
-                            <input type='checkbox' name='progress_ids[]' value='" . htmlspecialchars($student['student_id']) . "' checked>
-                            </td>";
+                            <div class='centered-form'>
+                                <input type='checkbox' name='progress_ids[]' value='" . htmlspecialchars($student['student_id']) . "' checked>
+                            </div>
+                        </td>";
                     echo "</tr>";
                 }
                 echo "</table>";
-                echo "<button type='submit' name='finalize_progress'>Finalise Progress</button>";
+                echo '<br><br>';
+                echo "<button class='submit' type='submit' name='finalize_progress'>Finalise Progress</button>";
                 echo "</form>";
             } else {
+                
                 echo "<p>No students found in Year $selected_year.</p>";
             }
         } catch (PDOException $e) {
