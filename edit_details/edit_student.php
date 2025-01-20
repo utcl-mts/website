@@ -76,6 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <li class="navbar_li"><a href="../log/log_form.php">Create Notes</a></li>
                 <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
                 <li class="navbar_li"><a href="../student_profile/student_profile.php">Student Profile</a></li>
+                <li class="navbar_li"><a href="../log-new-med/log_new_med.php">Add New Med</a></li>
             </div>
             <div class="nav_left">
                 <li class="navbar_li"><a href="../admin/admin_dashboard.php">Admin Dashboard</a></li>
