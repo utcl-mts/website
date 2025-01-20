@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Nov 20, 2024 at 11:58 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Host: localhost:3306
+-- Generation Time: Jan 20, 2025 at 01:04 AM
+-- Server version: 8.0.40-cll-lve
+-- PHP Version: 8.3.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,9 +18,9 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `utcl-mts`
+-- Database: `barowika_utcl-mts`
 --
-CREATE DATABASE IF NOT EXISTS `utcl-mts` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE DATABASE IF NOT EXISTS `utcl-mts` DEFAULT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci;
 USE `utcl-mts`;
 
 -- --------------------------------------------------------
@@ -30,11 +30,11 @@ USE `utcl-mts`;
 --
 
 CREATE TABLE `administer` (
-  `adminster_id` int(11) NOT NULL,
-  `takes_id` int(11) NOT NULL,
-  `staff_code` text NOT NULL,
-  `date_time` int(11) NOT NULL,
-  `dose_given` int(11) NOT NULL
+  `adminster_id` int NOT NULL,
+  `takes_id` int NOT NULL,
+  `staff_code` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `date_time` int NOT NULL,
+  `dose_given` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -44,28 +44,11 @@ CREATE TABLE `administer` (
 --
 
 CREATE TABLE `audit_logs` (
-  `audit_id` int(10) UNSIGNED NOT NULL,
-  `staff_id` int(11) NOT NULL,
-  `act` text NOT NULL,
-  `date_time` int(11) NOT NULL
+  `audit_id` int UNSIGNED NOT NULL,
+  `staff_id` int NOT NULL,
+  `act` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `date_time` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `audit_logs`
---
-
-INSERT INTO `audit_logs` (`audit_id`, `staff_id`, `act`, `date_time`) VALUES
-(1, 2, 'Succ_Log', 1732051053),
-(2, 2, 'Succ_Log', 1732051188),
-(3, 2, 'Succ_Log', 1732051724),
-(4, 2, 'Succ_Log', 1732051816),
-(5, 2, 'Succ_Log', 1732051903),
-(6, 2, '40', 1732058658),
-(7, 2, '40, users were added', 1732058693),
-(8, 2, '40 users were added inserted', 1732058713),
-(9, 1, 'Succ_Log', 1732092690),
-(10, 1, '40 users were added inserted', 1732092952),
-(11, 1, 'Fail_Log', 1732094099);
 
 -- --------------------------------------------------------
 
@@ -74,8 +57,8 @@ INSERT INTO `audit_logs` (`audit_id`, `staff_id`, `act`, `date_time`) VALUES
 --
 
 CREATE TABLE `brand` (
-  `brand_id` int(10) UNSIGNED NOT NULL,
-  `brand_name` text NOT NULL
+  `brand_id` int UNSIGNED NOT NULL,
+  `brand_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -120,6 +103,21 @@ INSERT INTO `brand` (`brand_id`, `brand_name`) VALUES
 (35, 'PLAVIX'),
 (36, 'PANADOL');
 
+--
+-- Triggers `brand`
+--
+DELIMITER $$
+CREATE TRIGGER `before_insert_brand` BEFORE INSERT ON `brand` FOR EACH ROW BEGIN
+    SET NEW.brand_name = UPPER(NEW.brand_name);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `before_update_brand` BEFORE UPDATE ON `brand` FOR EACH ROW BEGIN
+    SET NEW.brand_name = UPPER(NEW.brand_name);
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -128,11 +126,11 @@ INSERT INTO `brand` (`brand_id`, `brand_name`) VALUES
 --
 
 CREATE TABLE `log` (
-  `log_id` int(11) NOT NULL,
-  `student_id` int(11) NOT NULL,
-  `staff_id` int(11) NOT NULL,
-  `notes` text NOT NULL,
-  `date_time` int(11) NOT NULL
+  `log_id` int NOT NULL,
+  `student_id` int NOT NULL,
+  `staff_id` int NOT NULL,
+  `notes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `date_time` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -142,8 +140,8 @@ CREATE TABLE `log` (
 --
 
 CREATE TABLE `med` (
-  `med_id` int(10) UNSIGNED NOT NULL,
-  `med_name` text NOT NULL
+  `med_id` int UNSIGNED NOT NULL,
+  `med_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -180,8 +178,26 @@ INSERT INTO `med` (`med_id`, `med_name`) VALUES
 (27, 'LEVOCETIRIZINE'),
 (28, 'GABAPENTIN'),
 (29, 'DOXYCYCLINE'),
-(30, 'CLOPIDOGREL');
+(30, 'CLOPIDOGREL'),
+(31, 'ASDASDASDASD'),
+(32, 'ASDASDASDASD'),
+(33, 'ASDASDASDASD');
 
+--
+-- Triggers `med`
+--
+DELIMITER $$
+CREATE TRIGGER `before_insert_med` BEFORE INSERT ON `med` FOR EACH ROW BEGIN
+    SET NEW.med_name = UPPER(NEW.med_name);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `before_update_med` BEFORE UPDATE ON `med` FOR EACH ROW BEGIN
+    SET NEW.med_name = UPPER(NEW.med_name);
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -190,12 +206,12 @@ INSERT INTO `med` (`med_id`, `med_name`) VALUES
 --
 
 CREATE TABLE `staff` (
-  `staff_id` int(10) UNSIGNED NOT NULL,
-  `first_name` text NOT NULL,
-  `last_name` text NOT NULL,
-  `email` text NOT NULL,
-  `password` text NOT NULL,
-  `group` text NOT NULL
+  `staff_id` int UNSIGNED NOT NULL,
+  `first_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `last_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `group` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -204,7 +220,8 @@ CREATE TABLE `staff` (
 
 INSERT INTO `staff` (`staff_id`, `first_name`, `last_name`, `email`, `password`, `group`) VALUES
 (1, 'Failed', 'Events', 'failed.events@utcleeds.co.uk', 'failed.events', 'system'),
-(2, 'user1', 'user1', 'user.user@utcleeds.co.uk', 'user.user', 'admin');
+(5, 'user', 'user', 'user.user@utcleeds.co.uk', '$2y$10$vF4bf/M/qEBKJXKLCwI/AeJPjw7ELS8MyQ9zu3cHRTno55kWX7PeK', 'admin');
+
 -- --------------------------------------------------------
 
 --
@@ -212,10 +229,10 @@ INSERT INTO `staff` (`staff_id`, `first_name`, `last_name`, `email`, `password`,
 --
 
 CREATE TABLE `students` (
-  `student_id` int(10) UNSIGNED NOT NULL,
-  `first_name` text NOT NULL,
-  `last_name` text NOT NULL,
-  `year` text NOT NULL
+  `student_id` int UNSIGNED NOT NULL,
+  `first_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `last_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `year` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -257,6 +274,24 @@ INSERT INTO `students` (`student_id`, `first_name`, `last_name`, `year`) VALUES
 (32, 'CRISTINA', 'YANG', '11'),
 (33, 'MIRANDA', 'BAILEY', '12');
 
+--
+-- Triggers `students`
+--
+DELIMITER $$
+CREATE TRIGGER `before_insert_students` BEFORE INSERT ON `students` FOR EACH ROW BEGIN
+    SET NEW.first_name = UPPER(NEW.first_name);
+    SET NEW.last_name = UPPER(NEW.last_name);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `before_update_students` BEFORE UPDATE ON `students` FOR EACH ROW BEGIN
+    SET NEW.first_name = UPPER(NEW.first_name);
+    SET NEW.last_name = UPPER(NEW.last_name);
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -264,17 +299,17 @@ INSERT INTO `students` (`student_id`, `first_name`, `last_name`, `year`) VALUES
 --
 
 CREATE TABLE `takes` (
-  `takes_id` int(10) UNSIGNED NOT NULL,
-  `student_id` int(11) NOT NULL,
-  `med_id` int(11) NOT NULL,
-  `brand_id` int(11) NOT NULL,
-  `exp_date` int(11) NOT NULL,
-  `current_dose` int(11) NOT NULL,
-  `min_dose` int(11) NOT NULL,
-  `max_dose` int(11) NOT NULL,
-  `strength` text NOT NULL,
-  `notes` text NOT NULL,
-  `archived` tinyint(1) NOT NULL DEFAULT 0
+  `takes_id` int UNSIGNED NOT NULL,
+  `student_id` int NOT NULL,
+  `med_id` int NOT NULL,
+  `brand_id` int NOT NULL,
+  `exp_date` int NOT NULL,
+  `current_dose` int NOT NULL,
+  `min_dose` int NOT NULL,
+  `max_dose` int NOT NULL,
+  `strength` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `notes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `archived` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -282,7 +317,7 @@ CREATE TABLE `takes` (
 --
 
 INSERT INTO `takes` (`takes_id`, `student_id`, `med_id`, `brand_id`, `exp_date`, `current_dose`, `min_dose`, `max_dose`, `strength`, `notes`, `archived`) VALUES
-(103, 1, 1, 1, 1735862400, 2, 4, 8, '100mg', '', 0),
+(103, 1, 1, 1, 1735862400, 2, 4, 8, '100mg', '', 1),
 (104, 2, 2, 2, 1707004800, 4, 1, 30, '50mg', '', 1),
 (105, 2, 3, 2, 1733702400, 32, 6, 32, '200mg', '', 0),
 (106, 3, 3, 4, 1760659200, 6, 6, 49, '200 mg', '', 0),
@@ -298,7 +333,7 @@ INSERT INTO `takes` (`takes_id`, `student_id`, `med_id`, `brand_id`, `exp_date`,
 (116, 6, 13, 13, 1693526400, 21, 3, 60, '200mg', '', 1),
 (117, 7, 14, 14, 1751328000, 1, 2, 1, '0.3mg', '', 0),
 (118, 7, 14, 14, 1751328000, 1, 8, 1, '0.3mg', '', 0),
-(119, 8, 15, 15, 1734134400, 5, 9, 7, '30g', '', 0),
+(119, 8, 15, 15, 1734134400, 5, 9, 7, '30g', 'Stored in a fridge', 0),
 (120, 8, 20, 16, 1769904000, 40, 10, 60, '125mg', '', 0),
 (121, 9, 1, 17, 1759276800, 4, 6, 8, '500mg', '', 0),
 (122, 9, 18, 18, 1732838400, 6, 2, 7, '30mg', '', 1),
@@ -339,10 +374,10 @@ INSERT INTO `takes` (`takes_id`, `student_id`, `med_id`, `brand_id`, `exp_date`,
 --
 
 CREATE TABLE `whole_log` (
-  `whole_log_id` int(11) NOT NULL,
-  `whole_school_id` int(11) NOT NULL,
-  `notes` text NOT NULL,
-  `date_time` int(11) NOT NULL
+  `whole_log_id` int NOT NULL,
+  `whole_school_id` int NOT NULL,
+  `notes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `date_time` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -352,12 +387,20 @@ CREATE TABLE `whole_log` (
 --
 
 CREATE TABLE `whole_school` (
-  `whole_school_id` int(11) NOT NULL,
-  `name` text NOT NULL,
-  `exp_date` int(11) NOT NULL,
-  `amount_left` int(11) NOT NULL,
-  `notes` text NOT NULL
+  `whole_school_id` int NOT NULL,
+  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `exp_date` int NOT NULL,
+  `amount_left` int NOT NULL,
+  `notes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `archived` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `whole_school`
+--
+
+INSERT INTO `whole_school` (`whole_school_id`, `name`, `exp_date`, `amount_left`, `notes`, `archived`) VALUES
+(1, 'Defib Pads', 1735776000, 12, '12123123', 0);
 
 --
 -- Indexes for dumped tables
@@ -431,114 +474,63 @@ ALTER TABLE `whole_school`
 -- AUTO_INCREMENT for table `administer`
 --
 ALTER TABLE `administer`
-  MODIFY `adminster_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `adminster_id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `audit_logs`
 --
 ALTER TABLE `audit_logs`
-  MODIFY `audit_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `audit_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `brand`
 --
 ALTER TABLE `brand`
-  MODIFY `brand_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `brand_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `log`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `log_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `med`
 --
 ALTER TABLE `med`
-  MODIFY `med_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `med_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `staff_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `staff_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=794;
+  MODIFY `student_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=877;
 
 --
 -- AUTO_INCREMENT for table `takes`
 --
 ALTER TABLE `takes`
-  MODIFY `takes_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
+  MODIFY `takes_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
 
 --
 -- AUTO_INCREMENT for table `whole_log`
 --
 ALTER TABLE `whole_log`
-  MODIFY `whole_log_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `whole_log_id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `whole_school`
 --
 ALTER TABLE `whole_school`
-  MODIFY `whole_school_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `whole_school_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-DELIMITER $$
-
--- Trigger for `students` table
-CREATE TRIGGER `before_insert_students`
-BEFORE INSERT ON `students`
-FOR EACH ROW
-BEGIN
-    SET NEW.first_name = UPPER(NEW.first_name);
-    SET NEW.last_name = UPPER(NEW.last_name);
-END$$
-
-CREATE TRIGGER `before_update_students`
-BEFORE UPDATE ON `students`
-FOR EACH ROW
-BEGIN
-    SET NEW.first_name = UPPER(NEW.first_name);
-    SET NEW.last_name = UPPER(NEW.last_name);
-END$$
-
--- Trigger for `brand` table
-CREATE TRIGGER `before_insert_brand`
-BEFORE INSERT ON `brand`
-FOR EACH ROW
-BEGIN
-    SET NEW.brand_name = UPPER(NEW.brand_name);
-END$$
-
-CREATE TRIGGER `before_update_brand`
-BEFORE UPDATE ON `brand`
-FOR EACH ROW
-BEGIN
-    SET NEW.brand_name = UPPER(NEW.brand_name);
-END$$
-
--- Trigger for `med` table
-CREATE TRIGGER `before_insert_med`
-BEFORE INSERT ON `med`
-FOR EACH ROW
-BEGIN
-    SET NEW.med_name = UPPER(NEW.med_name);
-END$$
-
-CREATE TRIGGER `before_update_med`
-BEFORE UPDATE ON `med`
-FOR EACH ROW
-BEGIN
-    SET NEW.med_name = UPPER(NEW.med_name);
-END$$
-
-DELIMITER ;
