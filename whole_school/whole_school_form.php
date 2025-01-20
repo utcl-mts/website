@@ -84,8 +84,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_record'])) {
             <div class='text-element-faded'>Example: 12</div>
             <input class="smaller_int_input" type="number" id="amount_left" name="amount_left" min="0" required>
             <br><br>
-            <div class='text-element'>Enter amount:</div>
-            <div class='text-element-faded'>Example: 12</div>
+            <div class='text-element'>Enter notes:</div>
+            <div class='text-element-faded'>Example: More arrive each month</div>
             <textarea class="text_area" id="notes" name="notes"></textarea>
             <br><br>
             <button class="submit" type="submit" name="add_record">Add Record</button>
