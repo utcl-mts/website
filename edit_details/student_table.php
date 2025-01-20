@@ -82,7 +82,7 @@
                     }
                     echo "<td class='big_table_td'>
                             <input type='checkbox' name='progress_ids[]' value='" . htmlspecialchars($student['student_id']) . "' checked>
-                          </td>";
+                            </td>";
                     echo "</tr>";
                 }
                 echo "</table>";
