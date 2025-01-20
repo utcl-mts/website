@@ -102,8 +102,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class='text-element-faded'>Example: Joe</div>
             <input class="text_input" type="text" id="first_name" name="first_name" value="<?php echo htmlspecialchars($first_name); ?>" required>
             <br><br>
-            <div class='text-element'>Enter year group</div>
-            <div class='text-element-faded'>Example: 12</div>
+            <div class='text-element'>Enter last name</div>
+            <div class='text-element-faded'>Example: Bloggs</div>
             <input class="text_input" type="text" id="last_name" name="last_name" value="<?php echo htmlspecialchars($last_name); ?>" required>
             <br><br>
             <div class='text-element'>Enter year group</div>
