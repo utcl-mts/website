@@ -13,40 +13,31 @@
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Administer Medication</title>
-        <link rel="stylesheet" href="../style.css">
-
-    </head>
-
-    <body>
-
-        <div class="container">
-
-            <!-- Universal navbar -->
-            <div class="navbar">
-
-                <img id="logo" src="../assets/UTCLeeds.svg" alt="UTC Leeds">
-                <h1 id="med_tracker">Med Tracker</h1>
-
-                <ul>
-
-                    <li><a href="../dashboard/dashboard.php">Home</a></li>
-                    <li><a href="../insert_data/insert_data.php">Insert Data</a></li>
-                    <li><a href="../bigtable/bigtable.php">Student Medication</a></li>
-                    <li><a href="administer.html">Log Medication</a></li>
-                    <li><a href="../whole_school/whole_school.php">Whole School Medication</a></li>
-                    <li class="logout"><a href="../logout.php">Logout</a></li>
-
-                </ul>
-
+<link rel="stylesheet" href="../assets/style/style.css">
+<body class="full_page_styling">
+<title>Hours Tracking - Dashboard</title>
+<div>
+    <div>
+        <ul class="nav_bar">
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
+                <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
+                <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
+<!--                <li class="navbar_li"><a href="../administer/administer_form.php">Administer Medication</a></li>-->
+                <li class="navbar_li"><a href="../log/log_form.php">Create Notes</a></li>
+                <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
+                <li class="navbar_li"><a href="../student_profile/student_profile.php">Student Profile</a></li>
+                <li class="navbar_li"><a href="../edit_details/student_table.php">Student Management</a></li>
+                <li class="navbar_li"><a href="../log-new-med/log_new_med.php">Add New Med</a></li>
             </div>
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../admin/admin_dashboard.php">Admin Dashboard</a></li>
+                <li class="navbar_li"><a href="../logout.php">Logout</a></li>
+            </div>
+        </ul>
+    </div>
+
+    <h1>Add a new med</h1>
 
             <?php
 
@@ -60,16 +51,21 @@
                 } else {
                     // If not coming from dashboard, show input form for student details
                     echo "<form method='post' action=''>";
-                    echo "<label for='first_name'>First Name:</label>";
-                    echo "<input type='text' name='first_name' id='first_name' required>";
+                    echo "<div class='text-element'>Enter first name</div>";
+                    echo "<div class='text-element-faded'>Example: Joe</div>";
+                    echo "<input class='text_input' type='text' name='first_name' id='first_name' required>";
+                    echo "<br><br>";
 
-                    echo "<label for='last_name'>Last Name:</label>";
-                    echo "<input type='text' name='last_name' id='last_name' required>";
+                    echo "<div class='text-element'>Enter last name</div>";
+                    echo "<div class='text-element-faded'>Example: Bloggs</div>";
+                    echo "<input class='text_input' type='text' name='last_name' id='last_name' required>";
+                    echo "<br><br>";
 
-                    echo "<label for='year'>Year:</label>";
-                    echo "<input type='number' name='year' id='year' min='1' max='14' required>";
-
-                    echo "<input type='submit' value='Continue'>";
+                    echo "<div class='text-element'>Enter year</div>";
+                    echo "<div class='text-element-faded'>Example: 12</div>";
+                    echo "<input class='smaller_int_input' type='number' name='year' id='year' min='1' max='14' required>";
+                    echo "<br><br>";
+                    echo "<input class='submit' type='submit' value='Continue'>";
                     echo "</form>";
 
                     // Process form submission
@@ -160,17 +156,19 @@
 
                     echo "<input type='hidden' name='student_id' value='$student_id'>";
 
-                    echo "<label for='meds'>Medication:</label>";
+                    echo "<div class='text-element'>Enter Med</div>";
+                    echo "<div class='text-element-faded'>Example: paracetamol</div>";
                     echo "<select name='meds' id='meds' required>";
                     echo "<option value=''>Select a Med</option>";
-
+                    
                     foreach ($meds as $med) {
 
                         echo "<option value='" . htmlspecialchars($med['med_name']) . "'>" . htmlspecialchars($med['med_name']) . "</option>";
                     }
                     echo "</select>";
-
-                    echo "<label for='brand'>Brand:</label>";
+                    echo "<br><br>";
+                    echo "<div class='text-element'>Enter Brand</div>";
+                    echo "<div class='text-element-faded'>Example: Tesco</div>";
                     echo "<select name='brand' id='brand' required>";
                     echo "<option value=''>Select a Brand</option>";
                     foreach ($brands as $brand) {
@@ -178,23 +176,28 @@
                         echo "<option value='" . htmlspecialchars($brand['brand_name']) . "'>" . htmlspecialchars($brand['brand_name']) . "</option>";
                     }
                     echo "</select>";
-
-                    echo "<label for='max_dose'>Enter max dose allowed:</label>";
-                    echo "<input type='number' name='max_dose' id='max_dose' min='0' required>";
-
-                    echo "<label for='max_dose'>Enter dose in packet:</label>";
-                    echo "<input type='number' name='current_dose' id='current_dose' min='0' required>";
-
-                    echo "<label for='min_dose'>Enter minimum dose:</label>";
-                    echo "<input type='number' name='min_dose' id='min_dose' min='0' required>";
-
-                    echo "<label for='expiry'>Enter expiry date:</label>";
-                    echo "<input type='date' name='expiry' id='expiry' required>";
-
-                    echo "<label for='strength'>Strength:</label>";
-                    echo "<input type='number' name='strength' id='strength' min='0' required>";
-
-                    echo "<input type='submit' value='Log'>";
+                    echo "<br><br>";
+                    echo "<div class='text-element'>Enter max dose allowed</div>";
+                    echo "<div class='text-element-faded'>Example: 5</div>";
+                    echo "<input class='smaller_int_input' type='number' name='max_dose' id='max_dose' min='0' required>";
+                    echo "<br><br>";
+                    echo "<div class='text-element'>Enter dose in packet</div>";
+                    echo "<div class='text-element-faded'>Example: 15</div>";
+                    echo "<input class='smaller_int_input' type='number' name='current_dose' id='current_dose' min='0' required>";
+                    echo "<br><br>";
+                    echo "<div class='text-element'>Enter min dose</div>";
+                    echo "<div class='text-element-faded'>Example: 1</div>";
+                    echo "<input class='smaller_int_input' type='number' name='min_dose' id='min_dose' min='0' required>";
+                    echo "<br><br>";
+                    echo "<div class='text-element'>Enter expiry date</div>";
+                    echo "<div class='text-element-faded'>Example: 12/05/2025</div>";
+                    echo "<input class='temp_date_field' type='date' name='expiry' id='expiry' required>";
+                    echo "<br><br>";
+                    echo "<div class='text-element'>Enter strength</div>";
+                    echo "<div class='text-element-faded'>Example: 50</div>";
+                    echo "<input class='smaller_int_input' type='number' name='strength' id='strength' min='0' required>";
+                    echo "<br><br>";
+                    echo "<input class='submit' type='submit' value='Create Log'>";
 
                 echo "</form>";
 
