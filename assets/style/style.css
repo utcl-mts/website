@@ -536,8 +536,8 @@ select option {
 
 .centered-form {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
 }
 
 .centered-form form {

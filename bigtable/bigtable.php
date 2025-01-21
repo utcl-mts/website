@@ -125,10 +125,10 @@
             echo "<table class='big_table'>";
             echo "<tr>";
             foreach ($custom_headings as $heading) {
-                echo "<th>" . htmlspecialchars($heading, ENT_QUOTES) . "</th>";
+                echo "<th class='big_table_th'>" . htmlspecialchars($heading, ENT_QUOTES) . "</th>";
             }
-            echo "<th>Actions</th>";
-            echo "<th>Notes</th>";
+            echo "<th class='big_table_th'>Actions</th>";
+            echo "<th class='big_table_th'>Notes</th>";
             echo "</tr>";
 
             foreach ($results as $row) {
