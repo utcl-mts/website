@@ -141,21 +141,32 @@
                     echo "<td class='big_table_td'>" . htmlspecialchars($value, ENT_QUOTES) . "</td>";
                 }
                 echo "<td>
+                    <div class='centered-form'>
                         <form method='POST' action=''>
                             <input type='hidden' name='takes_id' value='" . htmlspecialchars($row['takes_id'], ENT_QUOTES) . "'>
-                            <button type='submit' name='decrement' " . ($row['current_dose'] <= 0 ? "disabled" : "") . ">
+                            <button class='table_button' type='submit' name='decrement' " . ($row['current_dose'] <= 0 ? "disabled" : "") . ">
                                 Decrement Dose
                             </button>
                         </form>
-                    </td>";
+                    </div>
+                </td>";
                 echo "<td>
-                        <form method='GET' action='notes.php'>
+                    <div class='centered-form'>
+                        <form method='GET' action='create_notes.php'>
                             <input type='hidden' name='student_id' value='" . htmlspecialchars($row['student_id'], ENT_QUOTES) . "'>
-                            <button type='submit'>
-                                Notes
+                            <button class='table_button' type='submit'>
+                                Create Notes
                             </button>
                         </form>
-                    </td>";
+                        <form method='GET' action='view_notes.php'>
+                            <input type='hidden' name='student_id' value='" . htmlspecialchars($row['student_id'], ENT_QUOTES) . "'>
+                            <button class='table_button' type='submit'>
+                                View Notes
+                            </button>
+                        </form>
+                    </div>
+                    
+                </td>";
                 echo "</tr>";
             }
 
