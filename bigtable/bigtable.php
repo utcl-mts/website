@@ -89,9 +89,8 @@
 
         $total_pages = ceil($total_records / $results_per_page);
 
-        $sql = "SELECT takes.takes_id, takes.exp_date, takes.current_dose, takes.min_dose, 
-                       takes.strength, med.med_name, brand.brand_name, 
-                       students.student_id, students.first_name, students.last_name, students.year 
+        $sql = "SELECT takes.takes_id, students.student_id, students.first_name, students.last_name, students.year, 
+                       med.med_name, brand.brand_name, takes.exp_date, takes.current_dose, takes.min_dose
                 FROM takes 
                 INNER JOIN med ON takes.med_id = med.med_id 
                 INNER JOIN brand ON takes.brand_id = brand.brand_id 
@@ -108,15 +107,14 @@
 
         $custom_headings = [
             'takes_id' => 'ID',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'year' => 'Year',
+            'med_name' => 'Medication Name',
+            'brand_name' => 'Brand Name',
             'exp_date' => 'Expiry Date',
             'current_dose' => 'Current Dose',
             'min_dose' => 'Minimum Dose',
-            'strength' => 'Strength',
-            'med_name' => 'Medication Name',
-            'brand_name' => 'Brand Name',
-            'first_name' => 'First Name',
-            'last_name' => 'Last Name',
-            'year' => 'Year'
         ];
 
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -153,14 +151,14 @@
                 echo "<td>
                     <div class='centered-form'>
                         <form method='GET' action='create_notes.php'>
-                            <input type='hidden' name='student_id' value='" . htmlspecialchars($row['student_id'], ENT_QUOTES) . "'>
+                            <input type='hidden' name='student_id' value='" . htmlspecialchars($row['student_id'] ?? '', ENT_QUOTES) . "'>
                             <input type='hidden' name='takes_id' value='" . htmlspecialchars($row['takes_id'], ENT_QUOTES) . "'>
                             <button class='table_button' type='submit'>
                                 Create Notes
                             </button>
                         </form>
                         <form method='GET' action='view_notes.php'>
-                            <input type='hidden' name='student_id' value='" . htmlspecialchars($row['student_id'], ENT_QUOTES) . "'>
+                            <input type='hidden' name='student_id' value='" . htmlspecialchars($row['student_id'] ?? '', ENT_QUOTES) . "'>
                             <input type='hidden' name='takes_id' value='" . htmlspecialchars($row['takes_id'], ENT_QUOTES) . "'>
                             <button class='table_button' type='submit'>
                                 View Notes
