@@ -133,10 +133,14 @@
                 echo "<tr>";
                 foreach ($custom_headings as $column => $heading) {
                     $value = $row[$column] ?? '';
-                    if ($column === 'exp_date' && is_numeric($value)) {
+                    if ($column === 'takes_id') {
+                        // Make the ID bold
+                        $value = "<b>" . htmlspecialchars($value, ENT_QUOTES) . "</b>";
+                    } elseif ($column === 'exp_date' && is_numeric($value)) {
+                        // Format expiry date
                         $value = date('d/m/y', $value);
                     }
-                    echo "<td class='big_table_td'>" . htmlspecialchars($value, ENT_QUOTES) . "</td>";
+                    echo "<td class='big_table_td'>" . $value . "</td>";
                 }
                 echo "<td>
                     <div class='centered-form'>
@@ -168,6 +172,7 @@
                 </td>";
                 echo "</tr>";
             }
+            
 
             echo "</table>";
         } else {

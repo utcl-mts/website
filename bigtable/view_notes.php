@@ -28,10 +28,12 @@ try {
 
     $notes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    echo "<h1>Notes for " . htmlspecialchars($notes[0]['first_name'], ENT_QUOTES) . " " . htmlspecialchars($notes[0]['last_name'], ENT_QUOTES) . "</h1>";
-    echo "<h2>Medication: " . htmlspecialchars($notes[0]['med_name'], ENT_QUOTES) . "</h2>";
+    if (!$notes) {
+        echo "<p>No notes found for this student and medication.</p>";
+    } else {
+        echo "<h1>Notes for " . htmlspecialchars($notes[0]['first_name'], ENT_QUOTES) . " " . htmlspecialchars($notes[0]['last_name'], ENT_QUOTES) . "</h1>";
+        echo "<h2>Medication: " . htmlspecialchars($notes[0]['med_name'], ENT_QUOTES) . "</h2>";
 
-    if ($notes) {
         echo "<table class='notes_table'>";
         echo "<tr><th>Staff Code</th><th>Content</th><th>Created At</th></tr>";
 
@@ -44,8 +46,6 @@ try {
         }
 
         echo "</table>";
-    } else {
-        echo "<p>No notes found for this student and medication.</p>";
     }
 } catch (PDOException $e) {
     die("<p class='error'>Database error: " . htmlspecialchars($e->getMessage(), ENT_QUOTES) . "</p>");
