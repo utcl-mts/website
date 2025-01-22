@@ -12,7 +12,6 @@
                 <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
                 <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
                 <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
-                <li class="navbar_li"><a href="../log/log_form.php">Create Notes</a></li>
                 <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
                 <li class="navbar_li"><a href="../student_profile/student_profile.php">Student Profile</a></li>
                 <li class="navbar_li"><a href="../edit_details/student_table.php">Student Management</a></li>
@@ -89,9 +88,8 @@
 
         $total_pages = ceil($total_records / $results_per_page);
 
-        $sql = "SELECT takes.takes_id, takes.exp_date, takes.current_dose, takes.min_dose, 
-                       takes.strength, med.med_name, brand.brand_name, 
-                       students.student_id, students.first_name, students.last_name, students.year 
+        $sql = "SELECT takes.takes_id, students.student_id, students.first_name, students.last_name, students.year, 
+                       med.med_name, brand.brand_name, takes.exp_date, takes.current_dose, takes.min_dose
                 FROM takes 
                 INNER JOIN med ON takes.med_id = med.med_id 
                 INNER JOIN brand ON takes.brand_id = brand.brand_id 
@@ -108,15 +106,14 @@
 
         $custom_headings = [
             'takes_id' => 'ID',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'year' => 'Year',
+            'med_name' => 'Medication Name',
+            'brand_name' => 'Brand Name',
             'exp_date' => 'Expiry Date',
             'current_dose' => 'Current Dose',
             'min_dose' => 'Minimum Dose',
-            'strength' => 'Strength',
-            'med_name' => 'Medication Name',
-            'brand_name' => 'Brand Name',
-            'first_name' => 'First Name',
-            'last_name' => 'Last Name',
-            'year' => 'Year'
         ];
 
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -125,39 +122,56 @@
             echo "<table class='big_table'>";
             echo "<tr>";
             foreach ($custom_headings as $heading) {
-                echo "<th>" . htmlspecialchars($heading, ENT_QUOTES) . "</th>";
+                echo "<th class='big_table_th'>" . htmlspecialchars($heading, ENT_QUOTES) . "</th>";
             }
-            echo "<th>Actions</th>";
-            echo "<th>Notes</th>";
+            echo "<th class='big_table_th'>Actions</th>";
+            echo "<th class='big_table_th'>Notes</th>";
             echo "</tr>";
 
             foreach ($results as $row) {
                 echo "<tr>";
                 foreach ($custom_headings as $column => $heading) {
                     $value = $row[$column] ?? '';
-                    if ($column === 'exp_date' && is_numeric($value)) {
+                    if ($column === 'takes_id') {
+                        // Make the ID bold
+                        $value = "<b>" . htmlspecialchars($value, ENT_QUOTES) . "</b>";
+                    } elseif ($column === 'exp_date' && is_numeric($value)) {
+                        // Format expiry date
                         $value = date('d/m/y', $value);
                     }
-                    echo "<td class='big_table_td'>" . htmlspecialchars($value, ENT_QUOTES) . "</td>";
+                    echo "<td class='big_table_td'>" . $value . "</td>";
                 }
                 echo "<td>
+                    <div class='centered-form'>
                         <form method='POST' action=''>
                             <input type='hidden' name='takes_id' value='" . htmlspecialchars($row['takes_id'], ENT_QUOTES) . "'>
-                            <button type='submit' name='decrement' " . ($row['current_dose'] <= 0 ? "disabled" : "") . ">
+                            <button class='table_button' type='submit' name='decrement' " . ($row['current_dose'] <= 0 ? "disabled" : "") . ">
                                 Decrement Dose
                             </button>
                         </form>
-                    </td>";
+                    </div>
+                </td>";
                 echo "<td>
-                        <form method='GET' action='notes.php'>
-                            <input type='hidden' name='student_id' value='" . htmlspecialchars($row['student_id'], ENT_QUOTES) . "'>
-                            <button type='submit'>
-                                Notes
+                    <div class='centered-form'>
+                        <form method='GET' action='create_notes.php'>
+                            <input type='hidden' name='student_id' value='" . htmlspecialchars($row['student_id'] ?? '', ENT_QUOTES) . "'>
+                            <input type='hidden' name='takes_id' value='" . htmlspecialchars($row['takes_id'], ENT_QUOTES) . "'>
+                            <button class='table_button' type='submit'>
+                                Create Notes
                             </button>
                         </form>
-                    </td>";
+                        <form method='GET' action='view_notes.php'>
+                            <input type='hidden' name='student_id' value='" . htmlspecialchars($row['student_id'] ?? '', ENT_QUOTES) . "'>
+                            <input type='hidden' name='takes_id' value='" . htmlspecialchars($row['takes_id'], ENT_QUOTES) . "'>
+                            <button class='table_button' type='submit'>
+                                View Notes
+                            </button>
+                        </form>
+                    </div>
+                </td>";
                 echo "</tr>";
             }
+            
 
             echo "</table>";
         } else {
