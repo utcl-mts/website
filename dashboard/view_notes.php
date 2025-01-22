@@ -1,5 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Notes</title>
+    <link rel="stylesheet" href="../assets/style/style.css">
+</head>
+<body class="full_page_styling">
+
 <?php
 include "../server/db_connect.php";
+include "../server/main_navbar.php";
 
 // Get student_id and takes_id from the GET request
 $student_id = isset($_GET['student_id']) ? intval($_GET['student_id']) : null;
@@ -27,25 +36,33 @@ try {
     $stmt->execute();
 
     $notes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
     if (!$notes) {
+        
         echo "<p>No notes found for this student and medication.</p>";
+        echo "<a class='back_link' href='../dashboard/dashboard.php' class='button'> > Go Back</a>";
     } else {
-        echo "<h1>Notes for " . htmlspecialchars($notes[0]['first_name'], ENT_QUOTES) . " " . htmlspecialchars($notes[0]['last_name'], ENT_QUOTES) . "</h1>";
-        echo "<h2>Medication: " . htmlspecialchars($notes[0]['med_name'], ENT_QUOTES) . "</h2>";
+        echo "<h1>View Notes</h1>";
+        echo "<p>Notes for " . htmlspecialchars($notes[0]['first_name'], ENT_QUOTES) . " " . htmlspecialchars($notes[0]['last_name'], ENT_QUOTES) . "</p>";
+        echo "<p>Medication: " . htmlspecialchars($notes[0]['med_name'], ENT_QUOTES) . "</p>";
 
-        echo "<table class='notes_table'>";
-        echo "<tr><th>Staff Code</th><th>Content</th><th>Created At</th></tr>";
+        echo "<table class='big_table'>";
+        echo "<tr>
+            <th class='big_table_th'>Staff Code</th>
+            <th class='big_table_th'>Date and Time</th>
+            <th class='big_table_th'>Content</th>
+        </tr>";
 
         foreach ($notes as $note) {
             echo "<tr>";
-            echo "<td>" . htmlspecialchars($note['staff_code'], ENT_QUOTES) . "</td>";  // Display the staff_code from notes table
-            echo "<td>" . htmlspecialchars($note['content'], ENT_QUOTES) . "</td>";
-            echo "<td>" . htmlspecialchars(date('d/m/Y H:i', strtotime($note['created_at'])), ENT_QUOTES) . "</td>";
+            echo "<td class='big_table_td_custom_one'>" . htmlspecialchars($note['staff_code'], ENT_QUOTES) . "</td>";  // Display the staff_code from notes table
+            echo "<td class='big_table_td_custom_two'>" . htmlspecialchars(date('d/m/Y H:i', strtotime($note['created_at'])), ENT_QUOTES) . "</td>";
+            echo "<td class='big_table_td'>" . htmlspecialchars($note['content'], ENT_QUOTES) . "</td>";
             echo "</tr>";
         }
-
+        
         echo "</table>";
+        echo "<br><br>";
+        echo "<a class='back_link' href='../dashboard/dashboard.php' class='button'> > Go Back</a>";
     }
 } catch (PDOException $e) {
     die("<p class='error'>Database error: " . htmlspecialchars($e->getMessage(), ENT_QUOTES) . "</p>");

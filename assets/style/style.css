@@ -581,3 +581,19 @@ select option {
 .home_page_button:hover {
     background-color: #b1b4b6;
 }
+
+.big_table_td_custom_one {
+    width: 100px;
+    padding: 12px; /* Padding for table header cells */
+    text-align: left;
+    border-bottom: 1px solid #0b0b0c; /* Light gray border */
+    font-size: 20px;
+}
+
+.big_table_td_custom_two {
+    width: 200px;
+    padding: 12px; /* Padding for table header cells */
+    text-align: left;
+    border-bottom: 1px solid #0b0b0c; /* Light gray border */
+    font-size: 20px;
+}

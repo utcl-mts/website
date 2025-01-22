@@ -51,6 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
         }
     }
 }
+
+include "../server/main_navbar.php";
 ?>
 
 <!DOCTYPE html>
@@ -59,29 +61,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
     <title>Create Notes</title>
     <link rel="stylesheet" href="../assets/style/style.css">
 </head>
-<body>
-<div class="full_page_styling">
-    <h1>Create Note</h1>
-    <p>Adding a note for Student ID: <strong><?php echo htmlspecialchars($student_id, ENT_QUOTES); ?></strong> and Takes ID: <strong><?php echo htmlspecialchars($takes_id, ENT_QUOTES); ?></strong></p>
+<body class="full_page_styling">
+<div>
+    <h1>Create A Note</h1>
+    <p>You are adding a note for Student ID: <strong><?php echo htmlspecialchars($student_id, ENT_QUOTES); ?></strong> with Takes ID: <strong><?php echo htmlspecialchars($takes_id, ENT_QUOTES); ?></strong></p>
 
     <form method="POST">
-        <!-- Date Input -->
-        <label for="note_date">Date:</label>
-        <input type="date" id="note_date" name="note_date" required>
-        
-        <!-- Time Input -->
-        <label for="note_time">Time:</label>
-        <input type="time" id="note_time" name="note_time" required>
-        
-        <!-- Note Content -->
-        <label for="content">Note Content:</label>
-        <textarea id="content" name="content" required></textarea>
+        <div class='text-element'>Enter the note date:</div>
+        <div class='text-element-faded'>Example: 22/01/2025</div>
+        <input class='temp_date_field' type="date" id="note_date" name="note_date" required>
+        <br><br>
 
-        <input type="submit" value="Submit">
+        <div class='text-element'>Enter the time:</div>
+        <div class='text-element-faded'>Example: 22/01/2025</div>
+        <input class='temp_time_field' type="time" id="note_time" name="note_time" required>
+
+        <br><br>
+
+        <div class='text-element'>Enter the note:</div>
+        <div class='text-element-faded'>Example: Attempted to call mum</div>
+        <textarea class='text_area' id="content" name="content" required></textarea>
+
+        <br><br>
+
+        <input class='submit' type="submit" value="Submit">
     </form>
 
     <br>
-    <a href="../dashboard/dashboard.php" class="button">Back to Student Medication</a>
+    <a class='back_link' href="../dashboard/dashboard.php" class="button"> > Go Back</a>
 </div>
 </body>
 </html>
