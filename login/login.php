@@ -40,7 +40,7 @@ try {
     $password = $_POST["password"];
 
     // First check if the email exists and get the staff details
-    $sql = "SELECT staff_id, `group`, password, email FROM staff WHERE email = :email";
+    $sql = "SELECT staff_id, `group`, password, email, staff_code FROM staff WHERE email = :email";
     $stmt = $conn->prepare($sql);
     $stmt->execute(['email' => $email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -57,13 +57,14 @@ try {
         $_SESSION['staff_id'] = $user['staff_id'];
         $_SESSION["ssnlogin"] = true;
         $_SESSION["email"] = $user["email"];
+        $_SESSION["staff_code"] = $user["staff_code"];  // Store staff_code in session
 
         // Add cookie setting here
         setcookie(
             'cookies_and_cream',
             'active',
             [
-                'expires' => time() + (2 * 60),  // 2 minutes
+                'expires' => time() + (5 * 60),  // 5 minutes
                 'path' => '/',
                 'secure' => true,
                 'httponly' => true,
