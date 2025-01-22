@@ -563,3 +563,21 @@ select option {
     color: #003078;
     border-bottom: 4px solid #003078;
 }
+
+.home_page_button{
+    margin-top: 10px;
+    color: #0b0b0c;
+    font-family: roboto;
+    font-size: 20px;
+    font-weight: 500;
+    background-color: #f3f2f1;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    border-bottom: 1px solid #505a5f;
+    padding: 5px;
+}
+
+.home_page_button:hover {
+    background-color: #b1b4b6;
+}
