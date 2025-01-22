@@ -1,81 +1,53 @@
-<link rel="stylesheet" href="../assets/style/style.css">
-<body class="full_page_styling">
-<title>Hours Tracking - View Notes</title>
-<div>
-    <div>
-        <ul class="nav_bar">
-            <div class="nav_left">
-                <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
-                <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
-                <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
-<!--                <li class="navbar_li"><a href="../administer/administer_form.php">Administer Medication</a></li>-->
-                <li class="navbar_li"><a href="../log/log_form.php">Create Notes</a></li>
-                <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
-                <li class="navbar_li"><a href="../student_profile/student_profile.php">Student Profile</a></li>
-                <li class="navbar_li"><a href="../edit_details/student_table.php">Student Management</a></li>
-                <li class="navbar_li"><a href="../log-new-med/log_new_med.php">Add New Med</a></li>
-            </div>
-            <div class="nav_left">
-                <li class="navbar_li"><a href="../admin/admin_dashboard.php">Admin Dashboard</a></li>
-                <li class="navbar_li"><a href="../logout.php">Logout</a></li>
-            </div>
-        </ul>
-    </div>
-
 <?php
-// Start a new session
-session_start();
-
-// Check for valid session and cookie
-if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
-    header("Location: ../index.html");
-    exit();
-}
-
-// Include the database connection file
 include "../server/db_connect.php";
 
-if (isset($_GET['student_id'])) {
-    $student_id = intval($_GET['student_id']);
+// Get student_id and takes_id from the GET request
+$student_id = isset($_GET['student_id']) ? intval($_GET['student_id']) : null;
+$takes_id = isset($_GET['takes_id']) ? intval($_GET['takes_id']) : null;
 
-    try {
-        // Prepare and execute the query
-        $sql = "SELECT log_id, student_id, staff_id, notes, date_time 
-                FROM log 
-                WHERE student_id = :student_id";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':student_id', $student_id, PDO::PARAM_INT);
-        $stmt->execute();
+// Validate the inputs
+if (!$student_id || !$takes_id) {
+    die("<p class='error'>Invalid request. Missing student or medication data.</p>");
+}
 
-        // Fetch results
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+try {
+    // Query to fetch notes along with staff_code for the specified student and takes_id
+    $sql = "SELECT notes.note_id, notes.content, notes.created_at, 
+                   students.first_name, students.last_name, 
+                   med.med_name, notes.staff_code
+            FROM notes
+            INNER JOIN takes ON notes.takes_id = takes.takes_id
+            INNER JOIN students ON takes.student_id = students.student_id
+            INNER JOIN med ON takes.med_id = med.med_id
+            WHERE takes.takes_id = :takes_id AND students.student_id = :student_id";
 
-        // Display the table
-        echo "<h2>Log Records for Student ID: " . htmlspecialchars($student_id) . "</h2>";
-        if ($results) {
-            echo "<table class='big_table'>";
-            echo "<tr>
-                    <th class='big_table_th'>Log ID</th>
-                    <th class='big_table_th'>Date Logged</th>
-                    <th class='big_table_th'>Notes</th>
-                </tr>";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':takes_id', $takes_id, PDO::PARAM_INT);
+    $stmt->bindParam(':student_id', $student_id, PDO::PARAM_INT);
+    $stmt->execute();
 
-            foreach ($results as $row) {
-                echo "<tr>";
-                echo "<td class='big_table_td'>" . htmlspecialchars($row['log_id']) . "</td>";
-                echo "<td class='big_table_td'>" . htmlspecialchars(date('d/m/Y H:i', $row['date_time'])) . "</td>";
-                echo "<td class='big_table_td'>" . htmlspecialchars($row['notes']) . "</td>";
-                echo "</tr>";
-            }
+    $notes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            echo "</table>";
-        } else {
-            echo "<p>No records found for this student.</p>";
+    echo "<h1>Notes for " . htmlspecialchars($notes[0]['first_name'], ENT_QUOTES) . " " . htmlspecialchars($notes[0]['last_name'], ENT_QUOTES) . "</h1>";
+    echo "<h2>Medication: " . htmlspecialchars($notes[0]['med_name'], ENT_QUOTES) . "</h2>";
+
+    if ($notes) {
+        echo "<table class='notes_table'>";
+        echo "<tr><th>Staff Code</th><th>Content</th><th>Created At</th></tr>";
+
+        foreach ($notes as $note) {
+            echo "<tr>";
+            echo "<td>" . htmlspecialchars($note['staff_code'], ENT_QUOTES) . "</td>";  // Display the staff_code from notes table
+            echo "<td>" . htmlspecialchars($note['content'], ENT_QUOTES) . "</td>";
+            echo "<td>" . htmlspecialchars(date('d/m/Y H:i', strtotime($note['created_at'])), ENT_QUOTES) . "</td>";
+            echo "</tr>";
         }
-    } catch (PDOException $e) {
-        echo "<p class='error'>Database error: " . htmlspecialchars($e->getMessage()) . "</p>";
+
+        echo "</table>";
+    } else {
+        echo "<p>No notes found for this student and medication.</p>";
     }
-} else {
-    echo "<p class='error'>No student ID provided.</p>";
+} catch (PDOException $e) {
+    die("<p class='error'>Database error: " . htmlspecialchars($e->getMessage(), ENT_QUOTES) . "</p>");
 }
 ?>

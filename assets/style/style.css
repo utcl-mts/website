@@ -561,5 +561,5 @@ select option {
 .table_button:hover {
     text-decoration: none;
     color: #003078;
-    border-bottom: 2px solid #003078;
+    border-bottom: 4px solid #003078;
 }

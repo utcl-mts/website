@@ -154,18 +154,19 @@
                     <div class='centered-form'>
                         <form method='GET' action='create_notes.php'>
                             <input type='hidden' name='student_id' value='" . htmlspecialchars($row['student_id'], ENT_QUOTES) . "'>
+                            <input type='hidden' name='takes_id' value='" . htmlspecialchars($row['takes_id'], ENT_QUOTES) . "'>
                             <button class='table_button' type='submit'>
                                 Create Notes
                             </button>
                         </form>
                         <form method='GET' action='view_notes.php'>
                             <input type='hidden' name='student_id' value='" . htmlspecialchars($row['student_id'], ENT_QUOTES) . "'>
+                            <input type='hidden' name='takes_id' value='" . htmlspecialchars($row['takes_id'], ENT_QUOTES) . "'>
                             <button class='table_button' type='submit'>
                                 View Notes
                             </button>
                         </form>
                     </div>
-                    
                 </td>";
                 echo "</tr>";
             }
