@@ -50,6 +50,7 @@ $result = $stat->fetchAll(PDO::FETCH_ASSOC);
 foreach ($result as $row) {
     $expiry_date = $row["exp_date"];
     $takes_id = $row["takes_id"];
+    $student_id = $row["student_id"]; // Store student_id from database
     $student_name = $row["first_name"] . " " . $row["last_name"];
     $student_year = $row["year"];
     $med_name = $row["med_name"];
@@ -62,7 +63,8 @@ foreach ($result as $row) {
         'info' => "$student_name<br>Year: $student_year<br>Medication: $med_name , $brand_name<br>Expiry: <b>$formatted_date</b>",
         'takes_id' => $takes_id,
         'notes' => $notes,
-        'recent_note' => $recent_note
+        'recent_note' => $recent_note,
+        'student_id' => $student_id  // Include student_id in the medication info array
     ];
 
     if ($expiry_date < $time) {
@@ -104,9 +106,9 @@ $dose_result = $stat->fetchAll(PDO::FETCH_ASSOC);
 
 foreach ($dose_result as $row) {
     $takes_id = $row["takes_id"];
+    $student_id = $row["student_id"]; // Store student_id from database
     $student_name = $row["first_name"] . " " . $row["last_name"];
     $student_year = $row["year"];
-    $student_id = $row["student_id"];
     $med_name = $row["med_name"];
     $brand_name = $row["brand_name"];
     $current_dose = $row["current_dose"];
@@ -117,7 +119,8 @@ foreach ($dose_result as $row) {
         'info' => "$student_name<br>Year: $student_year<br>Medication: $med_name , $brand_name<br>Dose: $current_dose",
         'takes_id' => $takes_id,
         'notes' => $notes,
-        'recent_note' => $recent_note
+        'recent_note' => $recent_note,
+        'student_id' => $student_id  // Include student_id in the medication info array
     ];
 
     $below_minimum_doses[] = $medication_info;
@@ -146,10 +149,19 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button class="secondary_button" type="submit">Archive</button>
                         </form>
-                        
                         <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
-                            <input type="hidden" name="student_id" value="<?php echo $medication['takes_id']; ?>">
+                            <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
                             <button class="secondary_button" type="submit">Log New Med</button>
+                        </form>
+                        <form method="GET" action="create_notes.php" style="display:inline;">
+                            <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
+                            <button class="table_button" type="submit">Create Notes</button>
+                        </form>
+                        <form method="GET" action="view_notes.php" style="display:inline;">
+                            <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
+                            <button class="table_button" type="submit">View Notes</button>
                         </form>
                     </td>
                 </tr>
@@ -172,9 +184,8 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button class="secondary_button" type="submit">Archive</button>
                         </form>
-                        
                         <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
-                            <input type="hidden" name="student_id" value="<?php echo $medication['takes_id']; ?>">
+                            <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
                             <button class="secondary_button" type="submit">Log New Med</button>
                         </form>
                     </td>
@@ -198,9 +209,8 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button class="secondary_button" type="submit">Archive</button>
                         </form>
-                        
                         <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
-                            <input type="hidden" name="student_id" value="<?php echo $medication['takes_id']; ?>">
+                            <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
                             <button class="secondary_button" type="submit">Log New Med</button>
                         </form>
                     </td>
@@ -224,9 +234,8 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button class="secondary_button" type="submit">Archive</button>
                         </form>
-                        
                         <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
-                            <input type="hidden" name="student_id" value="<?php echo $medication['takes_id']; ?>">
+                            <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
                             <button class="secondary_button" type="submit">Log New Med</button>
                         </form>
                     </td>
