@@ -69,12 +69,26 @@ include "../server/main_navbar.php";
     <form method="POST">
         <div class='text-element'>Enter the note date:</div>
         <div class='text-element-faded'>Example: 22/01/2025</div>
-        <input class='temp_date_field' type="date" id="note_date" name="note_date" required>
+        <!-- <input class='temp_date_field' type="date" id="note_date" name="note_date" required> -->
+        <input class='temp_date_field' type="date" id="dateInput" name="note_date" value="" required>
+
+        <script>
+            // Get today's date and format it as YYYY-MM-DD
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('dateInput').value = today;
+        </script>
         <br><br>
 
         <div class='text-element'>Enter the time:</div>
         <div class='text-element-faded'>Example: 22/01/2025</div>
-        <input class='temp_time_field' type="time" id="note_time" name="note_time" required>
+        <!-- <input class='temp_time_field' type="time" id="note_time" name="note_time" required> -->
+        <input class='temp_time_field' type="time" id="timeInput" name='note_time'>
+
+        <script>
+            const now = new Date();
+            const currentTime = now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit'});
+            document.getElementById('timeInput').value = currentTime;
+        </script>
 
         <br><br>
 

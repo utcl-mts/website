@@ -568,14 +568,14 @@ select option {
     margin-top: 10px;
     color: #0b0b0c;
     font-family: roboto;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
     background-color: #f3f2f1;
     border: none;
     text-decoration: none;
     cursor: pointer;
     border-bottom: 1px solid #505a5f;
-    padding: 5px;
+    padding: 10px;
 }
 
 .home_page_button:hover {
