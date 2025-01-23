@@ -99,7 +99,7 @@ INSERT INTO `brand` (`brand_id`, `brand_name`) VALUES
 (33, 'VIBRAMYCIN'),
 (34, 'DELTASONE'),
 (35, 'PLAVIX'),
-(36, 'PANADOL'),
+(36, 'PANADOL');
 
 --
 -- Triggers `brand`
@@ -162,10 +162,7 @@ INSERT INTO `med` (`med_id`, `med_name`) VALUES
 (27, 'LEVOCETIRIZINE'),
 (28, 'GABAPENTIN'),
 (29, 'DOXYCYCLINE'),
-(30, 'CLOPIDOGREL'),
-(31, 'ASDASDASDASD'),
-(32, 'ASDASDASDASD'),
-(33, 'ASDASDASDASD');
+(30, 'CLOPIDOGREL');
 
 --
 -- Triggers `med`
@@ -281,7 +278,7 @@ INSERT INTO `students` (`student_id`, `first_name`, `last_name`, `year`) VALUES
 (30, 'MARK', 'SLOAN', '11'),
 (31, 'OWEN', 'HUNT', '13'),
 (32, 'CRISTINA', 'YANG', '11'),
-(33, 'MIRANDA', 'BAILEY', '14'),
+(33, 'MIRANDA', 'BAILEY', '14');
 
 --
 -- Triggers `students`
