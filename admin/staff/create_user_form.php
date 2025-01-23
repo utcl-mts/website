@@ -47,6 +47,10 @@ if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
         <div class='text-element-faded'>Example: Bloggs</div>
         <input class="text_input" type="text" name="last_name" id="" required>
         <br><br>
+        <div class='text-element'>Enter staff code</div>
+        <div class='text-element-faded'>Example: JBL</div>
+        <input class="text_input" type="text" name="staff_code" id="" required>
+        <br><br>
         <div class='text-element'>Enter email: </div>
         <div class='text-element-faded'>Example: joe.bloggs@utcleeds.co.uk</div>
         <input class="text_input" type="text" name="email" id="" required>

@@ -10,7 +10,7 @@ if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
 include "../../server/db_connect.php";
 
 // Fetch staff data
-$query = "SELECT staff_id, first_name, last_name, email FROM staff WHERE staff_id != 1";
+$query = "SELECT staff_id, first_name, last_name, email, staff_code FROM staff WHERE staff_id != 1";
 $stmt = $conn->prepare($query);
 $stmt->execute();
 $staffData = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -57,6 +57,7 @@ $staffData = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <th class="big_table_th">First Name</th>
         <th class="big_table_th">Last Name</th>
         <th class="big_table_th">Email</th>
+        <th class="big_table_th">Staff Code</th>
         <th class="big_table_th">Actions</th>
     </tr>
     </thead>
@@ -68,8 +69,9 @@ $staffData = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <td class="big_table_td"><?= htmlspecialchars($row['first_name']) ?></td>
                 <td class="big_table_td"><?= htmlspecialchars($row['last_name']) ?></td>
                 <td class="big_table_td"><?= htmlspecialchars($row['email']) ?></td>
+                <td class="big_table_td"><?= htmlspecialchars($row['staff_code']) ?></td>
                 <td class="action-buttons">
-                    <form action="edit_details.php" method="GET" style="display:inline;">
+                    <form action="edit_user.php" method="GET" style="display:inline;">
                         <input type="hidden" name="staff_id" value="<?= htmlspecialchars($row['staff_id']) ?>">
                         <button class="table_button" type="submit">Edit Details</button>
                     </form>

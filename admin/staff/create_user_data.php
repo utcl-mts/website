@@ -11,6 +11,7 @@ include "../../server/db_connect.php";
 
 $first_name = $_POST['first_name'];
 $last_name = $_POST['last_name'];
+$staff_code = $_POST['staff_code'];
 $email = $_POST['email'];
 $password = $_POST['password'];
 $c_password = $_POST['c_password'];
@@ -37,13 +38,14 @@ if($password!=$c_password){
         } else {
             try {
                 $hpswd = password_hash($password, PASSWORD_DEFAULT);
-                $sql = "INSERT INTO staff (first_name, last_name, email, password, `group`) VALUES (?, ?, ?, ?, ?)";
+                $sql = "INSERT INTO staff (first_name, last_name, staff_code, email, password, `group`) VALUES (?, ?, ?, ?, ?, ?)";
                 $stmt = $conn->prepare($sql);
                 $stmt->bindParam(1,$first_name);
                 $stmt->bindParam(2,$last_name);
-                $stmt->bindParam(3,$email);
-                $stmt->bindParam(4,$hpswd);
-                $stmt->bindParam(5,$group);
+                $stmt->bindParam(3,$staff_code);
+                $stmt->bindParam(4,$email);
+                $stmt->bindParam(5,$hpswd);
+                $stmt->bindParam(6,$group);
 
                 $stmt->execute();
                 header("refresh:5; url=staff_home.php");
