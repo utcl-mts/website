@@ -180,7 +180,7 @@ foreach ($dose_result as $row) {
                         <br>
                         <strong>Recent Note:</strong> <?php echo htmlspecialchars($medication['recent_note']); ?>
                         <br>
-                        <form action="archive.php" method="post" style="display:inline;">
+                        <form action="archive.php" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to archive this medication?');">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button class="home_page_button" type="submit">Archive</button>
                         </form>
@@ -215,7 +215,7 @@ foreach ($dose_result as $row) {
                         <br>
                         <strong>Recent Note:</strong> <?php echo htmlspecialchars($medication['recent_note']); ?>
                         <br>
-                        <form action="archive.php" method="post" style="display:inline;">
+                        <form action="archive.php" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to archive this medication?');">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button class="home_page_button" type="submit">Archive</button>
                         </form>
@@ -250,7 +250,7 @@ foreach ($dose_result as $row) {
                         <br>
                         <strong>Recent Note:</strong> <?php echo htmlspecialchars($medication['recent_note']); ?>
                         <br>
-                        <form action="archive.php" method="post" style="display:inline;">
+                        <form action="archive.php" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to archive this medication?');">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button class="home_page_button" type="submit">Archive</button>
                         </form>

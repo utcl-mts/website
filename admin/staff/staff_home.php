@@ -69,13 +69,18 @@ $staffData = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <td class="big_table_td"><?= htmlspecialchars($row['last_name']) ?></td>
                 <td class="big_table_td"><?= htmlspecialchars($row['email']) ?></td>
                 <td class="action-buttons">
+                    <form action="edit_details.php" method="GET" style="display:inline;">
+                        <input type="hidden" name="staff_id" value="<?= htmlspecialchars($row['staff_id']) ?>">
+                        <button class="table_button" type="submit">Edit Details</button>
+                    </form>
                     <form action="change_password.php" method="GET" style="display:inline;">
                         <input type="hidden" name="staff_id" value="<?= htmlspecialchars($row['staff_id']) ?>">
-                        <button class="secondary_button" type="submit">Change Password</button>
+                        <button class="table_button" type="submit">Change Password</button>
                     </form>
-                    <form action="delete_user.php" method="POST" style="display:inline;">
+                    <!-- <form action="delete_user.php" method="POST" style="display:inline;"> -->
+                    <form action="delete_user.php" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this member of staff?');">
                         <input type="hidden" name="staff_id" value="<?= htmlspecialchars($row['staff_id']) ?>">
-                        <button class="secondary_button" type="submit">Delete</button>
+                        <button class="table_button" type="submit">Delete</button>
                     </form>
                 </td>
             </tr>

@@ -597,3 +597,7 @@ select option {
     border-bottom: 1px solid #0b0b0c; /* Light gray border */
     font-size: 20px;
 }
+
+.action-buttons{
+    width: 500px;
+}
