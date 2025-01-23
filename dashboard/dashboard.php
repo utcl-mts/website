@@ -145,14 +145,6 @@ foreach ($dose_result as $row) {
                         <br>
                         <strong>Recent Note:</strong> <?php echo htmlspecialchars($medication['recent_note']); ?>
                         <br>
-                        <form action="archive.php" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to archive this medication?');">
-                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
-                            <button class="home_page_button" type="submit">Archive</button>
-                        </form>
-                        <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
-                            <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
-                            <button class="home_page_button" type="submit">Log New Med</button>
-                        </form>
                         <form method="GET" action="create_notes.php" style="display:inline;">
                             <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
@@ -162,6 +154,15 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button class="home_page_button" type="submit">View Notes</button>
+                        </form>
+                        <br>
+                        <form action="archive.php" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to archive this medication?');">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
+                            <button class="home_page_button" type="submit">Archive</button>
+                        </form>
+                        <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
+                            <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
+                            <button class="home_page_button" type="submit">Log New Med</button>
                         </form>
                     </td>
                 </tr>
@@ -180,14 +181,6 @@ foreach ($dose_result as $row) {
                         <br>
                         <strong>Recent Note:</strong> <?php echo htmlspecialchars($medication['recent_note']); ?>
                         <br>
-                        <form action="archive.php" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to archive this medication?');">
-                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
-                            <button class="home_page_button" type="submit">Archive</button>
-                        </form>
-                        <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
-                            <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
-                            <button class="home_page_button" type="submit">Log New Med</button>
-                        </form>
                         <form method="GET" action="create_notes.php" style="display:inline;">
                             <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
@@ -197,6 +190,15 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button class="home_page_button" type="submit">View Notes</button>
+                        </form>
+                        <br>
+                        <form action="archive.php" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to archive this medication?');">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
+                            <button class="home_page_button" type="submit">Archive</button>
+                        </form>
+                        <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
+                            <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
+                            <button class="home_page_button" type="submit">Log New Med</button>
                         </form>
                     </td>
                 </tr>
@@ -215,14 +217,6 @@ foreach ($dose_result as $row) {
                         <br>
                         <strong>Recent Note:</strong> <?php echo htmlspecialchars($medication['recent_note']); ?>
                         <br>
-                        <form action="archive.php" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to archive this medication?');">
-                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
-                            <button class="home_page_button" type="submit">Archive</button>
-                        </form>
-                        <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
-                            <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
-                            <button class="home_page_button" type="submit">Log New Med</button>
-                        </form>
                         <form method="GET" action="create_notes.php" style="display:inline;">
                             <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
@@ -232,6 +226,15 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button class="home_page_button" type="submit">View Notes</button>
+                        </form>
+                        <br>
+                        <form action="archive.php" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to archive this medication?');">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
+                            <button class="home_page_button" type="submit">Archive</button>
+                        </form>
+                        <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
+                            <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
+                            <button class="home_page_button" type="submit">Log New Med</button>
                         </form>
                     </td>
                 </tr>
@@ -250,14 +253,6 @@ foreach ($dose_result as $row) {
                         <br>
                         <strong>Recent Note:</strong> <?php echo htmlspecialchars($medication['recent_note']); ?>
                         <br>
-                        <form action="archive.php" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to archive this medication?');">
-                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
-                            <button class="home_page_button" type="submit">Archive</button>
-                        </form>
-                        <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
-                            <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
-                            <button class="home_page_button" type="submit">Log New Med</button>
-                        </form>
                         <form method="GET" action="create_notes.php" style="display:inline;">
                             <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
@@ -267,6 +262,15 @@ foreach ($dose_result as $row) {
                             <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
                             <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
                             <button class="home_page_button" type="submit">View Notes</button>
+                        </form>
+                        <br>
+                        <form action="archive.php" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to archive this medication?');">
+                            <input type="hidden" name="takes_id" value="<?php echo $medication['takes_id']; ?>">
+                            <button class="home_page_button" type="submit">Archive</button>
+                        </form>
+                        <form action="../log-new-med/log_new_med.php" method="post" style="display:inline;">
+                            <input type="hidden" name="student_id" value="<?php echo $medication['student_id']; ?>">
+                            <button class="home_page_button" type="submit">Log New Med</button>
                         </form>
                     </td>
                 </tr>
