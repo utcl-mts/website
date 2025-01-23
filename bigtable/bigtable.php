@@ -32,7 +32,7 @@
                 type="text"
                 name="search"
                 class="search_bar"
-                placeholder="Search by student name, medication, or brand"
+                placeholder="Search by student name, medication, brand, or year group"
                 value="<?php echo htmlspecialchars($_GET['search'] ?? '', ENT_QUOTES); ?>"
             >
             <button class="submit" type="submit">Search</button>
@@ -79,7 +79,7 @@
                       INNER JOIN brand ON takes.brand_id = brand.brand_id 
                       INNER JOIN students ON takes.student_id = students.student_id 
                       WHERE CONCAT(students.first_name, ' ', students.last_name) LIKE :search 
-                      OR med.med_name LIKE :search OR brand.brand_name LIKE :search";
+                      OR med.med_name LIKE :search OR brand.brand_name LIKE :search OR students.year LIKE :search";
         $total_stmt = $conn->prepare($total_sql);
         $search_param = '%' . $search_term . '%';
         $total_stmt->bindParam(':search', $search_param, PDO::PARAM_STR);
@@ -95,7 +95,7 @@
                 INNER JOIN brand ON takes.brand_id = brand.brand_id 
                 INNER JOIN students ON takes.student_id = students.student_id 
                 WHERE CONCAT(students.first_name, ' ', students.last_name) LIKE :search 
-                OR med.med_name LIKE :search OR brand.brand_name LIKE :search 
+                OR med.med_name LIKE :search OR brand.brand_name LIKE :search OR students.year LIKE :search 
                 LIMIT :limit OFFSET :offset";
 
         $stmt = $conn->prepare($sql);
@@ -133,10 +133,8 @@
                 foreach ($custom_headings as $column => $heading) {
                     $value = $row[$column] ?? '';
                     if ($column === 'takes_id') {
-                        // Make the ID bold
                         $value = "<b>" . htmlspecialchars($value, ENT_QUOTES) . "</b>";
                     } elseif ($column === 'exp_date' && is_numeric($value)) {
-                        // Format expiry date
                         $value = date('d/m/y', $value);
                     }
                     echo "<td class='big_table_td'>" . $value . "</td>";
@@ -171,7 +169,6 @@
                 </td>";
                 echo "</tr>";
             }
-            
 
             echo "</table>";
         } else {
