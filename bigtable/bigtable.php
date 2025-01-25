@@ -49,30 +49,6 @@
     $start_from = ($page - 1) * $results_per_page;
     $search_term = trim($_GET['search'] ?? '');
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['decrement'])) {
-        $takes_id = intval($_POST['takes_id']);
-
-        try {
-            $check_sql = "SELECT current_dose FROM takes WHERE takes_id = :takes_id";
-            $check_stmt = $conn->prepare($check_sql);
-            $check_stmt->bindParam(':takes_id', $takes_id, PDO::PARAM_INT);
-            $check_stmt->execute();
-            $result = $check_stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($result && $result['current_dose'] > 0) {
-                $update_sql = "UPDATE takes SET current_dose = current_dose - 1 WHERE takes_id = :takes_id";
-                $update_stmt = $conn->prepare($update_sql);
-                $update_stmt->bindParam(':takes_id', $takes_id, PDO::PARAM_INT);
-                $update_stmt->execute();
-                echo "<p class='success'>Dose decremented successfully.</p>";
-            } else {
-                echo "<p class='error'>Cannot decrement. Dose is already at zero.</p>";
-            }
-        } catch (PDOException $e) {
-            die("<p class='error'>Database error: " . htmlspecialchars($e->getMessage(), ENT_QUOTES) . "</p>");
-        }
-    }
-
     try {
         $total_sql = "SELECT COUNT(*) AS total_records FROM takes 
                       INNER JOIN med ON takes.med_id = med.med_id 
@@ -117,7 +93,7 @@
         ];
 
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo "<div id ='bigt'>";
+        echo "<div id='bigt'>";
         if ($results) {
             echo "<table class='big_table'>";
             echo "<tr>";
@@ -141,12 +117,12 @@
                 }
                 echo "<td>
                     <div class='centered-form'>
-                        <form method='POST' action=''>
-                            <input type='hidden' name='takes_id' value='" . htmlspecialchars($row['takes_id'], ENT_QUOTES) . "'>
-                            <button class='table_button' type='submit' name='decrement' " . ($row['current_dose'] <= 0 ? "disabled" : "") . ">
-                                Decrement Dose
-                            </button>
-                        </form>
+                        <button class='table_button decrement-btn' 
+                            data-takes-id='" . htmlspecialchars($row['takes_id'], ENT_QUOTES) . "' 
+                            data-current-dose='" . htmlspecialchars($row['current_dose'], ENT_QUOTES) . "'
+                            " . ($row['current_dose'] <= 0 ? "disabled" : "") . ">
+                            Decrement Dose
+                        </button>
                     </div>
                 </td>";
                 echo "<td>
@@ -197,6 +173,53 @@
         die("Database error: " . htmlspecialchars($e->getMessage(), ENT_QUOTES));
     }
     ?>
+
+    <!-- Decrement Popup -->
+    <div id="decrementPopup" class="popup">
+        <div class="popup-content">
+            <span class="popup-close">&times;</span>
+            <h1>Decrement Doses</h1>
+            <form id="decrementForm" method="POST" action="doses.php">
+                <input type="hidden" name="take_id" id="popupTakeId">
+                <div class='text-element'>Enter number of doses to decrement</div>
+                <div class='text-element-faded'>Example: Joe</div>
+                <input class="smaller_int_input" type="number" id="decrementAmount" name="decrement_amount" min="1" max="" required>
+                <p id="currentDoseInfo"></p>
+                <button type="submit" class="submit">Decrement</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const popup = document.getElementById('decrementPopup');
+        const closeBtn = document.querySelector('.popup-close');
+        const decrementBtns = document.querySelectorAll('.decrement-btn');
+
+        decrementBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const takesId = this.getAttribute('data-takes-id');
+                const currentDose = parseInt(this.getAttribute('data-current-dose'));
+
+                document.getElementById('currentDoseInfo').textContent = `Current Doses: ${currentDose}`;
+
+                document.getElementById('popupTakeId').value = takesId;
+                document.getElementById('decrementAmount').max = currentDose;
+                popup.style.display = 'block';
+            });
+        });
+
+        closeBtn.addEventListener('click', function() {
+            popup.style.display = 'none';
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target === popup) {
+                popup.style.display = 'none';
+            }
+        });
+    });
+    </script>
 </div>
 </body>
 </html>
