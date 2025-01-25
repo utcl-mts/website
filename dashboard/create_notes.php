@@ -2,6 +2,7 @@
 session_start(); // Start the session to access session variables
 
 include "../server/db_connect.php";
+include "../server/navbar/dashboard.php";
 
 // Get student_id and takes_id from the GET request
 $student_id = isset($_GET['student_id']) ? intval($_GET['student_id']) : null;
@@ -52,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
     }
 }
 
-include "../server/main_navbar.php";
+
 ?>
 
 <!DOCTYPE html>

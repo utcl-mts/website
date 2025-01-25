@@ -8,7 +8,7 @@
 
 <?php
 include "../server/db_connect.php";
-include "../server/main_navbar.php";
+include "../server/navbar/dashboard.php";
 
 // Get student_id and takes_id from the GET request
 $student_id = isset($_GET['student_id']) ? intval($_GET['student_id']) : null;
