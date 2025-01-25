@@ -1,7 +1,7 @@
 <?php
 session_start();
 include "../server/db_connect.php";
-include "../audit-log/audit-log.php";
+include "../server/audit-log.php";
 
 try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

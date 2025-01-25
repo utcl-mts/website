@@ -31,7 +31,7 @@
         <?php
         session_start();
         include "../server/db_connect.php";
-        include "../audit-log/audit-log.php";
+        include "../server/audit-log.php";
 
         // Check for valid session and cookie
         if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {

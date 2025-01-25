@@ -27,7 +27,7 @@
 <?php
 session_start();
 include "../server/db_connect.php";
-include "../audit-log/audit-log.php";
+include "../server/audit-log.php";
 
 $first_name = $_POST['first_name'];
 $first_name = strtoupper($first_name);
