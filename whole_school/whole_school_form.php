@@ -11,7 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_record'])) {
 
     // Validate inputs
     if (!empty($name) && !empty($exp_date_input) && is_numeric($amount_left) && intval($amount_left) >= 0) {
-        $exp_date = strtotime($exp_date_input); // Convert date to timestamp
+        // Convert date to UNIX epoch timestamp at start of day
+        $exp_date = strtotime('today', strtotime($exp_date_input));
 
         // Ensure the date conversion is successful
         if ($exp_date) {
@@ -43,13 +44,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_record'])) {
 <body class="full_page_styling">
 <title>Hours Tracking - Create Whole School Item</title>
 <div>
-<div>
+    <div>
         <ul class="nav_bar">
             <div class="nav_left">
                 <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
                 <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
                 <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
-<!--                <li class="navbar_li"><a href="../administer/administer_form.php">Administer Medication</a></li>-->
                 <li class="navbar_li"><a href="../log/log_form.php">Create Notes</a></li>
                 <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
                 <li class="navbar_li"><a href="../student_profile/student_profile.php">Student Profile</a></li>
@@ -59,6 +59,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_record'])) {
             <div class="nav_left">
                 <li class="navbar_li"><a href="../admin/admin_dashboard.php">Admin Dashboard</a></li>
                 <li class="navbar_li"><a href="../logout.php">Logout</a></li>
+            </div>
+        </ul>
+    </div>
+    <br>
+
+    <div>
+    <ul class="nav_bar">
+            <div class="nav_left">
+                <li class="navbar_li"><a href="active_records.php">Active Records Table</a></li>
+                <li class="navbar_li"><a href="archive_records.php">Archived Records Table</a></li>
+                <li class="navbar_li"><a class='active' href="whole_school_form.php">Add a new record</a></li>
             </div>
         </ul>
     </div>
@@ -79,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_record'])) {
             <br><br>
             <div class='text-element'>Enter date:</div>
             <div class='text-element-faded'>Example: 01/12/2025</div>
-            <input class="temp_date_field" type="text" id="exp_date" name="exp_date" required>
+            <input class="temp_date_field" type="date" id="exp_date" name="exp_date" required>
             <br><br>
             <div class='text-element'>Enter amount:</div>
             <div class='text-element-faded'>Example: 12</div>

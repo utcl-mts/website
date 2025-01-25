@@ -102,6 +102,7 @@
 .navbar_li a.active {
     color: #003078;
     background: #f3f2f1;
+    font-weight: bolder;
 }
 
 .full_page_styling{
@@ -321,7 +322,7 @@ select option {
 .temp_date_field{
     padding: 10px;
     font-family: Roboto;
-    font-size: 16px;
+    font-size: 20px;
     border: solid #0b0b0c;
 }
 
