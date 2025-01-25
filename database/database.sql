@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 22, 2025 at 07:25 PM
+-- Generation Time: Jan 25, 2025 at 08:03 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `utcl-mts`
 --
+CREATE DATABASE IF NOT EXISTS `utcl-mts` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE `utcl-mts`;
 
 -- --------------------------------------------------------
 
@@ -30,7 +32,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `administer` (
   `adminster_id` int NOT NULL,
   `takes_id` int NOT NULL,
-  `staff_code` text COLLATE utf8mb4_general_ci NOT NULL,
+  `staff_code` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `date_time` int NOT NULL,
   `dose_given` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -44,7 +46,7 @@ CREATE TABLE `administer` (
 CREATE TABLE `audit_logs` (
   `audit_id` int UNSIGNED NOT NULL,
   `staff_id` int NOT NULL,
-  `act` text COLLATE utf8mb4_general_ci NOT NULL,
+  `act` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `date_time` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -56,7 +58,7 @@ CREATE TABLE `audit_logs` (
 
 CREATE TABLE `brand` (
   `brand_id` int UNSIGNED NOT NULL,
-  `brand_name` text COLLATE utf8mb4_general_ci NOT NULL
+  `brand_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -125,7 +127,7 @@ DELIMITER ;
 
 CREATE TABLE `med` (
   `med_id` int UNSIGNED NOT NULL,
-  `med_name` text COLLATE utf8mb4_general_ci NOT NULL
+  `med_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -189,8 +191,8 @@ DELIMITER ;
 CREATE TABLE `notes` (
   `note_id` int NOT NULL,
   `takes_id` int NOT NULL,
-  `staff_code` text COLLATE utf8mb4_general_ci NOT NULL,
-  `content` text COLLATE utf8mb4_general_ci NOT NULL,
+  `staff_code` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -212,12 +214,12 @@ INSERT INTO `notes` (`note_id`, `takes_id`, `staff_code`, `content`, `created_at
 
 CREATE TABLE `staff` (
   `staff_id` int UNSIGNED NOT NULL,
-  `first_name` text COLLATE utf8mb4_general_ci NOT NULL,
-  `last_name` text COLLATE utf8mb4_general_ci NOT NULL,
-  `email` text COLLATE utf8mb4_general_ci NOT NULL,
-  `staff_code` text COLLATE utf8mb4_general_ci NOT NULL,
-  `password` text COLLATE utf8mb4_general_ci NOT NULL,
-  `group` text COLLATE utf8mb4_general_ci NOT NULL
+  `first_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `last_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `staff_code` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `group` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -236,9 +238,9 @@ INSERT INTO `staff` (`staff_id`, `first_name`, `last_name`, `email`, `staff_code
 
 CREATE TABLE `students` (
   `student_id` int UNSIGNED NOT NULL,
-  `first_name` text COLLATE utf8mb4_general_ci NOT NULL,
-  `last_name` text COLLATE utf8mb4_general_ci NOT NULL,
-  `year` text COLLATE utf8mb4_general_ci NOT NULL
+  `first_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `last_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `year` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -313,7 +315,7 @@ CREATE TABLE `takes` (
   `current_dose` int NOT NULL,
   `min_dose` int NOT NULL,
   `max_dose` int NOT NULL,
-  `strength` text COLLATE utf8mb4_general_ci NOT NULL,
+  `strength` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `notes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `archived` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -386,7 +388,7 @@ INSERT INTO `takes` (`takes_id`, `student_id`, `med_id`, `brand_id`, `exp_date`,
 CREATE TABLE `whole_log` (
   `whole_log_id` int NOT NULL,
   `whole_school_id` int NOT NULL,
-  `notes` text COLLATE utf8mb4_general_ci NOT NULL,
+  `notes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `date_time` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -398,10 +400,10 @@ CREATE TABLE `whole_log` (
 
 CREATE TABLE `whole_school` (
   `whole_school_id` int NOT NULL,
-  `name` text COLLATE utf8mb4_general_ci NOT NULL,
+  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `exp_date` int NOT NULL,
   `amount_left` int NOT NULL,
-  `notes` text COLLATE utf8mb4_general_ci NOT NULL,
+  `notes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `archived` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
