@@ -2,6 +2,7 @@
 session_start(); // Start the session to access session variables
 
 include "../server/db_connect.php";
+include "../server/navbar/bigtable.php";
 
 // Get student_id and takes_id from the GET request
 $student_id = isset($_GET['student_id']) ? intval($_GET['student_id']) : null;
@@ -59,8 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
     <title>Create Notes</title>
     <link rel="stylesheet" href="../assets/style/style.css">
 </head>
-<body>
-<div class="full_page_styling">
+<body class="full_page_styling">
+<div>
     <h1>Create Note</h1>
     <p>Adding a note for Student ID: <strong><?php echo htmlspecialchars($student_id, ENT_QUOTES); ?></strong> and Takes ID: <strong><?php echo htmlspecialchars($takes_id, ENT_QUOTES); ?></strong></p>
 

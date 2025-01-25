@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,23 +7,11 @@
 </head>
 <body>
 <div class="full_page_styling">
-    <div>
-        <ul class="nav_bar">
-            <div class="nav_left">
-                <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
-                <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
-                <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
-                <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
-                <li class="navbar_li"><a href="../student_profile/student_profile.php">Student Profile</a></li>
-                <li class="navbar_li"><a href="../edit_details/student_table.php">Student Management</a></li>
-                <li class="navbar_li"><a href="../log-new-med/log_new_med.php">Add New Med</a></li>
-            </div>
-            <div class="nav_left">
-                <li class="navbar_li"><a href="../admin/admin_dashboard.php">Admin Dashboard</a></li>
-                <li class="navbar_li"><a href="../logout.php">Logout</a></li>
-            </div>
-        </ul>
-    </div>
+<?php
+    include "../server/db_connect.php";
+    include "../server/navbar/bigtable.php";
+?>
+
 
     <br><br>
 
@@ -42,8 +31,6 @@
     <br><br>
 
     <?php
-    include "../server/db_connect.php";
-
     $results_per_page = 15;
     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
     $start_from = ($page - 1) * $results_per_page;
