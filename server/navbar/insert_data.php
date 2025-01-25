@@ -1,10 +1,10 @@
-<!-- Navbar for dashboard/* -->
+<!-- Navbar for insert_data/* -->
 
 <div>
     <ul class="nav_bar">
         <div class="nav_left">
-            <li class="navbar_li"><a class='active' href="../dashboard/dashboard.php">Home</a></li>
-            <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
+            <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
+            <li class="navbar_li"><a class='active'href="../insert_data/insert_data_home.php">Insert Data</a></li>
             <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
             <li class="navbar_li"><a href="../whole_school/active_records.php">Whole School Medication</a></li>
             <li class="navbar_li"><a href="../student_profile/student_profile.php">Student Profile</a></li>
