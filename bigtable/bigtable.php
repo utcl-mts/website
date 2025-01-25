@@ -182,7 +182,7 @@
             <form id="decrementForm" method="POST" action="doses.php">
                 <input type="hidden" name="take_id" id="popupTakeId">
                 <div class='text-element'>Enter number of doses to decrement</div>
-                <div class='text-element-faded'>Example: Joe</div>
+                <div class='text-element-faded'>Example: 3</div>
                 <input class="smaller_int_input" type="number" id="decrementAmount" name="decrement_amount" min="1" max="" required>
                 <p id="currentDoseInfo"></p>
                 <button type="submit" class="submit">Decrement</button>
