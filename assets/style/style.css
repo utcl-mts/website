@@ -645,3 +645,27 @@ select option {
     font-weight: bold;
     cursor: pointer;
 }
+
+.list_li{
+    list-style-type: none;
+    padding: 5px;
+}
+
+.list_li_a{
+    font-size: 20px;
+    color: #1d70b8;
+    text-decoration: underline;
+    text-decoration-color: #1d70b8;  /* Optional: Sets the color of the underline */
+    text-decoration-thickness: 2px;   /* Adjust the thickness */
+    text-underline-offset: 5px;
+}
+
+.list_li_a:hover{
+    font-weight: bolder;
+    font-size: 20px;
+    color: #003078;
+    text-decoration: underline;
+    text-decoration-color: #003078;  /* Optional: Sets the color of the underline */
+    text-decoration-thickness: 4px;   /* Adjust the thickness */
+    text-underline-offset: 5px;
+}

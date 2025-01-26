@@ -3,12 +3,12 @@ session_start();
 
 // Check for valid session and cookie
 if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
-    header("Location: ../../index.html");
+    header("Location: ../index.html");
     exit();
 }
 
-include "../../server/db_connect.php";
-include "../../server/main_navbar.php";
+include "../server/db_connect.php";
+include "../server/navbar/admin_dashboard.php";
 
 try {
 
@@ -61,7 +61,7 @@ try {
 }
 ?>
 
-<link rel="stylesheet" href="../../assets/style/style.css">
+<link rel="stylesheet" href="../assets/style/style.css">
 <body class="full_page_styling">
 <title>Hours Tracking - Dashboard</title>
 <div>

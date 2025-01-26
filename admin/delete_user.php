@@ -3,11 +3,11 @@ session_start();
 
 // Check for valid session and cookie
 if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
-    header("Location: ../../index.html");
+    header("Location: ../index.html");
     exit();
 }
 
-include "../../server/db_connect.php";
+include "../server/db_connect.php";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     try {
