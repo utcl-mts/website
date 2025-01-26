@@ -35,6 +35,20 @@
     outline: 3px solid #ffdd00; /* Add yellow outline when focused */
 }
 
+.text_input2{
+    font-family: Roboto;
+    width: 600px;
+    font-size: 20px;
+    padding: 10px;
+    border: solid #0b0c0c;
+    cursor: pointer;
+}
+
+.text_input2:focus{
+    border-color: #0b0c0c;
+    outline: 3px solid #ffdd00; /* Add yellow outline when focused */
+}
+
 .submit{
     font-weight: bold;
     cursor: pointer;
@@ -562,7 +576,10 @@ select option {
 .table_button:hover {
     text-decoration: none;
     color: #003078;
-    border-bottom: 4px solid #003078;
+    text-decoration: underline;
+    text-decoration-color: #003078;  /* Optional: Sets the color of the underline */
+    text-decoration-thickness: 4px;   /* Adjust the thickness */
+    text-underline-offset: 4px; 
 }
 
 .home_page_button{

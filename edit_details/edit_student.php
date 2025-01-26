@@ -1,6 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hours Tracking - Student Medication</title>
+    <link rel="stylesheet" href="../assets/style/style.css">
+</head>
+<body>
+<div class="full_page_styling">
+
 <?php
 // Include the database connection file
 include "../server/db_connect.php";
+include "../server/navbar/student_management.php";
 
 // Check if the student ID is provided
 if (!isset($_GET['student_id']) || empty($_GET['student_id'])) {
@@ -60,27 +70,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+    <br>
 
-<link rel="stylesheet" href="../assets/style/style.css">
-<body>
-<div class="full_page_styling">
-
-    <!-- universal nav bar -->
-<div>
-        <ul class="nav_bar">
+    <div>
+    <ul class="nav_bar">
             <div class="nav_left">
-                <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
-                <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
-                <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
-<!--                <li class="navbar_li"><a href="../administer/administer_form.php">Administer Medication</a></li>-->
-                <li class="navbar_li"><a href="../log/log_form.php">Create Notes</a></li>
-                <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
-                <li class="navbar_li"><a href="../student_profile/student_profile.php">Student Profile</a></li>
-                <li class="navbar_li"><a href="../log-new-med/log_new_med.php">Add New Med</a></li>
-            </div>
-            <div class="nav_left">
-                <li class="navbar_li"><a href="../admin/admin_dashboard.php">Admin Dashboard</a></li>
-                <li class="navbar_li"><a href="../logout.php">Logout</a></li>
+                <li class="navbar_li"><a class='active' href="active_records.php">View Students</a></li>
+                <li class="navbar_li"><a href="progress_students.php">Progress Students</a></li>
             </div>
         </ul>
     </div>
@@ -112,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <br><br>
             <button class='submit' type="submit">Update Student</button>
         </form>
-
+        <br>
         <a class="back_link" href="student_table.php"> > Go Back</a>
     </div>
 </div>
