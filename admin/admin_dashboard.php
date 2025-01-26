@@ -24,5 +24,6 @@ include "../server/navbar/admin_dashboard.php";
     <ul class="list">
         <li class="list_li"><a class="list_li_a" href="staff_home.php">Staff Management</a></li>
         <li class="list_li"><a class="list_li_a" href="">Medication Management</a></li>
-        <li class="list_li"><a class="list_li_a" href="">Brand Management</a></li>
+        <li class="list_li"><a class="list_li_a" href="brand_management.php">Brand Management</a></li>
+        <li class="list_li"><a class="list_li_a" href="">Full Site Backup</a></li>
     </ul>
