@@ -18,7 +18,18 @@ include "../server/navbar/admin_dashboard.php";
     <link rel="stylesheet" href=../assets/style/style.css>
 </head>
 <body class="full_page_styling">
-<div >
+<br>
+
+<div>
+    <ul class="nav_bar">
+        <div class="nav_left">
+            <li class="navbar_li"><a href="medication_management.php">View All Medication</a></li>
+            <li class="navbar_li"><a class='active' href="add_new_med.php">Create New Medication</a></li>
+            <li class="navbar_li"><a href="export_meds.php">Export All Medication</a></li>
+        </div>
+    </ul>
+</div>
+<div>
     </div>
     <h1>Create new Medicine</h1>
 

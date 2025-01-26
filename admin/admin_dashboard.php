@@ -23,7 +23,7 @@ include "../server/navbar/admin_dashboard.php";
     <h1>Administrator Dashboard</h1>
     <ul class="list">
         <li class="list_li"><a class="list_li_a" href="staff_home.php">Staff Management</a></li>
-        <li class="list_li"><a class="list_li_a" href="">Medication Management</a></li>
+        <li class="list_li"><a class="list_li_a" href="medication_management.php">Medication Management</a></li>
         <li class="list_li"><a class="list_li_a" href="brand_management.php">Brand Management</a></li>
         <li class="list_li"><a class="list_li_a" href="">Full Site Backup</a></li>
     </ul>

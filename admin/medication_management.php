@@ -20,20 +20,20 @@ $offset = ($current_page - 1) * $records_per_page;
 
 // Define custom headings
 $custom_headings = [
-    'brand_id' => 'Brand ID',
-    'brand_name' => 'Brand Name'
+    'med_id' => 'Med ID',
+    'med_name' => 'Med Name'
 ];
 
 try {
     // Fetch the total number of records
-    $total_sql = "SELECT COUNT(*) FROM brand";
+    $total_sql = "SELECT COUNT(*) FROM med";
     $total_records = $conn->query($total_sql)->fetchColumn();
 
     // Calculate total pages
     $total_pages = ceil($total_records / $records_per_page);
 
     // SQL query to fetch data for the current page
-    $sql = "SELECT * FROM brand LIMIT :limit OFFSET :offset";
+    $sql = "SELECT * FROM med LIMIT :limit OFFSET :offset";
     $stmt = $conn->prepare($sql);
     $stmt->bindValue(':limit', $records_per_page, PDO::PARAM_INT);
     $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -60,13 +60,13 @@ try {
 <div>
     <ul class="nav_bar">
         <div class="nav_left">
-            <li class="navbar_li"><a class='active' href="brand_management.php">View All Brands</a></li>
-            <li class="navbar_li"><a href="add_new_brand.php">Create New Brand</a></li>
-            <li class="navbar_li"><a href="export_brands.php">Export All Brand</a></li>
+            <li class="navbar_li"><a class='active' href="medication_management.php">View All Medication</a></li>
+            <li class="navbar_li"><a href="add_new_med.php">Create New Medication</a></li>
+            <li class="navbar_li"><a href="export_meds.php">Export All Medication</a></li>
         </div>
     </ul>
 </div>
-<h1>Brands Table</h1>
+<h1>Medication Table</h1>
 <table class="big_table">
     <thead>
     <tr>
@@ -84,8 +84,8 @@ try {
     <?php if (!empty($brands)): ?>
         <?php foreach ($brands as $row): ?>
             <tr>
-                <td class="big_table_td_custom_one"><?= htmlspecialchars($row['brand_id']) ?></td>
-                <td class="big_table_td"><?= htmlspecialchars($row['brand_name']) ?></td>
+                <td class="big_table_td_custom_one"><?= htmlspecialchars($row['med_id']) ?></td>
+                <td class="big_table_td"><?= htmlspecialchars($row['med_name']) ?></td>
             </tr>
         <?php endforeach; ?>
     <?php else: ?>
