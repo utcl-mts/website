@@ -1,7 +1,7 @@
 <?php
-    // Include the database connection file
-    include "../server/db_connect.php";
-    include "../server/navbar/student_management.php";
+// Include the database connection file
+include "../server/db_connect.php";
+include "../server/navbar/student_management.php";
 ?>
 
 <link rel="stylesheet" href="../assets/style/style.css">
@@ -23,7 +23,7 @@
         <form method="GET" action="">
             <div class='text-element'>Enter year group</div>
             <div class='text-element-faded'>Example: 12</div>
-            <input class="smaller_int_input" type="number" id="year" name="year" required>
+            <input class="smaller_int_input" type="number" id="year" name="year" max="13" required>
             <br><br>
             <button class="submit" type="submit" name="progress">View Year Group</button>
         </form>
@@ -36,9 +36,9 @@
 
         try {
             // Fetch all students in the selected year group
-            $sql = "SELECT * FROM students WHERE year = :year";
+            $sql = "SELECT student_id, first_name, last_name, year FROM students WHERE year = :year";
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':year', $selected_year, PDO::PARAM_STR);
+            $stmt->bindParam(':year', $selected_year, PDO::PARAM_INT);
             $stmt->execute();
             $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -59,8 +59,15 @@
                         echo "<td>" . htmlspecialchars($value) . "</td>";
                     }
 
-                    // If the student is in Year 13, show the archive option
-                    if ($student['year'] == 13) {
+                    // Add logic for Year 11 and Year 12 students
+                    if ($student['year'] == 11 || $student['year'] == 12) {
+                        echo "<td class='big_table_td'>
+                                <div class='centered-form'>
+                                    <label><input type='checkbox' name='progress_ids[]' value='" . htmlspecialchars($student['student_id']) . "' checked> Progress</label>
+                                    <label><input type='checkbox' name='archive_ids[]' value='" . htmlspecialchars($student['student_id']) . "'> Archive</label>
+                                </div>
+                            </td>";
+                    } elseif ($student['year'] == 13) {
                         echo "<td class='big_table_td'>
                                 <div class='centered-form'>
                                     <input type='checkbox' name='archive_ids[]' value='" . htmlspecialchars($student['student_id']) . "'> Archive
@@ -115,7 +122,7 @@
                 $archive_ids = $_POST['archive_ids'];
 
                 try {
-                    // Archive the students by updating their status (you can add a field in the database for archived status)
+                    // Archive the students by updating their status
                     $archive_sql = "UPDATE students SET archived = 1 WHERE student_id = :student_id";
                     $archive_stmt = $conn->prepare($archive_sql);
 
