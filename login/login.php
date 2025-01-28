@@ -40,7 +40,7 @@ try {
     $password = $_POST["password"];
 
     // First check if the email exists and get the staff details
-    $sql = "SELECT staff_id, `group`, password, email, staff_code FROM staff WHERE email = :email";
+    $sql = "SELECT staff_id, `group`, password, email, staff_code, archived FROM staff WHERE email = :email";
     $stmt = $conn->prepare($sql);
     $stmt->execute(['email' => $email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -48,7 +48,14 @@ try {
     // If user exists and is a system account, log the attempt and deny access
     if ($user && $user['group'] === 'system') {
         logAction($conn, $user['staff_id'], 'System account login attempt detected');
-        header("Location: login.php?error=system_account");
+        header("Location: ../index..php?error=system_account");
+        exit();
+    }
+
+    // Check if the account is archived
+    if ($user && $user['archived'] == 1) {
+        logAction($conn, $user['staff_id'], 'Attempted login to archived account');
+        header("Location: ../index.php?error=account_archived");
         exit();
     }
 
@@ -85,7 +92,7 @@ try {
             logAction($conn, 0, 'Failed login attempt with invalid email');
         }
 
-        header("Location: login.php?error=invalid_credentials");
+        header("Location: ../index.php?error=invalid_credentials");
         exit();
     }
     exit();
@@ -93,6 +100,6 @@ try {
     // Log error for debugging (to a file or error handling system)
     error_log("Login Error: " . $e->getMessage());
     // Redirect to login page in case of an error
-    header("Location: ../index.html");
+    header("Location: ../index.php");
     exit();
 }

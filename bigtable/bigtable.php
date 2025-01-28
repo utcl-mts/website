@@ -20,7 +20,7 @@
             <input
                 type="text"
                 name="search"
-                class="search_bar"
+                class="text_input2"
                 placeholder="Search by student name, medication, brand, or year group"
                 value="<?php echo htmlspecialchars($_GET['search'] ?? '', ENT_QUOTES); ?>"
             >
