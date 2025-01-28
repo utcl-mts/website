@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +10,6 @@
     include "../server/db_connect.php";
     include "../server/navbar/bigtable.php";
 ?>
-
 
     <br><br>
 
@@ -37,6 +35,7 @@
     $search_term = trim($_GET['search'] ?? '');
 
     try {
+        // Total records query
         $total_sql = "SELECT COUNT(*) AS total_records FROM takes 
                       INNER JOIN med ON takes.med_id = med.med_id 
                       INNER JOIN brand ON takes.brand_id = brand.brand_id 
@@ -51,6 +50,7 @@
 
         $total_pages = ceil($total_records / $results_per_page);
 
+        // Main query with sorting by last_name
         $sql = "SELECT takes.takes_id, students.student_id, students.first_name, students.last_name, students.year, 
                        med.med_name, brand.brand_name, takes.exp_date, takes.current_dose, takes.min_dose
                 FROM takes 
@@ -59,6 +59,7 @@
                 INNER JOIN students ON takes.student_id = students.student_id 
                 WHERE CONCAT(students.first_name, ' ', students.last_name) LIKE :search 
                 OR med.med_name LIKE :search OR brand.brand_name LIKE :search OR students.year LIKE :search 
+                ORDER BY students.last_name ASC 
                 LIMIT :limit OFFSET :offset";
 
         $stmt = $conn->prepare($sql);
@@ -139,6 +140,7 @@
         }
         echo "</div>";
 
+        // Pagination
         echo "<div class='pagination'>";
         if ($page > 1) {
             echo "<a href='?search=" . urlencode($search_term) . "&page=" . ($page - 1) . "'>Previous</a>";
