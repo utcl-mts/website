@@ -104,19 +104,20 @@ include "../server/navbar/student_profile.php";
                 $full_name = htmlspecialchars($student_data[0]['first_name'] . ' ' . $student_data[0]['last_name']);
                 $year = htmlspecialchars($student_data[0]['year']);
                 echo "<h2>Details for $full_name (Year: $year)</h2>";
-                echo "<table class='notification_table'>";
+                echo "<table class='big_table'>";
                 echo "<tr>
-                            <th class='notification_table_th'>Medication</th>
-                            <th class='notification_table_th'>Brand</th>
-                            <th class='notification_table_th'>Current Dose</th>
-                            <th class='notification_table_th'>Expiry Date</th>
+                            <th class='big_table_th'>Medication</th>
+                            <th class='big_table_th'>Brand</th>
+                            <th class='big_table_th'>Current Dose</th>
+                            <th class='big_table_th'>Expiry Date</th>
+                            <th class='big_table_th'></th>
                     </tr>";
                 foreach ($student_data as $row) {
                     echo "<tr>";
-                    echo "<td class='notification_table_td'>" . htmlspecialchars($row['med_name'] ?? 'N/A') . "</td>";
-                    echo "<td class='notification_table_td'>" . htmlspecialchars($row['brand_name'] ?? 'N/A') . "</td>";
-                    echo "<td class='notification_table_td'>" . htmlspecialchars($row['current_dose'] ?? 'N/A') . "</td>";
-                    echo "<td class='notification_table_td'>" . 
+                    echo "<td class='big_table_td'>" . htmlspecialchars($row['med_name'] ?? 'N/A') . "</td>";
+                    echo "<td class='big_table_td'>" . htmlspecialchars($row['brand_name'] ?? 'N/A') . "</td>";
+                    echo "<td class='big_table_td'>" . htmlspecialchars($row['current_dose'] ?? 'N/A') . "</td>";
+                    echo "<td class='big_table_td'>" . 
                         (isset($row['exp_date']) ? date('Y-m-d', htmlspecialchars($row['exp_date'])) : 'N/A') . 
                         "</td>";
                     echo "</tr>";
