@@ -25,6 +25,7 @@ include "../server/navbar/admin_dashboard.php";
     <ul class="nav_bar">
         <div class="nav_left">
             <li class="navbar_li"><a href="staff_home.php">View All Staff</a></li>
+            <li class="navbar_li"><a href="archived_staff.php">View Archived Staff</a></li>
             <li class="navbar_li"><a class='active' href="create_user_form.php">Create new staff</a></li>
         </div>
     </ul>

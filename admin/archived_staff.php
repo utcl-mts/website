@@ -32,7 +32,7 @@ $staffData = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <ul class="nav_bar">
         <div class="nav_left">
             <li class="navbar_li"><a href="staff_home.php">View All Staff</a></li>
-            <li class="navbar_li"><a class='active' href="archived_staff.php">Archived Staff</a></li>
+            <li class="navbar_li"><a class='active' href="archived_staff.php">View Archived Staff</a></li>
             <li class="navbar_li"><a href="create_user_form.php">Create new staff</a></li>
         </div>
     </ul>
