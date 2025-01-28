@@ -66,19 +66,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
     <p>Adding a note for Student ID: <strong><?php echo htmlspecialchars($student_id, ENT_QUOTES); ?></strong> and Takes ID: <strong><?php echo htmlspecialchars($takes_id, ENT_QUOTES); ?></strong></p>
 
     <form method="POST">
-        <!-- Date Input -->
-        <label for="note_date">Date:</label>
-        <input type="date" id="note_date" name="note_date" required>
-        
-        <!-- Time Input -->
-        <label for="note_time">Time:</label>
-        <input type="time" id="note_time" name="note_time" required>
-        
-        <!-- Note Content -->
-        <label for="content">Note Content:</label>
-        <textarea id="content" name="content" required></textarea>
+    <div class='text-element'>Enter the note date:</div>
+        <div class='text-element-faded'>Example: 22/01/2025</div>
+        <!-- <input class='temp_date_field' type="date" id="note_date" name="note_date" required> -->
+        <input class='temp_date_field' type="date" id="dateInput" name="note_date" value="" required>
 
-        <input type="submit" value="Submit">
+        <script>
+            // Get today's date and format it as YYYY-MM-DD
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('dateInput').value = today;
+        </script>
+        <br><br>
+
+        <div class='text-element'>Enter the time:</div>
+        <div class='text-element-faded'>Example: 22/01/2025</div>
+        <!-- <input class='temp_time_field' type="time" id="note_time" name="note_time" required> -->
+        <input class='temp_time_field' type="time" id="timeInput" name='note_time'>
+
+        <script>
+            const now = new Date();
+            const currentTime = now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit'});
+            document.getElementById('timeInput').value = currentTime;
+        </script>
+
+        <br><br>
+
+        <div class='text-element'>Enter the note:</div>
+        <div class='text-element-faded'>Example: Attempted to call mum</div>
+        <textarea class='text_area' id="content" name="content" required></textarea>
+
+        <br><br>
+
+        <input class='submit' type="submit" value="Submit">
     </form>
 
     <br>
