@@ -11,6 +11,17 @@
     include "../server/navbar/bigtable.php";
 ?>
 
+<br>
+
+<div>
+    <ul class="nav_bar">
+        <div class="nav_left">
+            <li class="navbar_li"><a class='active' href="bigtable.php">View All Student Medication</a></li>
+            <li class="navbar_li"><a href="export_specific.php">Export Specific Student Data</a></li>
+        </div>
+    </ul>
+</div>
+
     <br><br>
 
     <div id="search-bar">
