@@ -110,7 +110,6 @@ include "../server/navbar/student_profile.php";
                             <th class='big_table_th'>Brand</th>
                             <th class='big_table_th'>Current Dose</th>
                             <th class='big_table_th'>Expiry Date</th>
-                            <th class='big_table_th'></th>
                     </tr>";
                 foreach ($student_data as $row) {
                     echo "<tr>";
