@@ -36,8 +36,15 @@ try {
     if (!isset($_POST["email"]) || !isset($_POST["password"])) {
         throw new Exception("Email or password is missing.");
     }
-    $email = $_POST["email"];
-    $password = $_POST["password"];
+
+    // Sanitize email input
+    $email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        throw new Exception("Invalid email format.");
+    }
+
+    // Sanitize password input
+    $password = $_POST["password"]; // Password will be hashed, no need to sanitize
 
     // First check if the email exists and get the staff details
     $sql = "SELECT staff_id, `group`, password, email, staff_code, archived FROM staff WHERE email = :email";
@@ -48,7 +55,7 @@ try {
     // If user exists and is a system account, log the attempt and deny access
     if ($user && $user['group'] === 'system') {
         logAction($conn, $user['staff_id'], 'System account login attempt detected');
-        header("Location: ../index..php?error=system_account");
+        header("Location: ../index.php?error=system_account");
         exit();
     }
 
@@ -61,13 +68,15 @@ try {
 
     // Normal login process continues for non-system accounts
     if ($user && password_verify($password, $user['password'])) {
+        // Set session variables
         $_SESSION['staff_id'] = $user['staff_id'];
         $_SESSION["ssnlogin"] = true;
         $_SESSION["email"] = $user["email"];
         $_SESSION["staff_code"] = $user["staff_code"];  // Store staff_code in session
+        $_SESSION["group"] = $user["group"]; // Store group in session
 
-        // Add cookie setting here
-        setcookie(
+        // Set login cookie
+        if (!setcookie(
             'cookies_and_cream',
             'active',
             [
@@ -77,11 +86,17 @@ try {
                 'httponly' => true,
                 'samesite' => 'Strict'
             ]
-        );
+        )) {
+            // Log failed cookie setting
+            logAction($conn, $user['staff_id'], 'Failed to set login cookie');
+            header("Location: ../index.php?error=cookie_error");
+            exit();
+        }
 
         // Log successful login attempt
         logAction($conn, $user['staff_id'], 'User successfully logged in');
 
+        // Redirect to dashboard
         header("Location: ../dashboard/dashboard.php");
         exit();
     } else {
@@ -92,14 +107,14 @@ try {
             logAction($conn, 0, 'Failed login attempt with invalid email');
         }
 
+        // Redirect with invalid credentials error
         header("Location: ../index.php?error=invalid_credentials");
         exit();
     }
-    exit();
 } catch (Exception $e) {
     // Log error for debugging (to a file or error handling system)
     error_log("Login Error: " . $e->getMessage());
     // Redirect to login page in case of an error
-    header("Location: ../index.php");
+    header("Location: ../index.php?error=unknown_error");
     exit();
 }

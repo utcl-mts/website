@@ -1,17 +1,17 @@
 <?php
 session_start();
 
-// Check for valid session and cookie
-if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
-    header("Location: ../index.php");
+if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream']) || $_SESSION['group'] !== 'admin') {
+    header("Location: ../index.php?error=no_access");
     exit();
 }
+
 
 include "../server/db_connect.php";
 include "../server/navbar/admin_dashboard.php";
 
 // Fetch staff data
-$query = "SELECT staff_id, first_name, last_name, email, staff_code 
+$query = "SELECT staff_id, first_name, last_name, email, `group`, staff_code  
           FROM staff 
           WHERE staff_id != 1 AND archived != 1";
 $stmt = $conn->prepare($query);
@@ -46,6 +46,7 @@ $staffData = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <th class="big_table_th">Last Name</th>
         <th class="big_table_th">Email</th>
         <th class="big_table_th">Staff Code</th>
+        <th class="big_table_th">Group</th>
         <th class="big_table_th">Actions</th>
     </tr>
     </thead>
@@ -58,6 +59,7 @@ $staffData = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <td class="big_table_td"><?= htmlspecialchars($row['last_name']) ?></td>
                 <td class="big_table_td"><?= htmlspecialchars($row['email']) ?></td>
                 <td class="big_table_td"><?= htmlspecialchars($row['staff_code']) ?></td>
+                <td class="big_table_td"><?= htmlspecialchars($row['group']) ?></td>
                 <td class="action-buttons">
                     <form action="edit_user.php" method="GET" style="display:inline;">
                         <input type="hidden" name="staff_id" value="<?= htmlspecialchars($row['staff_id']) ?>">
