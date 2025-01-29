@@ -3,6 +3,7 @@ session_start(); // Start the session to access session variables
 
 include "../server/db_connect.php";
 include "../server/navbar/bigtable.php";
+include "../server/check_cookie_user.php";
 
 // Get student_id and takes_id from the GET request
 $student_id = isset($_GET['student_id']) ? intval($_GET['student_id']) : null;

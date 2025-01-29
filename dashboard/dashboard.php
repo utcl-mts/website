@@ -2,15 +2,11 @@
 // Start a new session
 session_start();
 
-// Check for valid session and cookie
-if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
-    header("Location: ../index.php");
-    exit();
-}
-
 // Include the database connection file
 include "../server/db_connect.php";
 include "../server/navbar/dashboard.php";
+include "../server/audit-log.php";
+include "../server/check_cookie_user.php";
 
 // Time and categorization arrays
 $time = time();

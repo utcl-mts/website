@@ -2,6 +2,7 @@
 // Include the database connection file
 include "../server/db_connect.php";
 include "../server/navbar/whole_school.php";
+include "../server/check_cookie_user.php";
 
 // Handle adding a new record
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_record'])) {

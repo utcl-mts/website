@@ -11,6 +11,7 @@
 session_start();
     include "../server/db_connect.php";
     include "../server/navbar/student_management.php";
+    include "../server/check_cookie_user.php";
 
 // Pagination and search setup
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';

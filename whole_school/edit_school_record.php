@@ -2,6 +2,7 @@
 // Include the database connection file
 include "../server/db_connect.php";
 include "../server/navbar/whole_school.php";
+include "../server/check_cookie_user.php";
 
 // Check if the record ID is provided via GET
 if (!isset($_GET['whole_school_id']) || empty($_GET['whole_school_id'])) {

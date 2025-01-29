@@ -6,6 +6,7 @@
     // Include the database connection file
     include "../server/db_connect.php";
     include "../server/navbar/add_new_med.php";
+    include "../server/check_cookie_user.php";
 
     // Function to check if the request is coming from the dashboard
     function isFromDashboard() {

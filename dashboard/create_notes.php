@@ -3,6 +3,7 @@ session_start(); // Start the session to access session variables
 
 include "../server/db_connect.php";
 include "../server/navbar/dashboard.php";
+include "../server/check_cookie_user.php";
 
 // Get student_id and takes_id from the GET request
 $student_id = isset($_GET['student_id']) ? intval($_GET['student_id']) : null;
@@ -46,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
             $stmt->bindParam(':staff_code', $staff_code, PDO::PARAM_STR);
             $stmt->execute();
 
+            header("location:dashboard.php");
             echo "<p class='success'>Note added successfully!</p>";
         } catch (PDOException $e) {
             die("<p class='error'>Database error: " . htmlspecialchars($e->getMessage(), ENT_QUOTES) . "</p>");
@@ -100,10 +102,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
         <br><br>
 
         <input class='submit' type="submit" value="Submit">
+    
     </form>
 
     <br>
-    <a class='back_link' href="../dashboard/dashboard.php" class="button"> > Go Back</a>
 </div>
 </body>
 </html>

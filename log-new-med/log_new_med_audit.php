@@ -5,6 +5,7 @@
 
     // Include the database connection file
     include "../server/db_connect.php";
+    include "../server/check_cookie_user.php";
 
     try {
 

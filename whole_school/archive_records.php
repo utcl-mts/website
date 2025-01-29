@@ -2,6 +2,7 @@
 // Include the database connection file
 include "../server/db_connect.php";
 include "../server/navbar/whole_school.php";
+include "../server/check_cookie_user.php";
 ?>
 
 <link rel="stylesheet" href="../assets/style/style.css">

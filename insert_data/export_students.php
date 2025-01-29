@@ -2,6 +2,7 @@
 session_start();
 include "../server/db_connect.php";
 include "../server/audit-log.php";
+include "../server/check_cookie_user.php";
 
 try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

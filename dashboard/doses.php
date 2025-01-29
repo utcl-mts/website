@@ -1,13 +1,9 @@
 <?php
 session_start();
 
-// Check for valid session and cookie
-if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
-    header("Location: ../index.php");
-    exit();
-}
 
 include "../server/db_connect.php";
+include "../server/check_cookie_user.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $take_id = intval($_POST['take_id']); // Get the `take_id` from the form

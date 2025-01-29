@@ -2,16 +2,10 @@
 
 session_start();
 
-// Check for valid session and cookie
-if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
-    header("Location: ../index.php");
-    exit();
-}
-
 // Include the database connection file
 include "../server/db_connect.php";
 include "../server/navbar/student_profile.php";
-
+include "../server/check_cookie_user.php";
 ?>
 
 <link rel="stylesheet" href="../assets/style/style.css">

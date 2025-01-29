@@ -12,6 +12,7 @@ session_start();
 include "../server/db_connect.php";
 include "../server/audit-log.php";
 include "../server/navbar/insert_data.php";
+include "../server/check_cookie_user.php";
 
 $first_name = $_POST['first_name'];
 $first_name = strtoupper($first_name);
