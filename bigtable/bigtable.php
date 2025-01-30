@@ -7,6 +7,7 @@
 <body>
 <div class="full_page_styling">
 <?php
+    session_start();
     include "../server/db_connect.php";
     include "../server/navbar/bigtable.php";
     include "../server/check_cookie_user.php";

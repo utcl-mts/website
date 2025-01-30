@@ -8,6 +8,8 @@
 <div class="full_page_styling">
 
 <?php
+session_start();
+
 // Include the database connection file
 include "../server/db_connect.php";
 include "../server/navbar/student_management.php";

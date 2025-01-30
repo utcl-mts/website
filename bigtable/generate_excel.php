@@ -1,4 +1,5 @@
 <?php
+session_start();
 require '../vendor/autoload.php'; // Ensure this path is correct
 include "../server/db_connect.php";
 include "../server/check_cookie_user.php";

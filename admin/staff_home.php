@@ -1,12 +1,6 @@
 <?php
 session_start();
-
-if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream']) || $_SESSION['group'] !== 'admin') {
-    header("Location: ../index.php?error=no_access");
-    exit();
-}
-
-
+include "../server/check_cookie_admin.php";
 include "../server/db_connect.php";
 include "../server/navbar/admin_dashboard.php";
 
