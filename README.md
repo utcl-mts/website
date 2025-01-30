@@ -9,3 +9,8 @@
 ```
 composer install
 ```
+
+### Linux Only
+```
+sudo chmod 777 /opt/lampp/htdocs/website/*
+```
