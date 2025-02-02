@@ -17,9 +17,9 @@ echo'<link rel="stylesheet" href="../assets/style/style.css">';
 <div>
 
     <h1>Bulk Upload</h1>
-    <button class="download_template"><a href="import_students_template.csv" download>Download CSV Template</a></button>
+    <button class="download_template"><a href="../assets/cdn/import_students_template.csv" download>Download CSV Template</a></button>
     <br><br>
-    <form action="process_csv.php" method="post" enctype="multipart/form-data">
+    <form action="../admin/process_csv.php" method="post" enctype="multipart/form-data">
         <div class='text-element'>Upload a File</div>
         <div class='text-element-faded'>.CSV is the only allowed format</div>
         <input class="file_upload" id="file" accept=".csv" type="file" name="file" required><br><br>

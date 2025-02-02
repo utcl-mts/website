@@ -14,11 +14,11 @@ try {
 function exportCSV($conn) {
     $times = date("U");  // gives the int of number of seconds
     $formatted_time = date("Y-m-d H-i-s", $times); //
-    $filename = "$formatted_time brands_export.csv";
+    $filename = "$formatted_time brands_export.cdn";
     $output = fopen("php://output", "w");
 
     // Send headers for file download
-    header("Content-Type: text/csv");
+    header("Content-Type: text/cdn");
     header("Content-Disposition: attachment; filename=$filename");
 
     // Write the column headers
@@ -65,7 +65,7 @@ function exportExcel($conn) {
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST["export_brands"])) {
         $exportType = $_POST["export_brands"];
-        if ($exportType === "csv") {
+        if ($exportType === "cdn") {
             $ip_address = $_SERVER['REMOTE_ADDR'];
             $staff_id = $_SESSION["staff_id"];
             $action = "All brands were exported via CSV";

@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 // Fetch brands data
-$query = "SELECT * FROM med";
+$query = "SELECT * FROM students";
 $stmt = $conn->prepare($query);
 $stmt->execute();
 $brandsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -20,9 +20,9 @@ if (!empty($brandsData)) {
     $timestamp = date('Y-m-d_H-i-s');
 
     // Paths for the files to be included in the zip
-    $csvFile = "med_data.cdn";
-    $excelFile = "med_data.xlsx";
-    $zipFile = "med_data_$timestamp.zip";
+    $csvFile = "student_data.cdn";
+    $excelFile = "student_data.xlsx";
+    $zipFile = "student_data_$timestamp.zip";
 
     // Generate CSV file
     $csvHandle = fopen($csvFile, 'w');

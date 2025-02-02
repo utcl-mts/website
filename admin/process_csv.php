@@ -48,7 +48,7 @@
                         fclose($handle);
 
                         echo "<p>Data successfully inserted into the database! Rows inserted: <strong>$insertCount</strong></p>";
-                        header("refresh:5; insert_data_home.php");
+                        header("refresh:5; student_management.php");
 
 
                         // Log activity
@@ -83,16 +83,16 @@
 
                         if (($handle = fopen($savedFilePath, 'r')) !== false) {
                             echo "<h2>CSV Content</h2>";
-                            echo "<table class='csv-table'>";
+                            echo "<table class='big_table'>";
                             $rowIndex = 0;
 
                             while (($row = fgetcsv($handle, 1000, ',')) !== false) {
                                 echo "<tr>";
                                 foreach ($row as $cell) {
                                     if ($rowIndex === 0) {
-                                        echo "<th>" . htmlspecialchars($cell) . "</th>";
+                                        echo "<th class='big_table_th'>" . htmlspecialchars($cell) . "</th>";
                                     } else {
-                                        echo "<td>" . htmlspecialchars($cell) . "</td>";
+                                        echo "<td class='big_table_td'>" . htmlspecialchars($cell) . "</td>";
                                     }
                                 }
                                 echo "</tr>";

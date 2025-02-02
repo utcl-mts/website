@@ -16,8 +16,8 @@ include "../server/check_cookie_admin.php";
         <ul class="nav_bar">
             <div class="nav_left">
                 <li class="navbar_li"><a href="student_management.php">View All Students</a></li>
-                <li class="navbar_li"><a class='active'  href="progress_students.php">Progress Students</a></li>
-                <li class="navbar_li"><a class='active'  href="create_single.php">Create Single Student</a></li>
+                <li class="navbar_li"><a class='active' href="progress_students.php">Progress Students</a></li>
+                <li class="navbar_li"><a href="create_single.php">Create Single Student</a></li>
             </div>
         </ul>
     </div>

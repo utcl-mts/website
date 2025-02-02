@@ -20,7 +20,7 @@ if (!empty($brandsData)) {
     $timestamp = date('Y-m-d_H-i-s');
 
     // Paths for the files to be included in the zip
-    $csvFile = "brands_data.csv";
+    $csvFile = "brands_data.cdn";
     $excelFile = "brands_data.xlsx";
     $zipFile = "brands_data_$timestamp.zip";
 
