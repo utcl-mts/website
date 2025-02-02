@@ -4,6 +4,21 @@ session_start();
 
 include "../server/check_cookie_admin.php";
 include "../server/db_connect.php";
+?>
+
+<div>
+    <ul class="nav_bar">
+        <div class="nav_left">
+            <li class="navbar_li"><a href="student_management.php">View All Students</a></li>
+            <li class="navbar_li"><a href="progress_students.php">Progress Students</a></li>
+            <li class="navbar_li"><a href="create_single.php">Create Single Student</a></li>
+            <li class="navbar_li"><a href="bulk_upload.php">Bulk Upload</a></li>
+            <li class="navbar_li"><a class="active" href="export_students.php">Export All Students</a></li>
+        </div>
+    </ul>
+</div>
+
+<?php
 
 // Import PhpSpreadsheet classes at the top of the file
 use PhpOffice\PhpSpreadsheet\Spreadsheet;

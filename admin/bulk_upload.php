@@ -20,7 +20,9 @@ include "../server/navbar/admin_dashboard.php";
         <div class="nav_left">
             <li class="navbar_li"><a href="student_management.php">View All Students</a></li>
             <li class="navbar_li"><a href="progress_students.php">Progress Students</a></li>
-            <li class="navbar_li"><a class='active' href="create_single.php">Create Single Student</a></li>
+            <li class="navbar_li"><a href="create_single.php">Create Single Student</a></li>
+            <li class="navbar_li"><a class="active" href="bulk_upload.php">Bulk Upload</a></li>
+            <li class="navbar_li"><a href="export_students.php">Export All Students</a></li>
         </div>
     </ul>
 </div>

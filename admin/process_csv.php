@@ -1,3 +1,11 @@
+        <?php
+        session_start();
+        include "../server/db_connect.php";
+        include "../server/audit-log.php";
+        include "../server/check_cookie_admin.php";
+        include "../server/navbar/admin_dashboard.php";
+        ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,16 +15,23 @@
     <title>Hours Tracking - Process CSV</title>
 </head>
 <body class="full_page_styling">
+
+<br>
+
 <div>
+    <div>
+        <ul class="nav_bar">
+            <div class="nav_left">
+                <li class="navbar_li"><a href="student_management.php">View All Students</a></li>
+                <li class="navbar_li"><a href="progress_students.php">Progress Students</a></li>
+                <li class="navbar_li"><a href="create_single.php">Create Single Student</a></li>
+                <li class="navbar_li"><a class="active" href="bulk_upload.php">Bulk Upload</a></li>
+                <li class="navbar_li"><a href="export_students.php">Export All Students</a></li>
+            </div>
+        </ul>
+    </div>
 
-        <?php
-        session_start();
-        include "../server/db_connect.php";
-        include "../server/audit-log.php";
-        include "../server/check_cookie_admin.php";
-        include "../server/navbar/admin_dashboard.php";
-
-
+<?php
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['confirm_insertion'])) {
