@@ -16,7 +16,7 @@
     // Pagination and search setup
     $search = isset($_GET['search']) ? trim($_GET['search']) : '';
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-    $records_per_page = 10;
+    $records_per_page = 15;
     $offset = ($page - 1) * $records_per_page;
 
     // Base query
@@ -63,8 +63,9 @@
     <div>
         <ul class="nav_bar">
             <div class="nav_left">
-                <li class="navbar_li"><a class='active' href="active_records.php">View All Students</a></li>
-                <li class="navbar_li"><a href="progress_students.php">Progress Students</a></li>
+                <li class="navbar_li"><a href="student_management.php">View All Students</a></li>
+                <li class="navbar_li"><a class='active' href="progress_students.php">Progress Students</a></li>
+                <li class="navbar_li"><a href="create_single.php">Create Single Student</a></li>
             </div>
         </ul>
     </div>

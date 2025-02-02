@@ -29,7 +29,7 @@ echo'<link rel="stylesheet" href="../assets/style/style.css">';
     <hr>
 
     <h1>Create One Student</h1>
-    <form action="upload_single.php" method="post">
+    <form action="../admin/upload_single.php" method="post">
         <div class='text-element'>Enter students first name</div>
         <div class='text-element-faded'>Example: Joe</div>
         <input class="text_input" type="text" name="first_name" id="" required>

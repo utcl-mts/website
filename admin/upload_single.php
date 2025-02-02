@@ -11,8 +11,8 @@
 session_start();
 include "../server/db_connect.php";
 include "../server/audit-log.php";
-include "../server/navbar/insert_data.php";
-include "../server/check_cookie_user.php";
+include "../server/navbar/admin_dashboard.php";
+include "../server/check_cookie_admin.php";
 
 $first_name = $_POST['first_name'];
 $first_name = strtoupper($first_name);
@@ -33,7 +33,14 @@ $action = "Student: " . $first_name . " " . $last_name. " was created";
 logAction($conn, $staff_id, $action);
 
 $stmt->execute();
-header("refresh:5; insert_data_home.php");
+header("refresh:5; student_management.php");
 echo '<br>';
-echo "Successfully registered";
+echo '<div class="success-banner">';
+    echo '<div class="success-header">';
+        echo '<h2>Success</h2>';
+    echo '</div>';
+    echo '<div class="success-content">';
+        echo '<p>Sucessfully added</p>';
+    echo '</div>';
+echo '</div>';
 ?>
