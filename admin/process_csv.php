@@ -13,8 +13,8 @@
         session_start();
         include "../server/db_connect.php";
         include "../server/audit-log.php";
-        include "../server/check_cookie_user.php";
-        include "../server/navbar/insert_data.php";
+        include "../server/check_cookie_admin.php";
+        include "../server/navbar/admin_dashboard.php";
 
 
 
