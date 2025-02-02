@@ -8,7 +8,7 @@ if ($_SESSION['group'] === 'admin') {
                 <li class="navbar_li"><a class="active" href="../bigtable/bigtable.php">Student Medication</a></li>
                 <li class="navbar_li"><a href="../whole_school/active_records.php">Whole School Medication</a></li>
                 <li class="navbar_li"><a href="../student_profile/student_profile.php">Student Profile</a></li>
-                <li class="navbar_li"><a href="../edit_details/student_table.php">Student Management</a></li>
+                
                 <li class="navbar_li"><a href="../log-new-med/log_new_med.php">Add New Med</a></li>
                 <li class="navbar_li"><a href="../trip/trip_management.php">Trip Management</a></li>
             </div>
@@ -27,7 +27,7 @@ if ($_SESSION['group'] === 'admin') {
                 <li class="navbar_li"><a class="active" href="../bigtable/bigtable.php">Student Medication</a></li>
                 <li class="navbar_li"><a href="../whole_school/active_records.php">Whole School Medication</a></li>
                 <li class="navbar_li"><a href="../student_profile/student_profile.php">Student Profile</a></li>
-                <li class="navbar_li"><a href="../edit_details/student_table.php">Student Management</a></li>
+                
                 <li class="navbar_li"><a href="../log-new-med/log_new_med.php">Add New Med</a></li>
                 <li class="navbar_li"><a href="../trip/trip_management.php">Trip Management</a></li>
             </div>

@@ -3,8 +3,8 @@ session_start();
 
 // Include the database connection file
 include "../server/db_connect.php";
-include "../server/navbar/student_management.php";
-include "../server/check_cookie_user.php";
+include "../server/navbar/admin_dashboard.php";
+include "../server/check_cookie_admin.php";
 ?>
 
 <link rel="stylesheet" href="../assets/style/style.css">
