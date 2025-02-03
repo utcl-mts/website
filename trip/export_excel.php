@@ -1,10 +1,10 @@
 <?php
 // export_trip_expirations.php
 session_start();
-include "../server/db_connect.php";           // Adjust path as needed
-include "../server/check_cookie_user.php";     // Adjust path as needed
-
-// Load PhpSpreadsheet's autoloader (adjust the path if needed)
+// Require is better practice than include as they are "required" for the page to start
+require "../server/db_connect.php";           // Adjust path as needed
+require "../server/check_cookie_user.php";     // Adjust path as needed
+require "../server/audit-log.php";
 require '../vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -24,20 +24,20 @@ try {
     $stmt->bindParam(':trip_id', $trip_id, PDO::PARAM_INT);
     $stmt->execute();
     $trip = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+
     if (!$trip) {
         die("Trip not found.");
     }
-    
+
     // Decode the JSON array from the takes field
     $takesIDs = json_decode($trip['takes'], true);
     if (!is_array($takesIDs) || empty($takesIDs)) {
         die("No students associated with this trip.");
     }
-    
+
     // Build placeholders and fetch the expiration records ordered by student's last name.
     $placeholders = implode(',', array_fill(0, count($takesIDs), '?'));
-    
+
     $sqlTakes = "SELECT takes.takes_id, students.first_name, students.last_name, 
                         med.med_name, brand.brand_name, takes.exp_date
                  FROM takes 
@@ -46,14 +46,17 @@ try {
                  INNER JOIN students ON takes.student_id = students.student_id 
                  WHERE takes.takes_id IN ($placeholders)
                  ORDER BY students.last_name ASC";
-    
+
     $stmtTakes = $conn->prepare($sqlTakes);
     foreach ($takesIDs as $index => $id) {
         $stmtTakes->bindValue($index + 1, $id, PDO::PARAM_INT);
     }
     $stmtTakes->execute();
     $takesResults = $stmtTakes->fetchAll(PDO::FETCH_ASSOC);
-    
+
+    // Store the count of items created
+    $itemCount = count($takesResults);
+
 } catch (PDOException $e) {
     die("Database error: " . htmlspecialchars($e->getMessage(), ENT_QUOTES));
 }
@@ -80,10 +83,10 @@ $rowNum = 2;
 foreach ($takesResults as $record) {
     // Format student name as "Last Name, First Name"
     $studentName = $record['last_name'] . ", " . $record['first_name'];
-    
+
     // Format the expiry date if numeric
     $expDate = is_numeric($record['exp_date']) ? date('d/m/Y', $record['exp_date']) : $record['exp_date'];
-    
+
     $sheet->setCellValue('A' . $rowNum, $record['takes_id']);
     $sheet->setCellValue('B' . $rowNum, $record['last_name']);
     $sheet->setCellValue('C' . $rowNum, $record['first_name']);
@@ -100,6 +103,12 @@ $filename = "Trip_Expirations_" . preg_replace('/\s+/', '_', $trip['trip_name'])
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header("Content-Disposition: attachment; filename=\"$filename\"");
 header('Cache-Control: max-age=0');
+
+$staff_id = $_SESSION['staff_id'];
+$staff_code = $_SESSION['staff_code'];
+$action = "$staff_code created $filename with $itemCount records";
+// Call to the ../server/audit-log.php function
+logAction($conn, $staff_id, $action);
 
 $writer = new Xlsx($spreadsheet);
 $writer->save('php://output');

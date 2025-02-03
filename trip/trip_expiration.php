@@ -1,9 +1,10 @@
 <?php
 // trip_expiration.php
 session_start();
-include "../server/db_connect.php";           // Adjust path as needed
-include "../server/check_cookie_user.php";     // Adjust path as needed
-include "../server/navbar/trip_management.php";     // Adjust path as needed
+require "../server/db_connect.php";           // Adjust path as needed
+require "../server/audit-log.php";
+require "../server/check_cookie_user.php";     // Adjust path as needed
+require "../server/navbar/trip_management.php";     // Adjust path as needed
 
 // Ensure a trip_id is provided
 if (!isset($_GET['trip_id'])) {
@@ -109,7 +110,16 @@ try {
           echo "<td class='big_table_td'>" . htmlspecialchars($expDate, ENT_QUOTES) . "</td>";
           echo "</tr>";
       }
-      
+
+      $staff_id = $_SESSION['staff_id'];
+      $staff_code = $_SESSION['staff_code'];
+      $name = (htmlspecialchars($trip['trip_name']));
+
+      $action = "$staff_code viewed $trip_id, $name";
+
+      logAction($conn, $staff_id, $action);
+
+
       echo "</table>";
   } else {
       echo "<p>No medication records found for this trip.</p>";
