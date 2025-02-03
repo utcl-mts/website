@@ -43,8 +43,9 @@ try {
                 $staff_id = $_SESSION['staff_id'];
                 $staff_code = $_SESSION['staff_code'];
                 $action = "$staff_code changed $staff_id's password.";
+                $source = "Change Password";
 
-                logAction($conn, $staff_id, $action);
+                logAction($conn, $staff_id, $action, $source);
 
                 header("Location: staff_home.php");
             } else {
@@ -59,8 +60,9 @@ try {
                 $staff_id = $_SESSION['staff_id'];
                 $staff_code = $_SESSION['staff_code'];
                 $action = "$staff_code failed to change $staff_id's password.";
+                $source = "Change Password";
 
-                logAction($conn, $staff_id, $action);
+                logAction($conn, $staff_id, $action, $source);
 
             }
         }
