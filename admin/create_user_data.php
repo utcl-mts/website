@@ -49,8 +49,9 @@ if($password!=$c_password){
                 $staff_id = $_SESSION['staff_id'];
                 $s_staff_code = $_SESSION['staff_code'];
                 $action = "$s_staff_code created staff $first_name, $last_name, $staff_code, $email, $group";
+                $source = "Create Staff";
 
-                logAction($conn, $staff_id, $action);
+                logAction($conn, $staff_id, $action, $source);
 
                 echo "Successfully registered";
             } catch (PDOException $e) {
