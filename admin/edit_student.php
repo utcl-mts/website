@@ -58,8 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $staff_id = $_SESSION['staff_id'];
         $staff_code = $_SESSION['staff_code'];
         $action = "$staff_code failed to edit $first_name, $last_name";
+        $source = "Edit Student";
 
-        logAction($conn, $staff_id, $action);
+        logAction($conn, $staff_id, $action, $source);
         $error_message = "All fields are required.";
     } else {
         try {
@@ -75,8 +76,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $staff_id = $_SESSION['staff_id'];
             $staff_code = $_SESSION['staff_code'];
             $action = "$staff_code edited $first_name, $last_name, $year";
+            $source = "Edit Student";
 
-            logAction($conn, $staff_id, $action);
+            logAction($conn, $staff_id, $action, $source);
             $success_message = "Student record updated successfully.";
         } catch (PDOException $e) {
             $error_message = "Database error: " . htmlspecialchars($e->getMessage());
