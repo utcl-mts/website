@@ -4,83 +4,81 @@ session_start();
 
 include "../server/check_cookie_admin.php";
 include "../server/db_connect.php";
-?>
+require "../server/audit-log.php";
 
-<div>
-    <ul class="nav_bar">
-        <div class="nav_left">
-            <li class="navbar_li"><a href="student_management.php">View All Students</a></li>
-            <li class="navbar_li"><a href="progress_students.php">Progress Students</a></li>
-            <li class="navbar_li"><a href="create_single.php">Create Single Student</a></li>
-            <li class="navbar_li"><a href="bulk_upload.php">Bulk Upload</a></li>
-            <li class="navbar_li"><a class="active" href="export_students.php">Export All Students</a></li>
-        </div>
-    </ul>
-</div>
-
-<?php
-
-// Import PhpSpreadsheet classes at the top of the file
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-// Fetch brands data
+// Fetch students data
 $query = "SELECT * FROM students";
 $stmt = $conn->prepare($query);
 $stmt->execute();
-$brandsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$studentsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-if (!empty($brandsData)) {
-    // Generate timestamp for file naming
+if (!empty($studentsData)) {
     $timestamp = date('Y-m-d_H-i-s');
-
-    // Paths for the files to be included in the zip
-    $csvFile = "student_data.cdn";
+    $csvFile = "student_data.csv";
     $excelFile = "student_data.xlsx";
     $zipFile = "student_data_$timestamp.zip";
 
     // Generate CSV file
     $csvHandle = fopen($csvFile, 'w');
-    fputcsv($csvHandle, array_keys($brandsData[0])); // Add header row
-    foreach ($brandsData as $row) {
+    if ($csvHandle === false) {
+        die("Error: Unable to create CSV file.");
+    }
+    fputcsv($csvHandle, array_keys($studentsData[0]));
+    foreach ($studentsData as $row) {
         fputcsv($csvHandle, $row);
     }
     fclose($csvHandle);
 
-    // Generate Excel file using PhpSpreadsheet
+    // Generate Excel file
     $spreadsheet = new Spreadsheet();
     $sheet = $spreadsheet->getActiveSheet();
-    $sheet->fromArray(array_merge([array_keys($brandsData[0])], $brandsData), NULL, 'A1');
+    $sheet->fromArray(array_merge([array_keys($studentsData[0])], $studentsData), NULL, 'A1');
 
     $writer = new Xlsx($spreadsheet);
     $writer->save($excelFile);
 
-    // Create a zip archive
-    $zip = new ZipArchive();
-
-    if ($zip->open($zipFile, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
-        $zip->addFile($csvFile, basename($csvFile));
-        $zip->addFile($excelFile, basename($excelFile));
-        $zip->close();
-
-        // Set headers to prompt download
-        header('Content-Type: application/zip');
-        header('Content-Disposition: attachment; filename="' . basename($zipFile) . '"');
-        header('Content-Length: ' . filesize($zipFile));
-
-        // Output the file
-        readfile($zipFile);
-
-        // Clean up temporary files
-        unlink($csvFile);
-        unlink($excelFile);
-        unlink($zipFile);
-    } else {
-        echo "Failed to create zip file.";
+    // Ensure files exist before zipping
+    if (!file_exists($csvFile) || !file_exists($excelFile)) {
+        die("Error: CSV or Excel file was not created.");
     }
+
+    // Create ZIP archive
+    $zip = new ZipArchive();
+    if ($zip->open($zipFile, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== TRUE) {
+        die("Error: Unable to create ZIP file.");
+    }
+    $zip->addFile($csvFile, basename($csvFile));
+    $zip->addFile($excelFile, basename($excelFile));
+    $zip->close();
+
+    // Ensure ZIP file exists before sending
+    if (!file_exists($zipFile)) {
+        die("Error: ZIP file was not created.");
+    }
+
+    // Send ZIP file for download
+    header('Content-Type: application/zip');
+    header('Content-Disposition: attachment; filename="' . basename($zipFile) . '"');
+    header('Content-Length: ' . filesize($zipFile));
+    flush();
+    readfile($zipFile);
+
+    // Audit log
+    $staff_id = $_SESSION['staff_id'];
+    $staff_code = $_SESSION['staff_code'];
+    $action = "$staff_code created $zipFile with $csvFile, $excelFile";
+    logAction($conn, $staff_id, $action);
+
+    // Cleanup temporary files
+    unlink($csvFile);
+    unlink($excelFile);
+    unlink($zipFile);
 } else {
-    echo "No brands data available to export.";
+    echo "No student data available to export.";
 }
 
-$conn = null; // Close the database connection
+$conn = null; // Close database connection
 ?>

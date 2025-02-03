@@ -69,7 +69,8 @@
                         // Log activity
                         $ip_address = $_SERVER['REMOTE_ADDR'];
                         $staff_id = $_SESSION["staff_id"];
-                        $action = "$insertCount students have been added";
+                        $staff_code = $_SESSION["staff_code"];
+                        $action = "$staff_code inserted $insertCount students";
 
                         logAction($conn, $staff_id, $action);
 

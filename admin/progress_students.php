@@ -3,6 +3,7 @@ session_start();
 
 // Include the database connection file
 include "../server/db_connect.php";
+include "../server/audit-log.php";
 include "../server/navbar/admin_dashboard.php";
 include "../server/check_cookie_admin.php";
 ?>
@@ -11,12 +12,11 @@ include "../server/check_cookie_admin.php";
 <body class="full_page_styling">
 <div>
     <br>
-
     <div>
         <ul class="nav_bar">
             <div class="nav_left">
                 <li class="navbar_li"><a href="student_management.php">View All Students</a></li>
-                <li class="navbar_li"><a class='active'  href="progress_students.php">Progress Students</a></li>
+                <li class="navbar_li"><a class='active' href="progress_students.php">Progress Students</a></li>
                 <li class="navbar_li"><a href="create_single.php">Create Single Student</a></li>
                 <li class="navbar_li"><a href="bulk_upload.php">Bulk Upload</a></li>
                 <li class="navbar_li"><a href="export_students.php">Export All Students</a></li>
@@ -36,12 +36,17 @@ include "../server/check_cookie_admin.php";
     </div>
 
     <?php
-    // Check if the progress button is clicked
     if (isset($_GET['progress']) && isset($_GET['year'])) {
         $selected_year = trim($_GET['year']);
 
+        if (!empty($selected_year)) {
+            $staff_id = $_SESSION['staff_id'];
+            $staff_code = $_SESSION['staff_code'];
+            $action = "$staff_code searched Year $selected_year";
+            logAction($conn, $staff_id, $action);
+        }
+
         try {
-            // Fetch all students in the selected year group
             $sql = "SELECT student_id, first_name, last_name, year FROM students WHERE year = :year";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':year', $selected_year, PDO::PARAM_INT);
@@ -65,7 +70,6 @@ include "../server/check_cookie_admin.php";
                         echo "<td>" . htmlspecialchars($value) . "</td>";
                     }
 
-                    // Add logic for Year 11 and Year 12 students
                     if ($student['year'] == 11 || $student['year'] == 12) {
                         echo "<td class='big_table_td'>
                                 <div class='centered-form'>
@@ -100,48 +104,42 @@ include "../server/check_cookie_admin.php";
         }
     }
 
-    // Handle the final progress submission
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['finalize_progress'])) {
-            // Handle year progression
-            if (isset($_POST['progress_ids'])) {
-                $progress_ids = $_POST['progress_ids'];
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['finalize_progress'])) {
+        $staff_id = $_SESSION['staff_id'];
+        $staff_code = $_SESSION['staff_code'];
 
-                try {
-                    // Update the year group for selected students
-                    $update_sql = "UPDATE students SET year = year + 1 WHERE student_id = :student_id";
-                    $update_stmt = $conn->prepare($update_sql);
+        if (!empty($_POST['progress_ids'])) {
+            $progress_ids = $_POST['progress_ids'];
+            $progress_count = count($progress_ids);
 
-                    foreach ($progress_ids as $id) {
-                        $update_stmt->bindParam(':student_id', $id, PDO::PARAM_INT);
-                        $update_stmt->execute();
-                    }
+            $update_sql = "UPDATE students SET year = year + 1 WHERE student_id = :student_id";
+            $update_stmt = $conn->prepare($update_sql);
 
-                    echo "<p class='success'>Year group progression completed successfully.</p>";
-                } catch (PDOException $e) {
-                    die("<p class='error'>Database error: " . htmlspecialchars($e->getMessage()) . "</p>");
-                }
+            foreach ($progress_ids as $id) {
+                $update_stmt->bindParam(':student_id', $id, PDO::PARAM_INT);
+                $update_stmt->execute();
             }
 
-            // Handle archiving students
-            if (isset($_POST['archive_ids'])) {
-                $archive_ids = $_POST['archive_ids'];
+            $progress_log = "$staff_code progressed $progress_count students: " . implode(", ", $progress_ids);
+            logAction($conn, $staff_id, $progress_log);
+            echo "<p class='success'>Year group progression completed successfully.</p>";
+        }
 
-                try {
-                    // Archive the students by updating their status
-                    $archive_sql = "UPDATE students SET archived = 1 WHERE student_id = :student_id";
-                    $archive_stmt = $conn->prepare($archive_sql);
+        if (!empty($_POST['archive_ids'])) {
+            $archive_ids = $_POST['archive_ids'];
+            $archive_count = count($archive_ids);
 
-                    foreach ($archive_ids as $id) {
-                        $archive_stmt->bindParam(':student_id', $id, PDO::PARAM_INT);
-                        $archive_stmt->execute();
-                    }
+            $archive_sql = "UPDATE students SET archived = 1 WHERE student_id = :student_id";
+            $archive_stmt = $conn->prepare($archive_sql);
 
-                    echo "<p class='success'>Students archived successfully.</p>";
-                } catch (PDOException $e) {
-                    die("<p class='error'>Database error: " . htmlspecialchars($e->getMessage()) . "</p>");
-                }
+            foreach ($archive_ids as $id) {
+                $archive_stmt->bindParam(':student_id', $id, PDO::PARAM_INT);
+                $archive_stmt->execute();
             }
+
+            $archive_log = "$staff_code archived $archive_count students: " . implode(", ", $archive_ids);
+            logAction($conn, $staff_id, $archive_log);
+            echo "<p class='success'>Students archived successfully.</p>";
         }
     }
     ?>

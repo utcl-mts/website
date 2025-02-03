@@ -9,10 +9,10 @@
 
 <?php
 session_start();
-include "../server/db_connect.php";
-include "../server/audit-log.php";
-include "../server/navbar/admin_dashboard.php";
-include "../server/check_cookie_admin.php";
+require "../server/db_connect.php";
+require "../server/audit-log.php";
+require "../server/navbar/admin_dashboard.php";
+require "../server/check_cookie_admin.php";
 
 $first_name = $_POST['first_name'];
 $first_name = strtoupper($first_name);
@@ -27,9 +27,9 @@ $stmt->bindParam(2,$last_name);
 $stmt->bindParam(3,$year);
 
 $staff_id = $_SESSION['staff_id'];
-$ip_address = $_SERVER['REMOTE_ADDR'];
-$action = "Student: " . $first_name . " " . $last_name. " was created";
-// ID of the user performing the action
+$staff_code = $_SESSION['staff_code'];
+$action = "$staff_code created $first_name, $last_name, $year";
+
 logAction($conn, $staff_id, $action);
 
 $stmt->execute();
@@ -43,4 +43,5 @@ echo '<div class="success-banner">';
         echo '<p>Sucessfully added</p>';
     echo '</div>';
 echo '</div>';
+
 ?>

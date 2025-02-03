@@ -14,6 +14,7 @@ session_start();
 include "../server/db_connect.php";
 include "../server/navbar/admin_dashboard.php";
 include "../server/check_cookie_admin.php";
+include "../server/audit-log.php";
 
 // Check if the student ID is provided
 if (!isset($_GET['student_id']) || empty($_GET['student_id'])) {
@@ -54,6 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Validate input
     if (empty($first_name) || empty($last_name) || empty($year)) {
+        $staff_id = $_SESSION['staff_id'];
+        $staff_code = $_SESSION['staff_code'];
+        $action = "$staff_code failed to edit $first_name, $last_name";
+
+        logAction($conn, $staff_id, $action);
         $error_message = "All fields are required.";
     } else {
         try {
@@ -66,6 +72,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $update_stmt->bindParam(':student_id', $student_id, PDO::PARAM_INT);
             $update_stmt->execute();
 
+            $staff_id = $_SESSION['staff_id'];
+            $staff_code = $_SESSION['staff_code'];
+            $action = "$staff_code edited $first_name, $last_name, $year";
+
+            logAction($conn, $staff_id, $action);
             $success_message = "Student record updated successfully.";
         } catch (PDOException $e) {
             $error_message = "Database error: " . htmlspecialchars($e->getMessage());
@@ -112,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button class='submit' type="submit">Update Student</button>
         </form>
         <br>
-        <a class="back_link" href="student_table.php"> > Go Back</a>
+        <a class="back_link" href="student_management.php"> > Go Back</a>
     </div>
 </div>
 </body>
