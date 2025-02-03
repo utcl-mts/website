@@ -4,6 +4,7 @@ session_start();
 
 include "../server/check_cookie_admin.php";
 include "../server/db_connect.php";
+include "../server/audit-log.php";
 
 // Import PhpSpreadsheet classes at the top of the file
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -55,6 +56,13 @@ if (!empty($brandsData)) {
 
         // Output the file
         readfile($zipFile);
+
+        $staff_id = $_SESSION['staff_id'];
+        $staff_code = $_SESSION['staff_code'];
+        $action = "$staff_code created $zipFile $csvFile with $excelFile";
+
+        logAction($conn, $staff_id, $action);
+
 
         // Clean up temporary files
         unlink($csvFile);

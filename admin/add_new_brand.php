@@ -4,6 +4,7 @@
 session_start();
 include "../server/check_cookie_admin.php";
 include "../server/db_connect.php";
+include "../server/audit-log.php";
 include "../server/navbar/admin_dashboard.php";
 ?>
 
@@ -58,7 +59,15 @@ include "../server/navbar/admin_dashboard.php";
                     echo '<p>Brand sucessfully added</p>';
                 echo '</div>';
                 echo '</div>';
-                header("refresh:10; url=../admin_dashboard.php");
+
+                $staff_id = $_SESSION['staff_id'];
+                $staff_code = $_SESSION['staff_code'];
+                $brand_name = $_POST['brand'];
+                $action = "$staff_code created $brand_name";
+
+                logAction($conn, $staff_id, $action);
+
+                header("refresh:10; url=brand_management.php");
 
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
