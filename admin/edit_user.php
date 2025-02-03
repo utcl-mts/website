@@ -1,8 +1,9 @@
 <?php
 session_start();
+require "../server/db_connect.php";
+require "../server/audit-log.php";
 
-include "../server/check_cookie_admin.php";
-include "../server/db_connect.php";
+require "../server/check_cookie_admin.php";
 include "../server/navbar/admin_dashboard.php";
 
 try {
@@ -29,8 +30,19 @@ try {
 
         // Validate inputs
         if (empty($first_name) || empty($last_name) || empty($email) || empty($staff_code)) {
+            $staff_id = $_SESSION['staff_id'];
+            $s_staff_code = $_SESSION['staff_code'];
+            $action = "$s_staff_code failed to edit $staff_id's account";
+
+            logAction($conn, $staff_id, $action);
             $error = "All fields are required.";
+
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $staff_id = $_SESSION['staff_id'];
+            $s_staff_code = $_SESSION['staff_code'];
+            $action = "$s_staff_code failed to edit $staff_id's account";
+
+            logAction($conn, $staff_id, $action);
             $error = "Invalid email format.";
         } else {
             // Update user details
@@ -43,7 +55,14 @@ try {
             $stmt->bindParam(':staff_id', $staff_id, PDO::PARAM_INT);
 
             if ($stmt->execute()) {
+                $staff_id = $_SESSION['staff_id'];
+                $s_staff_code = $_SESSION['staff_code'];
+                $action = "$s_staff_code edit $first_name, $last_name, $email, $staff_code for $staff_id";
+
+                logAction($conn, $staff_id, $action);
+
                 $success = "Details updated successfully.";
+
             } else {
                 $error = "Failed to update details.";
             }

@@ -2,7 +2,8 @@
 session_start();
 
 include "../server/check_cookie_admin.php";
-include "../server/db_connect.php";
+require "../server/db_connect.php";
+require "../server/audit-log.php";
 
 $first_name = $_POST['first_name'];
 $last_name = $_POST['last_name'];
@@ -45,6 +46,12 @@ if($password!=$c_password){
                 $stmt->execute();
                 header("refresh:5; url=staff_home.php");
                 echo '<br>';
+                $staff_id = $_SESSION['staff_id'];
+                $s_staff_code = $_SESSION['staff_code'];
+                $action = "$s_staff_code created staff $first_name, $last_name, $staff_code, $email, $group";
+
+                logAction($conn, $staff_id, $action);
+
                 echo "Successfully registered";
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();

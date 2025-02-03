@@ -1,8 +1,10 @@
 <?php
 session_start();
-include "../server/check_cookie_admin.php";
-include "../server/db_connect.php";
-include "../server/navbar/admin_dashboard.php";
+require "../server/db_connect.php";
+require "../server/audit-log.php";
+require "../server/check_cookie_admin.php";
+
+require "../server/navbar/admin_dashboard.php";
 
 // Fetch staff data
 $query = "SELECT staff_id, first_name, last_name, email, `group`, staff_code  

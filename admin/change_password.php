@@ -4,6 +4,7 @@ session_start();
 
 include "../server/check_cookie_admin.php";
 include "../server/db_connect.php";
+include "../server/audit-log.php";
 include "../server/navbar/admin_dashboard.php";
 
 
@@ -32,23 +33,35 @@ try {
 
             if ($stmt->execute()) {
                 echo '<div class="success-banner">';
-                echo '<div class="success-header">';
-                    echo '<h2>Success</h2>';
-            echo '</div>';
-            echo '<div class="success-content">';
-                echo '<p>Password sucessfully changed</p>';
-            echo '</div>';
-            echo '</div>';
+                    echo '<div class="success-header">';
+                        echo '<h2>Success</h2>';
+                    echo '</div>';
+                    echo '<div class="success-content">';
+                        echo '<p>Password sucessfully changed</p>';
+                    echo '</div>';
+                echo '</div>';
+                $staff_id = $_SESSION['staff_id'];
+                $staff_code = $_SESSION['staff_code'];
+                $action = "$staff_code changed $staff_id's password.";
+
+                logAction($conn, $staff_id, $action);
+
                 header("Location: staff_home.php");
             } else {
                 echo '<div class="error-banner">';
-                echo '<div class="error-header">';
-                    echo '<h2>Error</h2>';
+                    echo '<div class="error-header">';
+                        echo '<h2>Error</h2>';
+                    echo '</div>';
+                    echo '<div class="error-content">';
+                        echo '<p>Failed to update the password.</p>';
+                    echo '</div>';
                 echo '</div>';
-                echo '<div class="error-content">';
-                    echo '<p>Failed to update the password.</p>';
-                echo '</div>';
-                echo '</div>';
+                $staff_id = $_SESSION['staff_id'];
+                $staff_code = $_SESSION['staff_code'];
+                $action = "$staff_code failed to change $staff_id's password.";
+
+                logAction($conn, $staff_id, $action);
+
             }
         }
     } else {

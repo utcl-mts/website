@@ -1,8 +1,9 @@
 <?php
 session_start();
 
-include "../server/check_cookie_admin.php";
-include "../server/db_connect.php";
+require "../server/check_cookie_admin.php";
+require "../server/db_connect.php";
+require "../server/audit-log.php";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     try {
@@ -26,6 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($stmt->execute()) {
             // Check if any rows were affected
             if ($stmt->rowCount() > 0) {
+                $staff_id = $_SESSION['staff_id'];
+                $staff_code = $_SESSION['staff_code'];
+                $action = "$staff_code Archived $staff_id";
+
+                logAction($conn, $staff_id, $action);
                 echo "User archived successfully.";
             } else {
                 echo "No user found with the provided Staff ID.";
