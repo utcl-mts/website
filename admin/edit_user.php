@@ -33,16 +33,18 @@ try {
             $staff_id = $_SESSION['staff_id'];
             $s_staff_code = $_SESSION['staff_code'];
             $action = "$s_staff_code failed to edit $staff_id's account";
+            $source = "Edit Staff";
 
-            logAction($conn, $staff_id, $action);
+            logAction($conn, $staff_id, $action, $source);
             $error = "All fields are required.";
 
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $staff_id = $_SESSION['staff_id'];
             $s_staff_code = $_SESSION['staff_code'];
             $action = "$s_staff_code failed to edit $staff_id's account";
+            $source = "Edit Staff";
 
-            logAction($conn, $staff_id, $action);
+            logAction($conn, $staff_id, $action, $source);
             $error = "Invalid email format.";
         } else {
             // Update user details
@@ -58,8 +60,9 @@ try {
                 $staff_id = $_SESSION['staff_id'];
                 $s_staff_code = $_SESSION['staff_code'];
                 $action = "$s_staff_code edit $first_name, $last_name, $email, $staff_code for $staff_id";
+                $source = "Edit Student";
 
-                logAction($conn, $staff_id, $action);
+                logAction($conn, $staff_id, $action, $source);
 
                 $success = "Details updated successfully.";
 
