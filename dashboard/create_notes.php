@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
 
             $staff_id = $_SESSION['staff_id'];
             $staff_code = $_SESSION['staff_code'];
-            $action = "$staff_code, Logged , $content ";
+            $action = "$staff_code Logged $content ";
 
             logAction($conn, $staff_id, $action);
 

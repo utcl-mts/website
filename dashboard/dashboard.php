@@ -5,7 +5,6 @@ session_start();
 // Include the database connection file
 include "../server/db_connect.php";
 include "../server/navbar/dashboard.php";
-include "../server/audit-log.php";
 include "../server/check_cookie_user.php";
 
 // Time and categorization arrays
