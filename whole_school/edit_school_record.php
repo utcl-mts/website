@@ -2,6 +2,7 @@
 session_start();
 // Include the database connection file
 include "../server/db_connect.php";
+include "../server/audit-log.php";
 include "../server/navbar/whole_school.php";
 include "../server/check_cookie_user.php";
 
@@ -54,12 +55,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_record'])) {
             $update_stmt->bindParam(':whole_school_id', $whole_school_id, PDO::PARAM_INT);
             $update_stmt->execute();
 
+            $staff_id = $_SESSION['staff_id'];
+            $staff_code = $_SESSION['staff_code'];
+            $action = "$staff_code updated $whole_school_id , $name , $exp_date, $amount_left, $notes";
+
+            logAction($conn, $staff_id, $action);
+
+
             $success_message = "Record updated successfully.";
+            header("location: active_records.php");
         } catch (PDOException $e) {
             $error_message = "Database error: " . htmlspecialchars($e->getMessage());
         }
     } else {
         $error_message = "All fields are required, and amount left must be a non-negative integer.";
+        $staff_id = $_SESSION['staff_id'];
+        $staff_code = $_SESSION['staff_code'];
+        $action = "$staff_code failed to edit record mutliple invalid inputs";
+
+        logAction($conn, $staff_id, $action);
     }
 }
 ?>

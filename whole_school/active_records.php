@@ -2,6 +2,7 @@
 session_start();
 // Include the database connection file
 include "../server/db_connect.php";
+include "../server/audit-log.php";
 include "../server/navbar/whole_school.php";
 include "../server/check_cookie_user.php";
 
@@ -14,6 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['archive'])) {
         $stmt->bindParam(':whole_school_id', $whole_school_id, PDO::PARAM_INT);
         $stmt->execute();
         $success_message = "Record archived successfully.";
+
+        $staff_id = $_SESSION['staff_id'];
+        $staff_code = $_SESSION['staff_code'];
+        $action = "$staff_code archived whole_school_id:$whole_school_id";
+
+        logAction($conn, $staff_id, $action);
+
     } catch (PDOException $e) {
         $error_message = "Database error: " . htmlspecialchars($e->getMessage());
     }
@@ -81,11 +89,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['archive'])) {
                                 <input type='hidden' name='whole_school_id' value='" . htmlspecialchars($row['whole_school_id']) . "'>
                                 <button class='table_button' type='submit'>Edit</button>
                             </form>
-                            <form method='POST' action='' style='display:inline'>
+                            
+                            <form method='POST' action='' style='display:inline' onsubmit=\"return confirm('Are you sure you want to archive this record?');\">
                                 <input type='hidden' name='whole_school_id' value='" . htmlspecialchars($row['whole_school_id']) . "'>
                                 <button class='table_button' type='submit' name='archive'>Archive</button>
                             </form>
-                        </td>";
+                          </td>";
                     echo "</tr>";
                 }
                 echo "</table>";

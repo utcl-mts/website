@@ -3,6 +3,7 @@ session_start();
 
 // Include the database connection file
 include "../server/db_connect.php";
+include "../server/audit-log.php";
 include "../server/navbar/whole_school.php";
 include "../server/check_cookie_user.php";
 
@@ -29,17 +30,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_record'])) {
                 $stmt->bindParam(':amount_left', $amount_left, PDO::PARAM_INT);
                 $stmt->bindParam(':notes', $notes, PDO::PARAM_STR);
                 $stmt->execute();
-                
-                header("Location: whole_school_table.php");
+
+                $staff_id = $_SESSION['staff_id'];
+                $staff_code = $_SESSION['staff_code'];
+                $action = "$staff_code created $name , $exp_date, $amount_left, $notes";
+
+                logAction($conn, $staff_id, $action);
+
+                header("Location: active_records.php");
                 $success_message = "New record added successfully.";
             } catch (PDOException $e) {
                 $error_message = "Database error: " . htmlspecialchars($e->getMessage());
             }
         } else {
             $error_message = "Invalid expiration date. Please use the format 'dd/mm/yyyy'.";
+            $staff_id = $_SESSION['staff_id'];
+            $staff_code = $_SESSION['staff_code'];
+            $action = "$staff_code failed to create $name , $exp_date, $amount_left, $notes";
+
+            logAction($conn, $staff_id, $action);
         }
     } else {
         $error_message = "All fields are required, and amount left must be a non-negative integer.";
+
+        $staff_id = $_SESSION['staff_id'];
+        $staff_code = $_SESSION['staff_code'];
+        $action = "$staff_code failed to create multiple invalid fields";
+
+        logAction($conn, $staff_id, $action);
     }
 }
 ?>
