@@ -5,9 +5,10 @@
  * @param PDO $conn The database connection.
  * @param int $staff_id The ID of the user performing the action.
  * @param string $action The description of the action being performed.
+ * @param string $source The source of the action.
  * @return void
  */
-function logAction($conn, $staff_id, $action) {
+function logAction($conn, $staff_id, $action, $source) {
     try {
         // Capture and anonymize the IP address
         $ip_address = $_SERVER['REMOTE_ADDR'];
@@ -16,11 +17,12 @@ function logAction($conn, $staff_id, $action) {
 
         $date_time = time();
 
-        $sql = "INSERT INTO audit_logs (staff_id, act, date_time) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO audit_logs (`staff_id`, `act`, `source`, `date_time`) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(1, $staff_id);
         $stmt->bindParam(2, $action_with_ip);
-        $stmt->bindParam(3, $date_time);
+        $stmt->bindParam(3, $source);
+        $stmt->bindParam(4, $date_time);
         $stmt->execute(); // Execute the statement
     } catch (PDOException $e) {
         error_log("Failed to log action: " . $e->getMessage());
