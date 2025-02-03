@@ -52,11 +52,12 @@
     $search_term = trim($_GET['search'] ?? '');
 
     if (!empty($search_term)) {
+        $source = "Student Medication";
         $staff_id = $_SESSION['staff_id']; // Fetch from POST, not SESSION
         $staff_code = $_SESSION['staff_code']; // Staff code is correctly from SESSION
         $action = "$staff_code searched $search_term";
 
-        logAction($conn, $staff_id, $action);
+        logAction($conn, $staff_id, $action, $source);
     }
 
 
