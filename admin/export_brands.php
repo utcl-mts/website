@@ -21,7 +21,7 @@ if (!empty($brandsData)) {
     $timestamp = date('Y-m-d_H-i-s');
 
     // Paths for the files to be included in the zip
-    $csvFile = "brands_data.cdn";
+    $csvFile = "brands_data.csv";
     $excelFile = "brands_data.xlsx";
     $zipFile = "brands_data_$timestamp.zip";
 
@@ -60,8 +60,9 @@ if (!empty($brandsData)) {
         $staff_id = $_SESSION['staff_id'];
         $staff_code = $_SESSION['staff_code'];
         $action = "$staff_code created $zipFile $csvFile with $excelFile";
+        $source = "Export Brands";
 
-        logAction($conn, $staff_id, $action);
+        logAction($conn, $staff_id, $action, $source);
 
 
         // Clean up temporary files
