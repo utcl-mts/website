@@ -30,8 +30,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $staff_id = $_SESSION['staff_id'];
                 $staff_code = $_SESSION['staff_code'];
                 $action = "$staff_code Archived $staff_id";
+                $source = "Delete User";
 
-                logAction($conn, $staff_id, $action);
+                logAction($conn, $staff_id, $action, $source);
                 echo "User archived successfully.";
             } else {
                 echo "No user found with the provided Staff ID.";
