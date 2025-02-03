@@ -3,6 +3,7 @@ session_start();
 
 include "../server/check_cookie_admin.php";
 include "../server/db_connect.php";
+include "../server/audit-log.php";
 include "../server/navbar/admin_dashboard.php";
 ?>
 
@@ -58,14 +59,21 @@ include "../server/navbar/admin_dashboard.php";
                 $stmt->execute();
                 echo "<br><br>";
                 echo '<div class="success-banner">';
-                echo '<div class="success-header">';
-                    echo '<h2>Success</h2>';
-            echo '</div>';
-            echo '<div class="success-content">';
-                echo '<p>Medication successfully added!</p>';
-            echo '</div>';
-            echo '</div>';
-                header("refresh:10; url=../admin_dashboard.php");
+                    echo '<div class="success-header">';
+                            echo '<h2>Success</h2>';
+                    echo '</div>';
+                    echo '<div class="success-content">';
+                        echo '<p>Medication successfully added!</p>';
+                    echo '</div>';
+                echo '</div>';
+
+                $staff_id = $_SESSION['staff_id'];
+                $staff_code = $_SESSION['staff_code'];
+                $action = "$staff_code created $_POST[medication]";
+
+                logAction($conn, $staff_id, $action);
+
+                header("refresh:10; url=medication_management.php");
 
             } catch (PDOException $e) {
 
