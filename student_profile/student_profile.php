@@ -4,6 +4,7 @@ session_start();
 
 // Include the database connection file
 include "../server/db_connect.php";
+include "../server/audit-log.php";
 include "../server/navbar/student_profile.php";
 include "../server/check_cookie_user.php";
 ?>
@@ -65,6 +66,12 @@ include "../server/check_cookie_user.php";
                 echo "<button class='blue_submit' type='submit' name='view_student'>View Student</button>";
                 echo "</form>";
             } else {
+                $staff_id = $_SESSION['staff_id'];
+                $staff_code = $_SESSION['staff_code'];
+                $action = "$staff_code searched $student_name they dont exist.";
+
+                logAction($conn, $staff_id, $action);
+
                 echo "<p>No records found for the given student name.</p>";
             }
             echo "</div>";
@@ -72,8 +79,6 @@ include "../server/check_cookie_user.php";
         } catch (PDOException $e) {
             die("<p class='error'>Database error: " . htmlspecialchars($e->getMessage()) . "</p>");
         }
-    } else {
-        echo "<p>Please enter a student name to search.</p>";
     }
 
     // Display selected student's data and medication records
@@ -93,6 +98,13 @@ include "../server/check_cookie_user.php";
             $stmt->execute();
 
             $student_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $staff_id = $_SESSION['staff_id'];
+            $staff_code = $_SESSION['staff_code'];
+            $concat_string = htmlspecialchars($student_data[0]['first_name'] . ' ' . $student_data[0]['last_name'] . ' Year '. $student_data[0]['year']);
+            $action = "$staff_code searched and viewed $concat_string, ID $student_id";
+
+            logAction($conn, $staff_id, $action);
 
             if (!empty($student_data)) {
                 $full_name = htmlspecialchars($student_data[0]['first_name'] . ' ' . $student_data[0]['last_name']);
@@ -118,6 +130,9 @@ include "../server/check_cookie_user.php";
                 echo "</table>";
             } else {
                 echo "<h2>No details available for the selected student.</h2>";
+
+
+
             }
 
         } catch (PDOException $e) {
