@@ -70,8 +70,9 @@ include "../server/navbar/admin_dashboard.php";
                 $staff_id = $_SESSION['staff_id'];
                 $staff_code = $_SESSION['staff_code'];
                 $action = "$staff_code created $_POST[medication]";
+                $source = "Add New Medication";
 
-                logAction($conn, $staff_id, $action);
+                logAction($conn, $staff_id, $action, $source);
 
                 header("refresh:10; url=medication_management.php");
 
