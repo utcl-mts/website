@@ -60,8 +60,9 @@ if (!empty($brandsData)) {
         $staff_id = $_SESSION['staff_id'];
         $staff_code = $_SESSION['staff_code'];
         $action = "$staff_code exported $zipFile with $csvFile, $excelFile";
+        $source = "Export Brands";
 
-        logAction($conn, $staff_id, $action);
+        logAction($conn, $staff_id, $action, $source);
 
 
         // Clean up temporary files

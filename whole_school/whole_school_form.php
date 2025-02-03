@@ -34,8 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_record'])) {
                 $staff_id = $_SESSION['staff_id'];
                 $staff_code = $_SESSION['staff_code'];
                 $action = "$staff_code created $name , $exp_date, $amount_left, $notes";
+                $source = "Whole School Medication";
 
-                logAction($conn, $staff_id, $action);
+                logAction($conn, $staff_id, $action, $source);
 
                 header("Location: active_records.php");
                 $success_message = "New record added successfully.";
@@ -47,8 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_record'])) {
             $staff_id = $_SESSION['staff_id'];
             $staff_code = $_SESSION['staff_code'];
             $action = "$staff_code failed to create $name , $exp_date, $amount_left, $notes";
+            $source = "Whole School Medication";
 
-            logAction($conn, $staff_id, $action);
+            logAction($conn, $staff_id, $action, $source);
         }
     } else {
         $error_message = "All fields are required, and amount left must be a non-negative integer.";
@@ -56,8 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_record'])) {
         $staff_id = $_SESSION['staff_id'];
         $staff_code = $_SESSION['staff_code'];
         $action = "$staff_code failed to create multiple invalid fields";
+        $source = "Whole School Medication";
 
-        logAction($conn, $staff_id, $action);
+        logAction($conn, $staff_id, $action, $source);
     }
 }
 ?>

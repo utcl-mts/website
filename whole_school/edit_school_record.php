@@ -58,8 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_record'])) {
             $staff_id = $_SESSION['staff_id'];
             $staff_code = $_SESSION['staff_code'];
             $action = "$staff_code updated $whole_school_id , $name , $exp_date, $amount_left, $notes";
+            $source = "Whole School Medication";
 
-            logAction($conn, $staff_id, $action);
+            logAction($conn, $staff_id, $action, $source);
 
 
             $success_message = "Record updated successfully.";
@@ -72,8 +73,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_record'])) {
         $staff_id = $_SESSION['staff_id'];
         $staff_code = $_SESSION['staff_code'];
         $action = "$staff_code failed to edit record mutliple invalid inputs";
+        $source = "Whole School Medication";
 
-        logAction($conn, $staff_id, $action);
+        logAction($conn, $staff_id, $action, $source);
     }
 }
 ?>

@@ -114,10 +114,10 @@ try {
       $staff_id = $_SESSION['staff_id'];
       $staff_code = $_SESSION['staff_code'];
       $name = (htmlspecialchars($trip['trip_name']));
-
+      $source = "Trip Expiration";
       $action = "$staff_code viewed $trip_id, $name";
 
-      logAction($conn, $staff_id, $action);
+      logAction($conn, $staff_id, $action, $source);
 
 
       echo "</table>";

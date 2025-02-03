@@ -43,7 +43,9 @@ include "../server/check_cookie_admin.php";
             $staff_id = $_SESSION['staff_id'];
             $staff_code = $_SESSION['staff_code'];
             $action = "$staff_code searched Year $selected_year";
-            logAction($conn, $staff_id, $action);
+            $source = "Progress Student";
+
+            logAction($conn, $staff_id, $action, $source);
         }
 
         try {
@@ -121,7 +123,8 @@ include "../server/check_cookie_admin.php";
             }
 
             $progress_log = "$staff_code progressed $progress_count students: " . implode(", ", $progress_ids);
-            logAction($conn, $staff_id, $progress_log);
+            $source = "Progress Students";
+            logAction($conn, $staff_id, $progress_log, $source);
             echo "<p class='success'>Year group progression completed successfully.</p>";
         }
 
@@ -138,7 +141,8 @@ include "../server/check_cookie_admin.php";
             }
 
             $archive_log = "$staff_code archived $archive_count students: " . implode(", ", $archive_ids);
-            logAction($conn, $staff_id, $archive_log);
+            $source = "Progress Students";
+            logAction($conn, $staff_id, $archive_log, $source);
             echo "<p class='success'>Students archived successfully.</p>";
         }
     }

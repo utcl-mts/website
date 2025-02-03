@@ -107,8 +107,9 @@ header('Cache-Control: max-age=0');
 $staff_id = $_SESSION['staff_id'];
 $staff_code = $_SESSION['staff_code'];
 $action = "$staff_code created $filename with $itemCount records";
+$source = "Export Excel";
 // Call to the ../server/audit-log.php function
-logAction($conn, $staff_id, $action);
+logAction($conn, $staff_id, $action, $source);
 
 $writer = new Xlsx($spreadsheet);
 $writer->save('php://output');

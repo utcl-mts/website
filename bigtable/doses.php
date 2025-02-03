@@ -28,8 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $staff_id = $_SESSION['staff_id']; // Fetch from POST, not SESSION
             $staff_code = $_SESSION['staff_code']; // Staff code is correctly from SESSION
             $action = "$staff_code decreased $decrement_amount for $take_id";
+            $source = "Dose Management";
 
-            logAction($conn, $staff_id, $action);
+            logAction($conn, $staff_id, $action, $source);
 
 
             // Redirect back to the main page with a success message

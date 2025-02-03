@@ -37,8 +37,9 @@ try {
     $staff_id = $_SESSION['staff_id'];
     $staff_code = $_SESSION['staff_code'];
     $action = "$staff_code created $trip_name, $start_date, $end_date, $student_count";
+    $source = "Created Trip";
 
-    logAction($conn, $staff_id, $action);
+    logAction($conn, $staff_id, $action, $source);
 
     // Clear the session selections once saved
     unset($_SESSION['selected_students']);

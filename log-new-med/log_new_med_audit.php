@@ -62,8 +62,9 @@
             $staff_id = $_SESSION['staff_id'];
             $staff_code = $_SESSION['staff_code'];
             $action = "$staff_code created medical record $sid, $max_dose, $min_dose, $epoch, $current_dose, $med ,$brand, $strength ";
+            $source = "Create New Medical Record";
 
-            logAction($conn, $staff_id, $action);
+            logAction($conn, $staff_id, $action, $source);
 
 
             header("Location: ../dashboard/dashboard.php");

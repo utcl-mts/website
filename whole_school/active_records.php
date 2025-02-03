@@ -19,8 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['archive'])) {
         $staff_id = $_SESSION['staff_id'];
         $staff_code = $_SESSION['staff_code'];
         $action = "$staff_code archived whole_school_id:$whole_school_id";
+        $source = "Whole School Medication";
 
-        logAction($conn, $staff_id, $action);
+        logAction($conn, $staff_id, $action, $source);
 
     } catch (PDOException $e) {
         $error_message = "Database error: " . htmlspecialchars($e->getMessage());

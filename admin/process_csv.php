@@ -71,8 +71,9 @@
                         $staff_id = $_SESSION["staff_id"];
                         $staff_code = $_SESSION["staff_code"];
                         $action = "$staff_code inserted $insertCount students";
+                        $source = "Bulk Upload";
 
-                        logAction($conn, $staff_id, $action);
+                        logAction($conn, $staff_id, $action, $source);
 
                         // Cleanup
                         unlink($filePath); // Delete the temporary file

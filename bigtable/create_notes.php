@@ -51,8 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
             $staff_id = $_SESSION['staff_id'];
             $staff_code = $_SESSION['staff_code'];
             $action = "$staff_code Logged $content ";
+            $source = "Create Notes";
 
-            logAction($conn, $staff_id, $action);
+            logAction($conn, $staff_id, $action, $source);
 
             header ("location: bigtable.php");
             echo "<p class='success'>Note added successfully!</p>";

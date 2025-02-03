@@ -70,7 +70,9 @@ if (!empty($studentsData)) {
     $staff_id = $_SESSION['staff_id'];
     $staff_code = $_SESSION['staff_code'];
     $action = "$staff_code created $zipFile with $csvFile, $excelFile";
-    logAction($conn, $staff_id, $action);
+    $source = "Export Students";
+
+    logAction($conn, $staff_id, $action, $source);
 
     // Cleanup temporary files
     unlink($csvFile);

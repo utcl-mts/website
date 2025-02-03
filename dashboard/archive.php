@@ -16,8 +16,9 @@ if (isset($_POST['takes_id'])) {
     $staff_id = $_SESSION['staff_id'];
     $staff_code = $_SESSION['staff_code'];
     $action = "$staff_code Archived $takes_id";
+    $source = "Archived";
 
-    logAction($conn, $staff_id, $action);
+    logAction($conn, $staff_id, $action, $source);
 
     if ($stat->execute()) {
         // Redirect back to the notification page

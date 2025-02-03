@@ -70,8 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_students']))
     $staff_id = $_SESSION['staff_id']; // Fetch from POST, not SESSION
     $staff_code = $_SESSION['staff_code']; // Staff code is correctly from SESSION
     $action = "$staff_code generated $filename";
+    $source = "Generate Excel";
 
-    logAction($conn, $staff_id, $action);
+    logAction($conn, $staff_id, $action, $source);
 
     exit;
 } else {

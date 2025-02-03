@@ -69,8 +69,9 @@ include "../server/check_cookie_user.php";
                 $staff_id = $_SESSION['staff_id'];
                 $staff_code = $_SESSION['staff_code'];
                 $action = "$staff_code searched $student_name they dont exist.";
+                $source = "Student Profile";
 
-                logAction($conn, $staff_id, $action);
+                logAction($conn, $staff_id, $action, $source);
 
                 echo "<p>No records found for the given student name.</p>";
             }
@@ -103,8 +104,9 @@ include "../server/check_cookie_user.php";
             $staff_code = $_SESSION['staff_code'];
             $concat_string = htmlspecialchars($student_data[0]['first_name'] . ' ' . $student_data[0]['last_name'] . ' Year '. $student_data[0]['year']);
             $action = "$staff_code searched and viewed $concat_string, ID $student_id";
+            $source = "Student Profile";
 
-            logAction($conn, $staff_id, $action);
+            logAction($conn, $staff_id, $action, $source);
 
             if (!empty($student_data)) {
                 $full_name = htmlspecialchars($student_data[0]['first_name'] . ' ' . $student_data[0]['last_name']);
