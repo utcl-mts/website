@@ -63,9 +63,10 @@ include "../server/navbar/admin_dashboard.php";
                 $staff_id = $_SESSION['staff_id'];
                 $staff_code = $_SESSION['staff_code'];
                 $brand_name = $_POST['brand'];
+                $source = "Add New Brand";
                 $action = "$staff_code created $brand_name";
 
-                logAction($conn, $staff_id, $action);
+                logAction($conn, $staff_id, $action, $source);
 
                 header("refresh:10; url=brand_management.php");
 
