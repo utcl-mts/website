@@ -5,27 +5,11 @@ if (!file_exists("../server/db_connect.php")) {
     die("Error: db_connect.php file not found in expected directory.");
 }
 include "../server/db_connect.php";
+include "../server/audit-log.php";
 
 // Verify database connection
 if (!$conn) {
     die("Error: Database connection failed.");
-}
-
-// Helper function to log actions
-function logAction($conn, $staff_id, $action) {
-    try {
-        $ip_address = $_SERVER['REMOTE_ADDR']; // Capture the IP address
-        $action_with_ip = "$action, IP: $ip_address"; // Append IP address to the action
-        $log_sql = "INSERT INTO audit_logs (staff_id, act, date_time) VALUES (:staff_id, :act, :date_time)";
-        $log_stmt = $conn->prepare($log_sql);
-        $log_stmt->execute([
-            'staff_id' => $staff_id,
-            'act' => $action_with_ip,
-            'date_time' => time()
-        ]);
-    } catch (PDOException $e) {
-        error_log("Failed to log action: " . $e->getMessage());
-    }
 }
 
 try {
@@ -54,14 +38,25 @@ try {
 
     // If user exists and is a system account, log the attempt and deny access
     if ($user && $user['group'] === 'system') {
-        logAction($conn, $user['staff_id'], 'System account login attempt detected');
+        $source = "Login";
+        $staff_id = $user['staff_id']; // Fetch from POST, not SESSION
+        $staff_code = $user['staff_code']; // Staff code is correctly from SESSION
+        $action = "System account login attempt detected";
+
+        logAction($conn, $staff_id, $action, $source);
         header("Location: ../index.php?error=system_account");
         exit();
     }
 
     // Check if the account is archived
     if ($user && $user['archived'] == 1) {
-        logAction($conn, $user['staff_id'], 'Attempted login to archived account');
+        $source = "Login";
+        $staff_id = $user['staff_id']; // Fetch from POST, not SESSION
+        $staff_code = $user['staff_code']; // Staff code is correctly from SESSION
+        $action = "Attempted to login to archived staff account";
+
+        logAction($conn, $staff_id, $action, $source);
+//        logAction($conn, $user['staff_id'], 'Attempted login to archived account');
         header("Location: ../index.php?error=account_archived");
         exit();
     }
@@ -88,13 +83,25 @@ try {
             ]
         )) {
             // Log failed cookie setting
-            logAction($conn, $user['staff_id'], 'Failed to set login cookie');
+            $source = "Login";
+            $staff_id = $user['staff_id']; // Fetch from POST, not SESSION
+            $staff_code = $user['staff_code']; // Staff code is correctly from SESSION
+            $action = "Failed to set login cookie.";
+
+            logAction($conn, $staff_id, $action, $source);
+//            logAction($conn, $user['staff_id'], 'Failed to set login cookie');
             header("Location: ../index.php?error=cookie_error");
             exit();
         }
 
         // Log successful login attempt
-        logAction($conn, $user['staff_id'], 'User successfully logged in');
+        $source = "Login";
+        $staff_id = $user['staff_id']; // Fetch from POST, not SESSION
+        $staff_code = $user['staff_code']; // Staff code is correctly from SESSION
+        $action = "User successfully logged in";
+
+        logAction($conn, $staff_id, $action, $source);
+//        logAction($conn, $user['staff_id'], 'User successfully logged in');
 
         // Redirect to dashboard
         header("Location: ../dashboard/dashboard.php");
