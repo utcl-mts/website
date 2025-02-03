@@ -2,6 +2,7 @@
 session_start();
 require '../vendor/autoload.php'; // Ensure this path is correct
 include "../server/db_connect.php";
+include "../server/audit-log.php";
 include "../server/check_cookie_user.php";
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -65,6 +66,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_students']))
     header('Content-Disposition: attachment; filename="' . $filename . '"');
     $writer = new Xlsx($spreadsheet);
     $writer->save('php://output');
+
+    $staff_id = $_SESSION['staff_id']; // Fetch from POST, not SESSION
+    $staff_code = $_SESSION['staff_code']; // Staff code is correctly from SESSION
+    $action = "$staff_code generated $filename";
+
+    logAction($conn, $staff_id, $action);
+
     exit;
 } else {
     die("Invalid request.");

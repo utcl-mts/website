@@ -2,6 +2,7 @@
 session_start(); // Start the session to access session variables
 
 include "../server/db_connect.php";
+include "../server/audit-log.php";
 include "../server/navbar/bigtable.php";
 include "../server/check_cookie_user.php";
 
@@ -47,6 +48,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
             $stmt->bindParam(':staff_code', $staff_code, PDO::PARAM_STR);
             $stmt->execute();
 
+            $staff_id = $_SESSION['staff_id'];
+            $staff_code = $_SESSION['staff_code'];
+            $action = "$staff_code Logged $content ";
+
+            logAction($conn, $staff_id, $action);
+
+            header ("location: bigtable.php");
             echo "<p class='success'>Note added successfully!</p>";
         } catch (PDOException $e) {
             die("<p class='error'>Database error: " . htmlspecialchars($e->getMessage(), ENT_QUOTES) . "</p>");
@@ -102,7 +110,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
     </form>
 
     <br>
-    <a href="../bigtable/bigtable.php" class="button">Back to Student Medication</a>
 </div>
 </body>
 </html>

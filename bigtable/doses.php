@@ -3,6 +3,7 @@ session_start();
 
 include "../server/check_cookie_user.php";
 include "../server/db_connect.php";
+include "../server/audit-log.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $take_id = intval($_POST['take_id']); // Get the `take_id` from the form
@@ -23,7 +24,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $update_stmt->bindParam(':take_id', $take_id, PDO::PARAM_INT);
             $update_stmt->bindParam(':decrement_amount', $decrement_amount, PDO::PARAM_INT);
             $update_stmt->execute();
-            
+
+            $staff_id = $_SESSION['staff_id']; // Fetch from POST, not SESSION
+            $staff_code = $_SESSION['staff_code']; // Staff code is correctly from SESSION
+            $action = "$staff_code decreased $decrement_amount for $take_id";
+
+            logAction($conn, $staff_id, $action);
+
+
             // Redirect back to the main page with a success message
             header("Location: bigtable.php?success=1");
             exit;

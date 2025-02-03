@@ -11,6 +11,7 @@
     <?php
     session_start();
     include "../server/db_connect.php";
+    include "../server/audit-log.php";
     include "../server/navbar/bigtable.php";
     include "../server/check_cookie_user.php";
     ?>
@@ -50,6 +51,14 @@
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
         $start_from = ($page - 1) * $results_per_page;
         $search_term = trim($_GET['search'] ?? '');
+
+        if (!empty($search_term)) {
+            $staff_id = $_SESSION['staff_id']; // Fetch from POST, not SESSION
+            $staff_code = $_SESSION['staff_code']; // Staff code is correctly from SESSION
+            $action = "$staff_code searched $search_term";
+
+            logAction($conn, $staff_id, $action);
+        }
 
         try {
             // Database query to get total count and results
