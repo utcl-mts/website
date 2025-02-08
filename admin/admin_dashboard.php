@@ -21,6 +21,6 @@ include "../server/navbar/admin_dashboard.php";
         <li class="list_li"><a class="list_li_a" href="student_management.php">Student Management</a></li>
         <li class="list_li"><a class="list_li_a" href="medication_management.php">Medication Management</a></li>
         <li class="list_li"><a class="list_li_a" href="brand_management.php">Brand Management</a></li>
-        <li class="list_li"><a class="list_li_a" href="">View Aduit Log</a></li>
+        <li class="list_li"><a class="list_li_a" href="view_audit.php">View Aduit Log</a></li>
         <li class="list_li"><a class="list_li_a" href="">Full Site Backup</a></li>
     </ul>
