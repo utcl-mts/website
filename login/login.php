@@ -109,9 +109,9 @@ try {
     } else {
         // Log failed login attempt if user exists
         if ($user) {
-            logAction($conn, $user['staff_id'], 'Failed login attempt with valid email');
+            logAction($conn, $user['staff_id'], 'Failed login attempt with valid email',  "Login" );
         } else {
-            logAction($conn, 0, 'Failed login attempt with invalid email');
+            logAction($conn, 0, 'Failed login attempt with invalid email' ,"Login" );
         }
 
         // Redirect with invalid credentials error
