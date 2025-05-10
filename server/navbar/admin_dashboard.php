@@ -1,0 +1,40 @@
+<?php
+if ($_SESSION['group'] === 'admin') {
+    echo'<div>
+        <ul class="nav_bar">
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
+                
+                <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
+                <li class="navbar_li"><a href="../whole_school/active_records.php">Whole School Medication</a></li>
+                <li class="navbar_li"><a href="../student_profile/student_profile.php">Student Profile</a></li>
+                
+                <li class="navbar_li"><a href="../log-new-med/log_new_med.php">Add New Med</a></li>
+                <li class="navbar_li"><a href="../trip/trip_management.php">Trip Management</a></li>
+            </div>
+            <div class="nav_left">
+                <li class="navbar_li"><a class="active" href="../admin/admin_dashboard.php">Admin Dashboard</a></li>
+                <li class="navbar_li"><a href="../logout.php">Logout</a></li>
+            </div>
+        </ul>
+    </div>';
+} else {
+    echo '<div>
+        <ul class="nav_bar">
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
+                
+                <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
+                <li class="navbar_li"><a href="../whole_school/active_records.php">Whole School Medication</a></li>
+                <li class="navbar_li"><a href="../student_profile/student_profile.php">Student Profile</a></li>
+                
+                <li class="navbar_li"><a href="../log-new-med/log_new_med.php">Add New Med</a></li>
+                <li class="navbar_li"><a href="../trip/trip_management.php">Trip Management</a></li>
+            </div>
+            <div class="nav_left">
+                <li class="navbar_li"><a href="../logout.php">Logout</a></li>
+            </div>
+        </ul>
+    </div>';
+}
+?>

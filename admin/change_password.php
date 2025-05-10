@@ -1,0 +1,109 @@
+<?php
+
+session_start();
+
+include "../server/check_cookie_admin.php";
+include "../server/db_connect.php";
+include "../server/audit-log.php";
+include "../server/navbar/admin_dashboard.php";
+
+
+try {
+    if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['staff_id'])) {
+        $staff_id = $_GET['staff_id'];
+    } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['staff_id'])) {
+        $staff_id = $_POST['staff_id'];
+        $new_password = $_POST['new_password'];
+        $confirm_password = $_POST['confirm_password'];
+
+        // Validate passwords
+        if (empty($new_password) || empty($confirm_password)) {
+            $error = "Both password fields are required.";
+        } elseif ($new_password !== $confirm_password) {
+            $error = "Passwords do not match.";
+        } else {
+            // Hash the password securely
+            $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+
+            // Update password in the database
+            $query = "UPDATE staff SET password = :password WHERE staff_id = :staff_id";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':password', $hashed_password);
+            $stmt->bindParam(':staff_id', $staff_id, PDO::PARAM_INT);
+
+            if ($stmt->execute()) {
+                echo '<div class="success-banner">';
+                    echo '<div class="success-header">';
+                        echo '<h2>Success</h2>';
+                    echo '</div>';
+                    echo '<div class="success-content">';
+                        echo '<p>Password sucessfully changed</p>';
+                    echo '</div>';
+                echo '</div>';
+                $staff_id = $_SESSION['staff_id'];
+                $staff_code = $_SESSION['staff_code'];
+                $action = "$staff_code changed $staff_id's password.";
+                $source = "Change Password";
+
+                logAction($conn, $staff_id, $action, $source);
+
+                header("Location: staff_home.php");
+            } else {
+                echo '<div class="error-banner">';
+                    echo '<div class="error-header">';
+                        echo '<h2>Error</h2>';
+                    echo '</div>';
+                    echo '<div class="error-content">';
+                        echo '<p>Failed to update the password.</p>';
+                    echo '</div>';
+                echo '</div>';
+                $staff_id = $_SESSION['staff_id'];
+                $staff_code = $_SESSION['staff_code'];
+                $action = "$staff_code failed to change $staff_id's password.";
+                $source = "Change Password";
+
+                logAction($conn, $staff_id, $action, $source);
+
+            }
+        }
+    } else {
+        $error = "Invalid request.";
+    }
+} catch (PDOException $e) {
+    $error = "Database error: " . $e->getMessage();
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hours Tracking - Admin Home</title>
+    <link rel="stylesheet" href="../assets/style/style.css">
+</head>
+<body class='full_page_styling'>
+
+<h1>Change Password</h1>
+
+<?php if (isset($error)): ?>
+    <p style="color: red;"><?php echo htmlspecialchars($error); ?></p>
+<?php elseif (isset($success)): ?>
+    <p style="color: green;"><?php echo htmlspecialchars($success); ?></p>
+<?php endif; ?>
+
+<?php if (!isset($success)): ?>
+    <form action="change_password.php" method="POST">
+        <input type="hidden" name="staff_id" value="<?php echo htmlspecialchars($staff_id); ?>">
+        <div class='text-element'>Enter new password</div>
+        <div class='text-element-faded'>Example: Bloggs123@#!!</div>
+        <input class="text_input" type="password" id="new_password" name="new_password" required>
+        <br><br>
+        <div class='text-element'>Confirm Password</div>
+        <div class='text-element-faded'>Same as the password entered above</div>
+        <input class="text_input" type="password" id="confirm_password" name="confirm_password" required>
+        <br><br>
+        <button class="submit" type="submit">Update Password</button>
+    </form>
+<?php endif; ?>
+
+</body>
+</html>

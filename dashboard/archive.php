@@ -2,13 +2,9 @@
 
 session_start();
 
-// Check for valid session and cookie
-if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
-    header("Location: ../index.html");
-    exit();
-}
-
 include "../server/db_connect.php";
+include "../server/audit-log.php";
+include "../server/check_cookie_user.php";
 
 if (isset($_POST['takes_id'])) {
     $takes_id = $_POST['takes_id'];
@@ -16,6 +12,13 @@ if (isset($_POST['takes_id'])) {
     $sql = "UPDATE takes SET archived = 1 WHERE takes_id = :takes_id";
     $stat = $conn->prepare($sql);
     $stat->bindParam(':takes_id', $takes_id, PDO::PARAM_INT);
+
+    $staff_id = $_SESSION['staff_id'];
+    $staff_code = $_SESSION['staff_code'];
+    $action = "$staff_code Archived $takes_id";
+    $source = "Archived";
+
+    logAction($conn, $staff_id, $action, $source);
 
     if ($stat->execute()) {
         // Redirect back to the notification page

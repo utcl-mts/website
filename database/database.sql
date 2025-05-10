@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 20, 2025 at 01:04 AM
--- Server version: 8.0.40-cll-lve
--- PHP Version: 8.3.14
+-- Generation Time: Jan 30, 2025 at 12:47 AM
+-- Server version: 8.0.30
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,9 +18,9 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `barowika_utcl-mts`
+-- Database: `utcl-mts`
 --
-CREATE DATABASE IF NOT EXISTS `utcl-mts` DEFAULT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci;
+CREATE DATABASE IF NOT EXISTS `utcl-mts` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 USE `utcl-mts`;
 
 -- --------------------------------------------------------
@@ -47,8 +47,130 @@ CREATE TABLE `audit_logs` (
   `audit_id` int UNSIGNED NOT NULL,
   `staff_id` int NOT NULL,
   `act` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `source` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `date_time` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `audit_logs`
+--
+
+INSERT INTO `audit_logs` (`audit_id`, `staff_id`, `act`, `date_time`) VALUES
+(114, 5, 'User successfully logged in, IP: ::1', 1737835629),
+(115, 5, 'User successfully logged in, IP: ::1', 1737840646),
+(116, 5, 'User successfully logged in, IP: ::1', 1737842079),
+(117, 5, 'User successfully logged in, IP: ::1', 1737842228),
+(118, 5, 'User successfully logged in, IP: ::1', 1737842905),
+(119, 5, 'User successfully logged in, IP: ::1', 1737843990),
+(120, 5, 'User successfully logged in, IP: ::1', 1737844669),
+(121, 5, 'User successfully logged in, IP: ::1', 1737844998),
+(122, 5, 'User successfully logged in, IP: ::1', 1737845432),
+(123, 5, 'User successfully logged in, IP: ::1', 1737845912),
+(124, 5, 'User successfully logged in, IP: ::1', 1737846394),
+(125, 5, 'User successfully logged in, IP: ::1', 1737847069),
+(126, 5, 'User successfully logged in, IP: ::1', 1737847524),
+(127, 5, 'User successfully logged in, IP: ::1', 1737849240),
+(128, 5, 'User successfully logged in, IP: ::1', 1737849610),
+(129, 5, 'User successfully logged in, IP: ::1', 1737849987),
+(130, 5, 'User successfully logged in, IP: ::1', 1737851000),
+(131, 5, 'User successfully logged in, IP: ::1', 1737851610),
+(132, 5, 'User successfully logged in, IP: ::1', 1737852072),
+(133, 5, 'User successfully logged in, IP: ::1', 1737852410),
+(134, 5, 'User successfully logged in, IP: ::1', 1737894096),
+(135, 5, 'User successfully logged in, IP: ::1', 1737899697),
+(136, 5, 'User successfully logged in, IP: ::1', 1737900468),
+(137, 5, 'User successfully logged in, IP: ::1', 1737901333),
+(138, 5, 'User successfully logged in, IP: ::1', 1737902083),
+(139, 5, 'User successfully logged in, IP: ::1', 1737902397),
+(140, 5, 'User successfully logged in, IP: ::1', 1737902718),
+(141, 5, 'User successfully logged in, IP: ::1', 1737903024),
+(142, 5, 'User successfully logged in, IP: ::1', 1737903037),
+(143, 5, 'User successfully logged in, IP: ::1', 1737903374),
+(144, 5, 'User successfully logged in, IP: ::1', 1737903676),
+(145, 5, 'User successfully logged in, IP: ::1', 1737911633),
+(146, 5, 'User successfully logged in, IP: ::1', 1737911993),
+(147, 5, 'User successfully logged in, IP: ::1', 1737912326),
+(148, 5, 'User successfully logged in, IP: ::1', 1737912665),
+(149, 5, 'User successfully logged in, IP: ::1', 1737913009),
+(150, 5, 'User successfully logged in, IP: ::1', 1737913447),
+(151, 5, 'User successfully logged in, IP: ::1', 1737915287),
+(152, 5, 'User successfully logged in, IP: ::1', 1737915778),
+(153, 5, 'User successfully logged in, IP: ::1', 1737916160),
+(154, 5, 'User successfully logged in, IP: ::1', 1737916463),
+(155, 5, 'User successfully logged in, IP: ::1', 1737932770),
+(156, 5, 'User successfully logged in, IP: ::1', 1738089436),
+(157, 5, 'User successfully logged in, IP: ::1', 1738089938),
+(158, 5, 'Failed login attempt with valid email, IP: ::1', 1738089942),
+(159, 5, 'Failed login attempt with valid email, IP: ::1', 1738089960),
+(160, 0, 'Failed login attempt with invalid email, IP: ::1', 1738089964),
+(161, 5, 'Failed login attempt with valid email, IP: ::1', 1738090020),
+(162, 5, 'User successfully logged in, IP: ::1', 1738090027),
+(163, 8, 'User successfully logged in, IP: ::1', 1738090191),
+(164, 8, 'Attempted login to archived account, IP: ::1', 1738090326),
+(165, 5, 'User successfully logged in, IP: ::1', 1738090468),
+(166, 5, 'Failed login attempt with valid email, IP: ::1', 1738090477),
+(167, 5, 'User successfully logged in, IP: ::1', 1738090623),
+(168, 5, 'User successfully logged in, IP: ::1', 1738090671),
+(169, 5, 'User successfully logged in, IP: ::1', 1738090684),
+(170, 5, 'User successfully logged in, IP: ::1', 1738090689),
+(171, 5, 'User successfully logged in, IP: ::1', 1738091047),
+(172, 5, 'User successfully logged in, IP: ::1', 1738091794),
+(173, 5, 'User successfully logged in, IP: ::1', 1738092207),
+(174, 5, 'User successfully logged in, IP: ::1', 1738092510),
+(175, 5, 'User successfully logged in, IP: ::1', 1738097910),
+(176, 5, 'User successfully logged in, IP: ::1', 1738098220),
+(177, 5, 'Failed login attempt with valid email, IP: ::1', 1738098406),
+(178, 8, 'Attempted login to archived account, IP: ::1', 1738098431),
+(179, 5, 'User successfully logged in, IP: ::1', 1738098499),
+(180, 5, 'User successfully logged in, IP: ::1', 1738103980),
+(181, 5, 'User successfully logged in, IP: ::1', 1738106592),
+(182, 5, 'User successfully logged in, IP: ::1', 1738180296),
+(183, 5, 'User successfully logged in, IP: ::1', 1738180741),
+(184, 9, 'User successfully logged in, IP: ::1', 1738181019),
+(185, 5, 'User successfully logged in, IP: ::1', 1738181024),
+(186, 5, 'User successfully logged in, IP: ::1', 1738181285),
+(187, 5, 'User successfully logged in, IP: ::1', 1738181393),
+(188, 5, 'Failed login attempt with valid email, IP: ::1', 1738181397),
+(189, 5, 'User successfully logged in, IP: ::1', 1738181400),
+(190, 5, 'User successfully logged in, IP: ::1', 1738181757),
+(191, 9, 'User successfully logged in, IP: ::1', 1738181787),
+(192, 9, 'User successfully logged in, IP: ::1', 1738181970),
+(193, 5, 'User successfully logged in, IP: ::1', 1738181999),
+(194, 5, 'User successfully logged in, IP: ::1', 1738182310),
+(195, 5, 'User successfully logged in, IP: ::1', 1738183071),
+(196, 5, 'User successfully logged in, IP: ::1', 1738183724),
+(197, 5, 'User successfully logged in, IP: ::1', 1738184719),
+(198, 5, 'User successfully logged in, IP: ::1', 1738185385),
+(199, 5, 'User successfully logged in, IP: ::1', 1738187460),
+(200, 5, 'User successfully logged in, IP: ::1', 1738187464),
+(201, 5, 'User successfully logged in, IP: ::1', 1738188127),
+(202, 5, 'User successfully logged in, IP: ::1', 1738190079),
+(203, 5, 'User successfully logged in, IP: ::1', 1738191866),
+(204, 5, 'User successfully logged in, IP: ::1', 1738192194),
+(205, 5, 'Failed login attempt with valid email, IP: ::1', 1738192240),
+(206, 5, 'User successfully logged in, IP: ::1', 1738192288),
+(207, 5, 'User successfully logged in, IP: 127.0.0.1', 1738192315),
+(208, 5, 'User successfully logged in, IP: ::1', 1738193732),
+(209, 5, 'User successfully logged in, IP: ::1', 1738195884),
+(210, 9, 'Failed login attempt with valid email, IP: ::1', 1738195895),
+(211, 9, 'Failed login attempt with valid email, IP: ::1', 1738195903),
+(212, 9, 'Failed login attempt with valid email, IP: ::1', 1738195914),
+(213, 5, 'User successfully logged in, IP: ::1', 1738195916),
+(214, 10, 'User successfully logged in, IP: ::1', 1738195962),
+(215, 10, 'User successfully logged in, IP: ::1', 1738196266),
+(216, 10, 'User successfully logged in, IP: ::1', 1738196268),
+(217, 10, 'User successfully logged in, IP: ::1', 1738196321),
+(218, 10, 'User successfully logged in, IP: ::1', 1738197460),
+(219, 10, 'User successfully logged in, IP: ::1', 1738197464),
+(220, 10, 'User successfully logged in, IP: ::1', 1738197483),
+(221, 10, 'User successfully logged in, IP: ::1', 1738197487),
+(222, 10, 'User successfully logged in, IP: ::1', 1738197490),
+(223, 5, 'User successfully logged in, IP: ::1', 1738197542),
+(224, 5, 'User successfully logged in, IP: ::1', 1738197549),
+(225, 5, 'User successfully logged in, IP: ::1', 1738197588),
+(226, 5, 'User successfully logged in, IP: ::1', 1738197608),
+(227, 5, 'User successfully logged in, IP: ::1', 1738197947),
+(228, 10, 'User successfully logged in, IP: ::1', 1738198033);
 
 -- --------------------------------------------------------
 
@@ -101,7 +223,8 @@ INSERT INTO `brand` (`brand_id`, `brand_name`) VALUES
 (33, 'VIBRAMYCIN'),
 (34, 'DELTASONE'),
 (35, 'PLAVIX'),
-(36, 'PANADOL');
+(36, 'PANADOL'),
+(58, 'TESC');
 
 --
 -- Triggers `brand`
@@ -118,20 +241,6 @@ CREATE TRIGGER `before_update_brand` BEFORE UPDATE ON `brand` FOR EACH ROW BEGIN
 END
 $$
 DELIMITER ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `log`
---
-
-CREATE TABLE `log` (
-  `log_id` int NOT NULL,
-  `student_id` int NOT NULL,
-  `staff_id` int NOT NULL,
-  `notes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `date_time` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -179,9 +288,7 @@ INSERT INTO `med` (`med_id`, `med_name`) VALUES
 (28, 'GABAPENTIN'),
 (29, 'DOXYCYCLINE'),
 (30, 'CLOPIDOGREL'),
-(31, 'ASDASDASDASD'),
-(32, 'ASDASDASDASD'),
-(33, 'ASDASDASDASD');
+(34, 'TEST');
 
 --
 -- Triggers `med`
@@ -202,6 +309,24 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `notes`
+--
+
+CREATE TABLE `notes` (
+  `note_id` int NOT NULL,
+  `takes_id` int NOT NULL,
+  `staff_code` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notes`
+--
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `staff`
 --
 
@@ -210,17 +335,21 @@ CREATE TABLE `staff` (
   `first_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `last_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `staff_code` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `password` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `group` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+  `group` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `archived` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `staff`
 --
 
-INSERT INTO `staff` (`staff_id`, `first_name`, `last_name`, `email`, `password`, `group`) VALUES
-(1, 'Failed', 'Events', 'failed.events@utcleeds.co.uk', 'failed.events', 'system'),
-(5, 'user', 'user', 'user.user@utcleeds.co.uk', '$2y$10$vF4bf/M/qEBKJXKLCwI/AeJPjw7ELS8MyQ9zu3cHRTno55kWX7PeK', 'admin');
+INSERT INTO `staff` (`staff_id`, `first_name`, `last_name`, `email`, `staff_code`, `password`, `group`, `archived`) VALUES
+(1, 'Failed', 'Events', 'failed.events@utcleeds.co.uk', '', 'failed.events', 'system', 0),
+(5, 'admin', 'user', 'admin.user@utcleeds.co.uk', 'AUS', '$2y$10$m8jI0VvPXXgfQpp6R05ssuoQOfeEtMGoWdh3LibJ0aMG8jJD9Ryz6', 'admin', 0),
+(8, 'Joe', 'Bloggs', 'joe.bloggs@utcleeds.co.uk', 'JBL ', '$2y$10$7Pw7G2Tnj.eNkjbZHfcmreLvVumcPwTMEW1kD7uw6HZIRDQ.OsUWC', 'user', 1),
+(10, 'basic ', 'user', 'basic.user@utcleeds.co.uk', 'bus', '$2y$10$UKe4cHuSkLWRhBn19oRJauHHUPY4ZdDWW4FLQgZmucS5.7e76iJre', 'user', 0);
 
 -- --------------------------------------------------------
 
@@ -232,47 +361,48 @@ CREATE TABLE `students` (
   `student_id` int UNSIGNED NOT NULL,
   `first_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `last_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `year` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+  `year` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `archived` int DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`student_id`, `first_name`, `last_name`, `year`) VALUES
-(1, 'JAKE', 'PERALTA', '13'),
-(2, 'AMY', 'SANTIAGO', '11'),
-(3, 'CHARLES', 'BOYLE', '10'),
-(4, 'ROSA', 'DIAZ', '12'),
-(5, 'GINA', 'LINETTI', '13'),
-(6, 'RAYMOND', 'HOLT', '13'),
-(7, 'LUCY', 'CHEN', '12'),
-(8, 'TIM', 'BRADFORD', '11'),
-(9, 'JOHN', 'NOLAN', '13'),
-(10, 'JACKSON', 'WEST', '12'),
-(11, 'BAILEY', 'NUNE', '10'),
-(12, 'WESLEY', 'EVENS', '10'),
-(13, 'ANGELA', 'LOPEZ', '11'),
-(14, 'ROSALIND', 'DYER', '12'),
-(15, 'NYLA', 'HARPER', '13'),
-(16, 'AARON', 'THORSEN', '11'),
-(17, 'TAILIA', 'BISHOP', '11'),
-(18, 'ZOE', 'ANDERSON', '12'),
-(19, 'TAMARA', 'COLLINS', '10'),
-(20, 'CELINA', 'JUAREZ', '10'),
-(21, 'ELIJA', 'STONE', '12'),
-(22, 'MONICA', 'STEVENS', '13'),
-(23, 'OSCAR', 'HUTCHINSON', '12'),
-(24, 'WADE', 'GREY', '12'),
-(25, 'EMMET', 'LANG', '13'),
-(26, 'JAMES', 'MURRAY', '13'),
-(27, 'MEREDITH', 'GREY', '11'),
-(28, 'DEREK', 'SHEPARD', '12'),
-(29, 'ALEX', 'KEREV', '10'),
-(30, 'MARK', 'SLOAN', '11'),
-(31, 'OWEN', 'HUNT', '13'),
-(32, 'CRISTINA', 'YANG', '11'),
-(33, 'MIRANDA', 'BAILEY', '12');
+INSERT INTO `students` (`student_id`, `first_name`, `last_name`, `year`, `archived`) VALUES
+(1, 'JAKE', 'PERALTA', '13', 1),
+(2, 'TEST', 'CHANGES', '11', 0),
+(3, 'CHARLES', 'BOYLE', '10', 0),
+(4, 'ROSA', 'DIAZ', '14', 0),
+(5, 'GINA', 'LINETTI', '13', 0),
+(6, 'RAYMOND', 'HOLT', '13', 0),
+(7, 'LUCY', 'CHEN', '14', 0),
+(8, 'TIM', 'BRADFORD', '11', 0),
+(9, 'JOHN', 'NOLAN', '13', 0),
+(10, 'JACKSON', 'WEST', '14', 0),
+(11, 'BAILEY', 'NUNE', '10', 0),
+(12, 'WESLEY', 'EVENS', '10', 0),
+(13, 'ANGELA', 'LOPEZ', '11', 0),
+(14, 'ROSALIND', 'DYER', '14', 0),
+(15, 'NYLA', 'HARPER', '13', 0),
+(16, 'AARON', 'THORSEN', '11', 0),
+(17, 'TAILIA', 'BISHOP', '11', 0),
+(18, 'ZOE', 'ANDERSON', '14', 0),
+(19, 'TAMARA', 'COLLINS', '10', 0),
+(20, 'CELINA', 'JUAREZ', '10', 0),
+(21, 'ELIJA', 'STONE', '14', 0),
+(22, 'MONICA', 'STEVENS', '13', 0),
+(23, 'OSCAR', 'HUTCHINSON', '14', 0),
+(24, 'WADE', 'GREY', '14', 0),
+(25, 'EMMET', 'LANG', '13', 0),
+(26, 'JAMES', 'MURRAY', '13', 0),
+(27, 'MEREDITH', 'GREY', '11', 0),
+(28, 'DEREK', 'SHEPARD', '14', 0),
+(29, 'ALEX', 'KEREV', '10', 0),
+(30, 'MARK', 'SLOAN', '11', 0),
+(31, 'OWEN', 'HUNT', '13', 0),
+(32, 'CRISTINA', 'YANG', '11', 0),
+(33, 'MIRANDA', 'BAILEY', '14', 0);
 
 --
 -- Triggers `students`
@@ -317,10 +447,10 @@ CREATE TABLE `takes` (
 --
 
 INSERT INTO `takes` (`takes_id`, `student_id`, `med_id`, `brand_id`, `exp_date`, `current_dose`, `min_dose`, `max_dose`, `strength`, `notes`, `archived`) VALUES
-(103, 1, 1, 1, 1735862400, 2, 4, 8, '100mg', '', 1),
-(104, 2, 2, 2, 1707004800, 4, 1, 30, '50mg', '', 1),
-(105, 2, 3, 2, 1733702400, 32, 6, 32, '200mg', '', 0),
-(106, 3, 3, 4, 1760659200, 6, 6, 49, '200 mg', '', 0),
+(103, 1, 1, 1, 1735862400, 0, 4, 8, '100mg', '', 1),
+(104, 2, 2, 2, 1707004800, 1, 1, 30, '50mg', '', 1),
+(105, 2, 3, 2, 1733702400, 20, 6, 32, '200mg', '', 0),
+(106, 3, 3, 4, 1760659200, 3, 6, 49, '200 mg', '', 0),
 (107, 3, 4, 5, 1747008000, 30, 6, 31, '500 mg', '', 0),
 (108, 3, 5, 5, 1745366400, 26, 2, 50, '850 mg', '', 0),
 (109, 3, 6, 6, 1738713600, 9, 5, 46, '5 mg', '', 0),
@@ -333,7 +463,7 @@ INSERT INTO `takes` (`takes_id`, `student_id`, `med_id`, `brand_id`, `exp_date`,
 (116, 6, 13, 13, 1693526400, 21, 3, 60, '200mg', '', 1),
 (117, 7, 14, 14, 1751328000, 1, 2, 1, '0.3mg', '', 0),
 (118, 7, 14, 14, 1751328000, 1, 8, 1, '0.3mg', '', 0),
-(119, 8, 15, 15, 1734134400, 5, 9, 7, '30g', 'Stored in a fridge', 0),
+(119, 8, 15, 15, 1734134400, 5, 9, 7, '30g', '', 0),
 (120, 8, 20, 16, 1769904000, 40, 10, 60, '125mg', '', 0),
 (121, 9, 1, 17, 1759276800, 4, 6, 8, '500mg', '', 0),
 (122, 9, 18, 18, 1732838400, 6, 2, 7, '30mg', '', 1),
@@ -347,7 +477,7 @@ INSERT INTO `takes` (`takes_id`, `student_id`, `med_id`, `brand_id`, `exp_date`,
 (130, 15, 10, 22, 1652054400, 27, 1, 24, '500 mg', '', 1),
 (131, 16, 11, 23, 1690329600, 26, 4, 42, '40 mg', '', 1),
 (132, 17, 14, 14, 1760140800, 1, 6, 1, '0.3mg', '', 0),
-(133, 17, 14, 14, 1775001600, 1, 8, 1, '0.3mg', '', 0),
+(133, 17, 14, 14, 1775001600, 0, 8, 1, '0.3mg', '', 0),
 (134, 18, 2, 2, 1716249600, 4, 3, 30, '50mg', '', 1),
 (135, 19, 3, 2, 1693353600, 32, 4, 32, '200mg', '', 1),
 (136, 20, 1, 1, 1799884800, 2, 3, 8, '100mg', '', 0),
@@ -359,13 +489,17 @@ INSERT INTO `takes` (`takes_id`, `student_id`, `med_id`, `brand_id`, `exp_date`,
 (142, 26, 24, 28, 1696550400, 10, 6, 30, '40 mg', '', 1),
 (143, 27, 25, 29, 1821312000, 60, 9, 100, '81 mg', '', 0),
 (144, 27, 26, 30, 1775952000, 15, 3, 20, '1 mg', '', 0),
-(145, 28, 27, 31, 1669507200, 35, 3, 50, '5 mg', 'uasihdajsdkjasdasdjasojasd', 0),
+(145, 28, 27, 31, 1669507200, 35, 3, 50, '5 mg', '', 0),
 (146, 28, 28, 32, 1707091200, 12, 2, 30, '300 mg', '', 0),
-(147, 29, 29, 33, 1732406400, 20, 7, 30, '100 mg', 'asdfg', 0),
+(147, 29, 29, 33, 1732406400, 20, 7, 30, '100 mg', '', 0),
 (148, 29, 12, 20, 1696723200, 40, 10, 50, '10 mg', '', 0),
 (149, 30, 7, 34, 1800835200, 10, 4, 20, '5 mg', '', 0),
 (150, 31, 30, 35, 1710374400, 60, 10, 90, '75 mg', '', 0),
-(151, 31, 1, 36, 1755734400, 20, 2, 30, '500 mg', '', 0);
+(151, 31, 1, 36, 1755734400, 20, 2, 30, '500 mg', '', 0),
+(152, 20, 5, 4, 1747267200, 69, 69, 420, '69', NULL, 0),
+(153, 20, 5, 4, 1747267200, 69, 69, 420, '69', NULL, 0),
+(154, 1, 1, 2, 1737504000, 12, 12, 12, '50', NULL, 0),
+(155, 1, 2, 2, 1747958400, 12, 12, 12, '12', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -394,14 +528,6 @@ CREATE TABLE `whole_school` (
   `notes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `archived` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `whole_school`
---
-
-INSERT INTO `whole_school` (`whole_school_id`, `name`, `exp_date`, `amount_left`, `notes`, `archived`) VALUES
-(1, 'Defib Pads', 1735776000, 12, '12123123', 0);
-
 --
 -- Indexes for dumped tables
 --
@@ -425,16 +551,16 @@ ALTER TABLE `brand`
   ADD PRIMARY KEY (`brand_id`);
 
 --
--- Indexes for table `log`
---
-ALTER TABLE `log`
-  ADD PRIMARY KEY (`log_id`);
-
---
 -- Indexes for table `med`
 --
 ALTER TABLE `med`
   ADD PRIMARY KEY (`med_id`);
+
+--
+-- Indexes for table `notes`
+--
+ALTER TABLE `notes`
+  ADD PRIMARY KEY (`note_id`);
 
 --
 -- Indexes for table `staff`
@@ -480,43 +606,43 @@ ALTER TABLE `administer`
 -- AUTO_INCREMENT for table `audit_logs`
 --
 ALTER TABLE `audit_logs`
-  MODIFY `audit_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `audit_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=229;
 
 --
 -- AUTO_INCREMENT for table `brand`
 --
 ALTER TABLE `brand`
-  MODIFY `brand_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
-
---
--- AUTO_INCREMENT for table `log`
---
-ALTER TABLE `log`
-  MODIFY `log_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `brand_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `med`
 --
 ALTER TABLE `med`
-  MODIFY `med_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `med_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT for table `notes`
+--
+ALTER TABLE `notes`
+  MODIFY `note_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `staff_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `staff_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=877;
+  MODIFY `student_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=917;
 
 --
 -- AUTO_INCREMENT for table `takes`
 --
 ALTER TABLE `takes`
-  MODIFY `takes_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
+  MODIFY `takes_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
 
 --
 -- AUTO_INCREMENT for table `whole_log`
@@ -528,7 +654,7 @@ ALTER TABLE `whole_log`
 -- AUTO_INCREMENT for table `whole_school`
 --
 ALTER TABLE `whole_school`
-  MODIFY `whole_school_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `whole_school_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

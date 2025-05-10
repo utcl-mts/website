@@ -1,25 +1,18 @@
+<?php
+
+session_start();
+
+// Include the database connection file
+include "../server/db_connect.php";
+include "../server/audit-log.php";
+include "../server/navbar/student_profile.php";
+include "../server/check_cookie_user.php";
+?>
+
 <link rel="stylesheet" href="../assets/style/style.css">
 <body class="full_page_styling">
 <title>Hours Tracking - Dashboard</title>
 <div>
-    <div>
-        <ul class="nav_bar">
-            <div class="nav_left">
-                <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
-                <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
-                <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
-                <li class="navbar_li"><a href="../log/log_form.php">Create Notes</a></li>
-                <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
-                <li class="navbar_li"><a href="../student_profile/student_profile.php">Student Profile</a></li>
-                <li class="navbar_li"><a href="../edit_details/student_table.php">Student Management</a></li>
-                <li class="navbar_li"><a href="../log-new-med/log_new_med.php">Add New Med</a></li> 
-            </div>
-            <div class="nav_left">
-                <li class="navbar_li"><a href="../admin/admin_dashboard.php">Admin Dashboard</a></li>
-                <li class="navbar_li"><a href="../logout.php">Logout</a></li>
-            </div>
-        </ul>
-    </div>
 
     <h1>View Student Details</h1>
 
@@ -40,17 +33,6 @@
     </div>
 
     <?php
-
-    session_start();
-
-    // Check for valid session and cookie
-    if (!isset($_SESSION['ssnlogin']) || !isset($_COOKIE['cookies_and_cream'])) {
-        header("Location: ../index.html");
-        exit();
-    }
-
-    // Include the database connection file
-    include "../server/db_connect.php";
 
     if (isset($_GET['student_name']) && !empty(trim($_GET['student_name']))) {
         $student_name = trim($_GET['student_name']);
@@ -84,6 +66,13 @@
                 echo "<button class='blue_submit' type='submit' name='view_student'>View Student</button>";
                 echo "</form>";
             } else {
+                $staff_id = $_SESSION['staff_id'];
+                $staff_code = $_SESSION['staff_code'];
+                $action = "$staff_code searched $student_name they dont exist.";
+                $source = "Student Profile";
+
+                logAction($conn, $staff_id, $action, $source);
+
                 echo "<p>No records found for the given student name.</p>";
             }
             echo "</div>";
@@ -91,8 +80,6 @@
         } catch (PDOException $e) {
             die("<p class='error'>Database error: " . htmlspecialchars($e->getMessage()) . "</p>");
         }
-    } else {
-        echo "<p>Please enter a student name to search.</p>";
     }
 
     // Display selected student's data and medication records
@@ -113,23 +100,31 @@
 
             $student_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+            $staff_id = $_SESSION['staff_id'];
+            $staff_code = $_SESSION['staff_code'];
+            $concat_string = htmlspecialchars($student_data[0]['first_name'] . ' ' . $student_data[0]['last_name'] . ' Year '. $student_data[0]['year']);
+            $action = "$staff_code searched and viewed $concat_string, ID $student_id";
+            $source = "Student Profile";
+
+            logAction($conn, $staff_id, $action, $source);
+
             if (!empty($student_data)) {
                 $full_name = htmlspecialchars($student_data[0]['first_name'] . ' ' . $student_data[0]['last_name']);
                 $year = htmlspecialchars($student_data[0]['year']);
                 echo "<h2>Details for $full_name (Year: $year)</h2>";
-                echo "<table class='notification_table'>";
+                echo "<table class='big_table'>";
                 echo "<tr>
-                            <th class='notification_table_th'>Medication</th>
-                            <th class='notification_table_th'>Brand</th>
-                            <th class='notification_table_th'>Current Dose</th>
-                            <th class='notification_table_th'>Expiry Date</th>
+                            <th class='big_table_th'>Medication</th>
+                            <th class='big_table_th'>Brand</th>
+                            <th class='big_table_th'>Current Dose</th>
+                            <th class='big_table_th'>Expiry Date</th>
                     </tr>";
                 foreach ($student_data as $row) {
                     echo "<tr>";
-                    echo "<td class='notification_table_td'>" . htmlspecialchars($row['med_name'] ?? 'N/A') . "</td>";
-                    echo "<td class='notification_table_td'>" . htmlspecialchars($row['brand_name'] ?? 'N/A') . "</td>";
-                    echo "<td class='notification_table_td'>" . htmlspecialchars($row['current_dose'] ?? 'N/A') . "</td>";
-                    echo "<td class='notification_table_td'>" . 
+                    echo "<td class='big_table_td'>" . htmlspecialchars($row['med_name'] ?? 'N/A') . "</td>";
+                    echo "<td class='big_table_td'>" . htmlspecialchars($row['brand_name'] ?? 'N/A') . "</td>";
+                    echo "<td class='big_table_td'>" . htmlspecialchars($row['current_dose'] ?? 'N/A') . "</td>";
+                    echo "<td class='big_table_td'>" . 
                         (isset($row['exp_date']) ? date('Y-m-d', htmlspecialchars($row['exp_date'])) : 'N/A') . 
                         "</td>";
                     echo "</tr>";
@@ -137,6 +132,9 @@
                 echo "</table>";
             } else {
                 echo "<h2>No details available for the selected student.</h2>";
+
+
+
             }
 
         } catch (PDOException $e) {

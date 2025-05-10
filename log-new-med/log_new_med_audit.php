@@ -5,6 +5,8 @@
 
     // Include the database connection file
     include "../server/db_connect.php";
+    include "../server/audit-log.php";
+    include "../server/check_cookie_user.php";
 
     try {
 
@@ -56,6 +58,15 @@
         $stmt->bindParam(8, $strength, PDO::PARAM_STR);
         // Execute the query
         if ($stmt->execute()) {
+
+            $staff_id = $_SESSION['staff_id'];
+            $staff_code = $_SESSION['staff_code'];
+            $action = "$staff_code created medical record $sid, $max_dose, $min_dose, $epoch, $current_dose, $med ,$brand, $strength ";
+            $source = "Create New Medical Record";
+
+            logAction($conn, $staff_id, $action, $source);
+
+
             header("Location: ../dashboard/dashboard.php");
             echo "Record successfully added!";
 

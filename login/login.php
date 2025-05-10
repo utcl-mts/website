@@ -5,27 +5,11 @@ if (!file_exists("../server/db_connect.php")) {
     die("Error: db_connect.php file not found in expected directory.");
 }
 include "../server/db_connect.php";
+include "../server/audit-log.php";
 
 // Verify database connection
 if (!$conn) {
     die("Error: Database connection failed.");
-}
-
-// Helper function to log actions
-function logAction($conn, $staff_id, $action) {
-    try {
-        $ip_address = $_SERVER['REMOTE_ADDR']; // Capture the IP address
-        $action_with_ip = "$action, IP: $ip_address"; // Append IP address to the action
-        $log_sql = "INSERT INTO audit_logs (staff_id, act, date_time) VALUES (:staff_id, :act, :date_time)";
-        $log_stmt = $conn->prepare($log_sql);
-        $log_stmt->execute([
-            'staff_id' => $staff_id,
-            'act' => $action_with_ip,
-            'date_time' => time()
-        ]);
-    } catch (PDOException $e) {
-        error_log("Failed to log action: " . $e->getMessage());
-    }
 }
 
 try {
@@ -33,65 +17,89 @@ try {
     session_start();
 
     // Check for required POST data and sanitize inputs
-    if (!isset($_POST["email"]) || !isset($_POST["password"])) {
+    if (empty($_POST["email"]) || empty($_POST["password"])) {
         throw new Exception("Email or password is missing.");
     }
-    $email = $_POST["email"];
+
+    // Sanitize and validate email input
+    $email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        throw new Exception("Invalid email format.");
+    }
+
+    // Raw password (will be verified against hashed password in DB)
     $password = $_POST["password"];
 
-    // First check if the email exists and get the staff details
-    $sql = "SELECT staff_id, `group`, password, email FROM staff WHERE email = :email";
+    // Fetch user record
+    $sql = "SELECT staff_id, `group`, password, email, staff_code, archived FROM staff WHERE email = :email";
     $stmt = $conn->prepare($sql);
     $stmt->execute(['email' => $email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // If user exists and is a system account, log the attempt and deny access
-    if ($user && $user['group'] === 'system') {
-        logAction($conn, $user['staff_id'], 'System account login attempt detected');
-        header("Location: login.php?error=system_account");
-        exit();
-    }
+    if ($user) {
+        $staff_id = $user['staff_id'];
+        $staff_code = $user['staff_code'];
+        $source = "Login";
 
-    // Normal login process continues for non-system accounts
-    if ($user && password_verify($password, $user['password'])) {
-        $_SESSION['staff_id'] = $user['staff_id'];
-        $_SESSION["ssnlogin"] = true;
-        $_SESSION["email"] = $user["email"];
-
-        // Add cookie setting here
-        setcookie(
-            'cookies_and_cream',
-            'active',
-            [
-                'expires' => time() + (2 * 60),  // 2 minutes
-                'path' => '/',
-                'secure' => true,
-                'httponly' => true,
-                'samesite' => 'Strict'
-            ]
-        );
-
-        // Log successful login attempt
-        logAction($conn, $user['staff_id'], 'User successfully logged in');
-
-        header("Location: ../dashboard/dashboard.php");
-        exit();
-    } else {
-        // Log failed login attempt if user exists
-        if ($user) {
-            logAction($conn, $user['staff_id'], 'Failed login attempt with valid email');
-        } else {
-            logAction($conn, 0, 'Failed login attempt with invalid email');
+        // Deny system account logins
+        if ($user['group'] === 'system') {
+            logAction($conn, $staff_id, "System account login attempt detected", $source);
+            header("Location: ../index.php?error=system_account");
+            exit();
         }
 
-        header("Location: login.php?error=invalid_credentials");
-        exit();
+        // Deny archived accounts
+        if ((int)$user['archived'] === 1) {
+            logAction($conn, $staff_id, "Attempted to login to archived staff account", $source);
+            header("Location: ../index.php?error=account_archived");
+            exit();
+        }
+
+        // Password verification
+        if (password_verify($password, $user['password'])) {
+            // Set session variables
+            $_SESSION['staff_id'] = $staff_id;
+            $_SESSION['ssnlogin'] = true;
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['staff_code'] = $staff_code;
+            $_SESSION['group'] = $user['group'];
+
+            // Set secure login cookie
+            if (!setcookie(
+                'cookies_and_cream',
+                'active',
+                [
+                    'expires' => time() + (5 * 60),  // 5 minutes
+                    'path' => '/',
+                    'secure' => true,
+                    'httponly' => true,
+                    'samesite' => 'Strict'
+                ]
+            )) {
+                logAction($conn, $staff_id, "Failed to set login cookie", $source);
+                header("Location: ../index.php?error=cookie_error");
+                exit();
+            }
+
+            // Successful login
+            logAction($conn, $staff_id, "User successfully logged in", $source);
+            header("Location: ../dashboard/dashboard.php");
+            exit();
+        } else {
+            // Wrong password
+            logAction($conn, $staff_id, "Failed login attempt with valid email", $source);
+        }
+    } else {
+        // Email not found
+        logAction($conn, 0, "Failed login attempt with invalid email", "Login");
     }
+
+    // Redirect for invalid credentials
+    header("Location: ../index.php?error=invalid_credentials");
     exit();
 } catch (Exception $e) {
-    // Log error for debugging (to a file or error handling system)
     error_log("Login Error: " . $e->getMessage());
-    // Redirect to login page in case of an error
-    header("Location: ../index.html");
+    header("Location: ../index.php?error=unknown_error");
     exit();
 }
+

@@ -1,6 +1,10 @@
 <?php
+session_start();
 // Include the database connection file
 include "../server/db_connect.php";
+include "../server/audit-log.php";
+include "../server/navbar/whole_school.php";
+include "../server/check_cookie_user.php";
 
 // Check if the record ID is provided via GET
 if (!isset($_GET['whole_school_id']) || empty($_GET['whole_school_id'])) {
@@ -51,12 +55,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_record'])) {
             $update_stmt->bindParam(':whole_school_id', $whole_school_id, PDO::PARAM_INT);
             $update_stmt->execute();
 
+            $staff_id = $_SESSION['staff_id'];
+            $staff_code = $_SESSION['staff_code'];
+            $action = "$staff_code updated $whole_school_id , $name , $exp_date, $amount_left, $notes";
+            $source = "Whole School Medication";
+
+            logAction($conn, $staff_id, $action, $source);
+
+
             $success_message = "Record updated successfully.";
+            header("location: active_records.php");
         } catch (PDOException $e) {
             $error_message = "Database error: " . htmlspecialchars($e->getMessage());
         }
     } else {
         $error_message = "All fields are required, and amount left must be a non-negative integer.";
+        $staff_id = $_SESSION['staff_id'];
+        $staff_code = $_SESSION['staff_code'];
+        $action = "$staff_code failed to edit record mutliple invalid inputs";
+        $source = "Whole School Medication";
+
+        logAction($conn, $staff_id, $action, $source);
     }
 }
 ?>
@@ -65,26 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_record'])) {
 <body class="full_page_styling">
 <title>Hours Tracking - Whole School</title>
 <div>
-<div>
-        <ul class="nav_bar">
-            <div class="nav_left">
-                <li class="navbar_li"><a href="../dashboard/dashboard.php">Home</a></li>
-                <li class="navbar_li"><a href="../insert_data/insert_data_home.php">Insert Data</a></li>
-                <li class="navbar_li"><a href="../bigtable/bigtable.php">Student Medication</a></li>
-<!--                <li class="navbar_li"><a href="../administer/administer_form.php">Administer Medication</a></li>-->
-                <li class="navbar_li"><a href="../log/log_form.php">Create Notes</a></li>
-                <li class="navbar_li"><a href="../whole_school/whole_school_table.php">Whole School Medication</a></li>
-                <li class="navbar_li"><a href="../student_profile/student_profile.php">Student Profile</a></li>
-                <li class="navbar_li"><a href="../edit_details/student_table.php">Student Management</a></li>
-                <li class="navbar_li"><a href="../log-new-med/log_new_med.php">Add New Med</a></li>
-            </div>
-            <div class="nav_left">
-                <li class="navbar_li"><a href="../admin/admin_dashboard.php">Admin Dashboard</a></li>
-                <li class="navbar_li"><a href="../logout.php">Logout</a></li>
-            </div>
-        </ul>
-    </div>
-
     <!-- Edit Record Form -->
     <div id="edit-record">
         <h2>Edit Whole School Record</h2>
